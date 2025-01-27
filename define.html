@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Criteria</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen">
+    <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            <!-- Navbar -->
+            <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a href="index.html" class="btn btn-ghost normal-case text-xl">Design Criteria</a>
+                </div>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a href="#criteria">Creating Criteria</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#principles">Design Principles</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+                <!-- Creating Criteria Section -->
+                <section id="criteria" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Creating Design Criteria</h2>
+                        <p class="mb-4">Design criteria help you measure how successful your design is. They are like a checklist for your design.</p>
+                        <p class="mb-4 font-bold">Aim to create around 4-6 design criteria for your design. You will evaluate these at the end of your assessment item, so ensure they are well-thought out.</p>
+                        <p class="mb-4">Oftentimes, the client will describe what they need. You can easily reword their requirements into clear design criteria.</p>
+
+
+                        <div class="space-y-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Design criteria need to be specific</h3>
+                                    <p>Use clear numbers and measurements instead of vague terms. Don't say "the design must be light" - say "the design must weigh less than 500g".</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Design criteria need to be measurable</h3>
+                                    <p>You need to be able to test if your design meets the criteria. Don't say "must be strong" - say "must survive a 1m drop test".</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Design criteria need to be achievable</h3>
+                                    <p>Make sure you can actually meet the criteria with your available resources and skills. Don't say "made from gold" - say "made from recycled plastic".</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Design criteria need to be relevant</h3>
+                                    <p>Each criterion should matter to your user and solve their problem. For a beach toy, say "must be water resistant" not "must be fireproof".</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section id="examples" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Example Criteria</h2>
+                        <div class="alert alert-info mb-4">
+                            <span>Click each example to see how it's specific and measurable!</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="collapse collapse-plus bg-base-200">
+                                <input type="checkbox" class="peer"/> 
+                                <div class="collapse-title text-xl font-medium">
+                                    Water Bottle Design
+                                </div>
+                                <div class="collapse-content"> 
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Must hold at least 750ml of water</li>
+                                        <li>Must fit in a standard car cup holder (70mm diameter)</li>
+                                        <li>Must keep drinks cold for 12 hours</li>
+                                        <li>Must be dishwasher safe</li>
+                                        <li>Must cost less than $15 to manufacture</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="collapse collapse-plus bg-base-200">
+                                <input type="checkbox" class="peer"/> 
+                                <div class="collapse-title text-xl font-medium">
+                                    School Bag Design
+                                </div>
+                                <div class="collapse-content"> 
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Must weigh less than 1kg when empty</li>
+                                        <li>Must fit a 15-inch laptop</li>
+                                        <li>Must have at least 3 separate compartments</li>
+                                        <li>Must be water-resistant (IPX4 rating)</li>
+                                        <li>Straps must support 5kg without deforming</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Design Principles Section -->
+                <section id="principles" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Dieter Rams' 10 Principles</h2>
+                        <p class="mb-4">These principles can help guide your design criteria:</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">1. Good design is innovative</h3>
+                                    <p>Creates new solutions without copying others</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: Must include at least one feature not found in existing products</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">2. Makes a product useful</h3>
+                                    <p>Focuses on function over looks</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: Must complete its main task in under 30 seconds</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">3. Is aesthetic</h3>
+                                    <p>Looks good while working well</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: 8/10 users must rate appearance as "appealing" or higher</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">4. Makes a product understandable</h3>
+                                    <p>Easy to figure out how to use</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: New users must be able to use without instructions</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">5. Is unobtrusive</h3>
+                                    <p>Simple and not flashy</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: Must use no more than 3 colours in design</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">6. Is honest</h3>
+                                    <p>Doesn't pretend to be more than it is</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: All materials must be clearly labeled</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">7. Is long-lasting</h3>
+                                    <p>Built to last, not disposable</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: Must last 5 years of normal use</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">8. Is thorough</h3>
+                                    <p>Every detail matters</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: All edges must be rounded to 2mm radius</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">9. Is environmentally friendly</h3>
+                                    <p>Considers environmental impact</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: Must be made from 90% recyclable materials</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">10. Is as little design as possible</h3>
+                                    <p>No unnecessary features</p>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Criteria example: Must have no features that aren't used weekly</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Drawer Side -->
+        <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 h-full bg-base-100 text-base-content">
+                <li><a href="#criteria">Creating Criteria</a></li>
+                <li><a href="#examples">Examples</a></li>
+                <li><a href="#principles">Design Principles</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.drawer-side a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('my-drawer').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>

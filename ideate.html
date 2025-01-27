@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideation</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen">
+    <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            <!-- Navbar -->
+            <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a href="index.html" class="btn btn-ghost normal-case text-xl">Ideation</a>
+                </div>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a href="#moodboards">Mood Boards</a></li>
+                        <li><a href="#scamper">SCAMPER</a></li>
+                        <li><a href="#colour-rule">Colour Rules and Palettes</a></li>
+                        <li><a href="#sketching">Sketching Tutorials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+                <!-- Mood Boards Section -->
+                <section id="moodboards" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Creating Mood Boards</h2>
+                        <p class="mb-4">Always start with a mood board to refine your creative vision and provide inspiration for your designs.</p>
+
+                        <p class="mb-4">A mood board is just a bunch of related pictures that give you a creative vision or 'vibe' for your project.</p>
+
+                        <div class="flex justify-center mb-6 max-w-lg max-h-lg mx-auto">
+                            <img src="https://blog.placeit.net/wp-content/uploads/2022/07/Moodboard-Ecology-by-Ange%CC%81lique-Taddei-on-Behance.jpg" alt="Mood Board Example" class="rounded-xl shadow-lg">
+                        </div>
+                        <p class="mb-4">You can use design styles like the examples below to narrow down this vision. Don't feel pressured to stick with one design style though!</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Art Deco</h3>
+                                    <p>Geometric shapes, bold colours, and luxurious details</p>
+                                    <img src="https://images.squarespace-cdn.com/content/v1/63dde481bbabc6724d988548/e3bc9d6a-f3df-4c3c-90f1-70b747c1ace1/_a29de458-8cef-4492-b2ec-29822ade3f96.jpg?format=750w" alt="Art Deco example" class="rounded-lg mt-2 object-cover h-48">
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Minimalist</h3>
+                                    <p>Simple, clean lines with lots of white space</p>
+                                    <img src="https://cdn.shopify.com/s/files/1/0394/2436/0493/files/Serenity_of_Minimalist_Aesthetics_1024x1024.jpg?v=1715670966" alt="Minimalist example" class="rounded-lg mt-2 object-cover h-48">
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Bohemian</h3>
+                                    <p>Textures, patterns and woven patterns of nature</p>
+                                    <img src="https://lh3.googleusercontent.com/yy7xrn8b_jjQ_2uMBm6blAp10PtcrtPb3wjbQMZR0PX8OSlXjPPR-Yl-OPnnfP2lyD6RTAdYOx-tREZRkg7TFsMX944quW40b36O6E_PYfG9lfe7p3HusBcWqYqa-zakrlbPG0TiA0ZDw0hV2fM" alt="Bohemian Design example" class="rounded-lg mt-2 object-cover h-48">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mb-4">Click below to see more examples you can search for inspiration.</p>
+
+                        <div class="collapse collapse-plus bg-base-200">
+                            <input type="checkbox" class="peer"/> 
+                            <div class="collapse-title text-xl font-medium">
+                                Explore More Design Styles
+                            </div>
+                            <div class="collapse-content"> 
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li>Art Deco</li>
+                                    <li>Mid-Century Modern</li>
+                                    <li>Minimalism</li>
+                                    <li>Brutalism</li>
+                                    <li>Casette Futurism</li>
+                                    <li>Industrial</li>
+                                    <li>Bohemian (Boho)</li>
+                                    <li>Scandinavian</li>
+                                    <li>Victorian</li>
+                                    <li>Gothic Revival</li>
+                                    <li>Farmhouse</li>
+                                    <li>Contemporary</li>
+                                    <li>Traditional</li>
+                                    <li>Shabby Chic</li>
+                                    <li>Art Nouveau</li>
+                                    <li>Japanese Zen</li>
+                                    <li>Rococo</li>
+                                    <li>Futurism</li>
+                                    <li>Coastal</li>
+                                    <li>Tuscan</li>
+                                    <li>Transitional</li>
+                                    <li>Country</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                
+
+                <!-- Color Rule Section -->
+                <section id="colour-rule" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Colour Communication and Palettes</h2>
+                        <p class="mb-6">Colours are used to communicate everything and are an important choice. The 60:30:10 rule is commonly used by designers to purposefully reduce the number of colours used:</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <div class="card bg-primary text-primary-content">
+                                <div class="card-body">
+                                    <h3 class="card-title">60% Primary</h3>
+                                    <p>Your main colour, used for backgrounds and large areas</p>
+                                </div>
+                            </div>
+                            <div class="card bg-secondary text-secondary-content">
+                                <div class="card-body">
+                                    <h3 class="card-title">30% Secondary</h3>
+                                    <p>Supporting colour for sections and components</p>
+                                </div>
+                            </div>
+                            <div class="card bg-accent text-accent-content">
+                                <div class="card-body">
+                                    <h3 class="card-title">10% Accent</h3>
+                                    <p>Highlight colour for buttons and important elements</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 class="card-title text-2xl mb-4">Helpful Colour Tools</h2>
+                        <p class="mb-4">You might change your colour palette as you develop your design further; that's fine and completely normal!</p>
+                        <p class="mb-4"><span class="font-bold">You don't just need to stick to 3 colours. The rule is to just be consistent with your colour palette.</span></p>
+                        <p class="mb-4">These resources help you create nice-looking colour palettes:</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            
+                            
+                            <a href="https://color.adobe.com/create/color-wheel" target="_blank" class="card bg-base-200 hover:bg-base-300 transition-colors">
+                                <div class="card-body">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <h3 class="font-bold">Adobe Color Wheel</h3>
+                                            <p class="text-sm opacity-70">Professional color harmony tool</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://aicolors.co" target="_blank" class="card bg-base-200 hover:bg-base-300 transition-colors">
+                                <div class="card-body">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <h3 class="font-bold">AI Colors</h3>
+                                            <p class="text-sm opacity-70">Provide a prompt or a 'vibe' and get a colour palette</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors" target="_blank" class="card bg-base-200 hover:bg-base-300 transition-colors">
+                                <div class="card-body">
+                                    <div class="flex items-center gap-3">
+                                        <div>
+                                            <h3 class="font-bold">(Digital Designs) Material Design</h3>
+                                            <p class="text-sm opacity-70">Google's UI-specific colour palette generator</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="sketching" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Sketching Techniques</h2>
+                        <p class="mb-4">Once you have a mood board, a general design vibe, and some colours picked out, you can start sketching.</p>
+
+                        <p class="mb-4">Click to reveal different sketching tutorials:</p>
+
+                        <div class="space-y-4">
+                            <div class="collapse collapse-plus bg-base-200">
+                                <input type="checkbox" class="peer"/> 
+                                <div class="collapse-title text-xl font-medium">
+                                    Drawing from the Shoulder
+                                </div>
+                                <div class="collapse-content"> 
+                                    <div class="aspect-video">
+                                        <iframe class="w-full h-full rounded-lg" 
+                                                src="https://www.youtube.com/embed/0_AdsK8x9Lw"
+                                                title="Drawing from the Shoulder" 
+                                                frameborder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="collapse collapse-plus bg-base-200">
+                                <input type="checkbox" class="peer"/> 
+                                <div class="collapse-title text-xl font-medium">
+                                    3D Objects
+                                </div>
+                                <div class="collapse-content"> 
+                                    <div class="aspect-video">
+                                        <iframe class="w-full h-full rounded-lg" 
+                                                src="https://www.youtube.com/embed/evGWbjDI6xQ"
+                                                title="3D Objects" 
+                                                frameborder="0" 
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+<!-- SCAMPER Section -->
+<section id="scamper" class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">SCAMPER Technique</h2>
+        <p class="mb-4">Now we have some designs on paper, we can start intentionally shaking them up to get more interesting ideas.</p>
+        <p class="mb-4">One way of doing this is by using the SCAMPER technique.</p>
+
+        <p class="mb-4">SCAMPER is a creative thinking tool that helps you improve an existing design:</p>
+
+        <div class="max-w-xl mx-auto space-y-2">
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">S</span>ubstitute
+                </div>
+                <div class="collapse-content"> 
+                    <p>Replace parts of your design with something else.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: What if we used bamboo instead of plastic?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">C</span>ombine
+                </div>
+                <div class="collapse-content"> 
+                    <p>Mix different ideas or products together.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: What if we combined a phone with a projector?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">A</span>dapt
+                </div>
+                <div class="collapse-content"> 
+                    <p>Adjust your design to solve different problems.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: How could this toy work for older kids?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">M</span>odify
+                </div>
+                <div class="collapse-content"> 
+                    <p>Change the size, shape, or features.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: What if we made it bigger or smaller?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">P</span>ut to another use
+                </div>
+                <div class="collapse-content"> 
+                    <p>Find different ways to use your design.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: Could this school item be used at home?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">E</span>liminate
+                </div>
+                <div class="collapse-content"> 
+                    <p>Remove unnecessary parts.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: What features aren't really needed?</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse collapse-plus bg-base-200">
+                <input type="checkbox" class="peer"/> 
+                <div class="collapse-title font-medium">
+                    <span class="font-bold">R</span>everse
+                </div>
+                <div class="collapse-content"> 
+                    <p>Try turning your design around or upside down.</p>
+                    <div class="alert alert-info mt-2">
+                        <span>Example: What if we did this backwards?</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+            </div>
+        </div>
+
+        <!-- Drawer Side -->
+        <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 h-full bg-base-100 text-base-content">
+                <li><a href="#moodboards">Mood Boards</a></li>
+                <li><a href="#scamper">SCAMPER</a></li>
+                <li><a href="#color-rule">Colour Rule</a></li>
+                <li><a href="#crazy-eights">Crazy Eights</a></li>
+                <li><a href="#sketching">Sketching</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Close drawer when clicking menu items on mobile
+        document.querySelectorAll('.drawer-side a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('my-drawer').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
