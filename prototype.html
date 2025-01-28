@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyping in Design</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen">
+    <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            <!-- Navbar -->
+            <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a href="index.html" class="btn btn-ghost normal-case text-xl">Prototyping in Design</a>
+                </div>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#improv">Improvising</a></li>
+                        <li><a href="#user">User-Driven</a></li>
+                        <li><a href="#wizard">Wizard of Oz</a></li>
+                        <li><a href="#variable">Variables</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+                <!-- Introduction Section -->
+                <section id="intro" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">What is Prototyping?</h2>
+                        <div class="alert alert-info mb-4">
+                            <span>Prototyping gets ideas out of your head and into the world, allowing for quick learning and exploration.</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Physical Form</h3>
+                                    <p>A prototype can be anything tangible - from post-it notes to role-playing activities to physical objects.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Interactive Learning</h3>
+                                    <p>Prototypes work best when people can experience and interact with them, starting conversations and driving empathy.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Purpose-Driven</h3>
+                                    <p>Every prototype should have a clear learning goal - know what you're testing before you start building.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Improvising Section -->
+                <section id="improv" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Improvising to Life</h2>
+                        <p class="mb-4">Break through "analysis paralysis" by quickly acting out your ideas.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Assign Roles</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Designate team members as users, technology, and observers</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Act It Out</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Physically simulate the interaction to understand pain points</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Iterate</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Swap roles and try different approaches to test variations</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Discuss</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Break to analyze what's working and what needs improvement</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User-Driven Section -->
+                <section id="user" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">User-Driven Prototyping</h2>
+                        <p class="mb-4">Let users create aspects of the design to reveal hidden assumptions and desires.</p>
+
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Balance Structure</h3>
+                                    <p>Provide enough scaffolding to guide creativity while leaving room for user innovation.</p>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Methods</h3>
+                                    <ul class="list-disc list-inside space-y-2 mt-2">
+                                        <li>Drawing exercises ("draw your ideal shopping experience")</li>
+                                        <li>Object creation ("build a solution with these materials")</li>
+                                        <li>Collaging ("compile images that represent your needs")</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Wizard of Oz Section -->
+                <section id="wizard" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Wizard of Oz Prototyping</h2>
+                        <div class="alert alert-info mb-4">
+                            <span>A technique where humans secretly operate a seemingly automated system to test user reactions and interactions</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">The Technique</h3>
+                                    <p>Named after the famous story where a wizard was actually a man behind a curtain, this method involves creating an illusion of functionality. Instead of building complex systems, human operators simulate the responses and actions, while users believe they're interacting with an automated system.</p>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Physical Examples</h3>
+                                    <ul class="list-disc list-inside space-y-2 mt-2">
+                                        <li>A vending machine where items are secretly delivered by a person</li>
+                                        <li>An "automatic" door controlled by hidden staff</li>
+                                        <li>A "smart" storage system with manual sorting behind the scenes</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Implementation</h3>
+                                    <p>Create a convincing facade that users can interact with, while team members operate the system from behind the scenes. Focus on making the experience feel authentic to get genuine user feedback.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Variable Testing Section -->
+                <section id="variable" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Testing Variables</h2>
+                        <div class="alert alert-info mb-4">
+                            <span>Instead of building complete solutions, test one specific aspect at a time to learn faster and more effectively.</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">How to Choose Variables</h3>
+                                    <ul class="list-disc list-inside space-y-2 mt-2">
+                                        <li>Identify the most critical aspect to test</li>
+                                        <li>Focus on one property that could make or break the design</li>
+                                        <li>Choose variables that users can easily compare</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Example Variables to Test</h3>
+                                    <ul class="list-disc list-inside space-y-2 mt-2">
+                                        <li>Weight: Different weighted prototypes to find ideal heaviness</li>
+                                        <li>Size: Various dimensions to determine perfect fit</li>
+                                        <li>Interface: Different button layouts or menu structures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-base-200 mb-4">
+                            <div class="card-body">
+                                <h3 class="text-lg font-bold">Real-World Examples</h3>
+                                <div class="grid grid-cols-1 gap-4 mt-2">
+                                    <div class="alert alert-success">
+                                        <span>Testing chair comfort: Create seat cushions of different firmness without building entire chairs</span>
+                                    </div>
+                                    <div class="alert alert-success">
+                                        <span>App navigation: Paper prototypes with different menu structures, testing only the navigation flow</span>
+                                    </div>
+                                    <div class="alert alert-success">
+                                        <span>Product packaging: Multiple box sizes with simple labels to test shelf appeal</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-neutral text-neutral-content">
+                            <div class="card-body">
+                                <h3 class="card-title">Key Principle</h3>
+                                <p>Remember: A prototype doesn't need to look like the final product. Focus only on what you need to learn about the chosen variable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Drawer Side -->
+        <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 h-full bg-base-100 text-base-content">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#improv">Improvising</a></li>
+                <li><a href="#user">User-Driven</a></li>
+                <li><a href="#wizard">Wizard of Oz</a></li>
+                <li><a href="#variable">Variables</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.drawer-side a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('my-drawer').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
