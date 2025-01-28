@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empathising in Design</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen">
+    <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            <!-- Navbar -->
+            <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a href="index.html" class="btn btn-ghost normal-case text-xl">Empathising in Design</a>
+                </div>
+                <div class="flex-none hidden lg:block">
+                    <ul class="menu menu-horizontal px-1">
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#observe">Observation</a></li>
+                        <li><a href="#interview">Interviews</a></li>
+                        <li><a href="#research">Research</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+                <!-- Introduction Section -->
+                <section class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">What is Empathising?</h2>
+                        <div class="alert alert-info mb-4">
+                            <span>Empathising means putting yourself in someone else's shoes to truly understand their needs, feelings, and experiences.</span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Active Listening</h3>
+                                    <p>Great designers are excellent listeners. They pay attention not just to what people say, but how they say it and what remains unsaid.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Understanding Context</h3>
+                                    <p>Every user has unique circumstances, challenges, and environments that affect how they interact with products.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Setting Aside Assumptions</h3>
+                                    <p>Empathising requires putting aside our own biases and preconceptions to truly understand others' perspectives.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Observation Section -->
+                <section id="observe" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Understanding Through Observation</h2>
+                        <p class="mb-4">Observation is crucial for understanding how people actually use products in real-world situations.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Direct Experience</h3>
+                                    <p>Use the product yourself in different situations and environments to understand its limitations firsthand.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Shadow Users</h3>
+                                    <p>Watch how different people interact with the product without interfering. Note their struggles and workarounds.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="text-lg font-bold">Document Everything</h3>
+                                    <p>Take photos, videos, and notes of how people use the product in different contexts and situations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Interview Section -->
+                <section id="interview" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Effective Interviewing</h2>
+                        <p class="mb-4">Good interviews reveal deeper insights about user needs and desires.</p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Ask Open Questions</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Instead of "Do you like this feature?" ask "How do you feel about this feature?"</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Explore Pain Points</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Ask "What frustrates you most when using this product?"</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Investigate Context</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Ask "When and where do you typically use this product?"</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Future Desires</h3>
+                                    <div class="alert alert-success mt-2">
+                                        <span>Ask "What would make this product perfect for your needs?"</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Research Section -->
+                <section id="research" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Research and Statistics</h2>
+                        <div class="alert alert-info mb-4">
+                            <span>Use data to understand the real impact of design problems</span>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Problem</th>
+                                        <th>Impact</th>
+                                        <th>Design Opportunity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Shopping Cart Safety</td>
+                                        <td>24,000 children treated annually for shopping cart-related injuries</td>
+                                        <td>Redesign cart safety features and restraint systems</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kitchen Burns</td>
+                                        <td>486,000 annual kitchen burn incidents</td>
+                                        <td>Improve handle designs and heat indicators</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medication Errors</td>
+                                        <td>1.5 million preventable medication errors annually</td>
+                                        <td>Better packaging and labeling systems</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Furniture Tip-overs</td>
+                                        <td>25,500 annual injuries from furniture tipping</td>
+                                        <td>Stable designs and better mounting solutions</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Drawer Side -->
+        <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 h-full bg-base-100 text-base-content">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#observe">Observation</a></li>
+                <li><a href="#interview">Interviews</a></li>
+                <li><a href="#research">Research</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.drawer-side a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('my-drawer').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>

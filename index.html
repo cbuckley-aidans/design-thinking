@@ -53,42 +53,6 @@
             border: 3px solid #fff;
         }
 
-        .card.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .card.disabled a {
-            pointer-events: none;
-        }
-
-        .construction-label {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            z-index: 4;
-            opacity: 0;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .construction-label:before {
-            content: "🚧";
-            margin-right: 5px;
-        }
-
-        .card.disabled:hover .construction-label {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
         .card a {
             width: 100%;
             height: 100%;
@@ -129,14 +93,18 @@
             z-index: 2;
         }
 
-        .card:not(.disabled):hover i,
-        .card:not(.disabled):hover span {
+        .card:hover i,
+        .card:hover span {
             color: #fff;
             transform: rotateY(360deg);
         }
 
-        .card:not(.disabled):hover a:before {
+        .card:hover a:before {
             top: 0;
+        }
+
+        .card:nth-child(1) a:before {
+            background: #FF6B6B;
         }
 
         .card:nth-child(2) a:before {
@@ -147,14 +115,20 @@
             background: #45B7D1;
         }
 
+        .card:nth-child(4) a:before {
+            background: #96CEB4;
+        }
+
+        .card:nth-child(5) a:before {
+            background: #6C5B7B;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Design Process</h1>
         <div class="grid">
-            <div class="card disabled">
-                <div class="construction-label">Under Construction</div>
+            <div class="card">
                 <a href="empathise.html">
                     <i class="fa-solid fa-heart"></i>
                     <span>Empathise</span>
@@ -172,15 +146,13 @@
                     <span>Ideate</span>
                 </a>
             </div>
-            <div class="card disabled">
-                <div class="construction-label">Under Construction</div>
+            <div class="card">
                 <a href="prototype.html">
                     <i class="fa-solid fa-cube"></i>
                     <span>Prototype</span>
                 </a>
             </div>
-            <div class="card disabled">
-                <div class="construction-label">Under Construction</div>
+            <div class="card">
                 <a href="test.html">
                     <i class="fa-solid fa-clipboard-check"></i>
                     <span>Test / Evaluate</span>
