@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinkercad Basics</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .control-icon {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 0.25rem;
+        }
+        
+    </style>
+</head>
+<body class="bg-base-200 min-h-screen">
+    <div class="drawer">
+        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+            <!-- Navbar -->
+            <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
+                <div class="flex-none lg:hidden">
+                    <label for="my-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a href="index.html" class="btn btn-ghost normal-case text-xl">Tinkercad Basics</a>
+                </div>
+                <div class="flex-none hidden lg:block">
+                    <!-- Desktop Nav -->
+<ul class="menu menu-horizontal px-1">
+    <li><a href="#controls">Basic Controls</a></li>
+    <li><a href="#basic-operations">Basic Operations</a></li>
+    <li><a href="#making-holes">Making Holes</a></li>
+    <li><a href="#grouping">Grouping Objects</a></li>
+    <li><a href="#hotkeys">Hotkeys</a></li>
+</ul>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-4 py-8">
+                <!-- Basic Controls Section -->
+                <section id="controls" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Basic Controls</h2>
+                        <p class="p-4 font-bold">When you open up your first 3D design, you'll need to quickly figure out how to get around. Practice these controls first!</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Pan (Moving Around)</h3>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="control-icon">Shift</span>
+                                        <span>+</span>
+                                        <span class="control-icon"><i class="fas fa-mouse-pointer"></i></span>
+                                        <span>+</span>
+                                        <span class="control-icon"><i class="fas fa-arrows-alt"></i></span>
+                                    </div>
+                                    <p class="mt-2">Hold Shift + Right Click + Drag</p>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Rotate</h3>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="control-icon"><i class="fas fa-mouse-pointer"></i></span>
+                                        <span>+</span>
+                                        <span class="control-icon"><i class="fas fa-sync"></i></span>
+                                    </div>
+                                    <p class="mt-2">Right Click + Drag</p>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Zoom</h3>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="control-icon"><i class="fas fa-search-plus"></i></span>
+                                        <span class="control-icon"><i class="fas fa-mouse"></i></span>
+                                    </div>
+                                    <p class="mt-2">Scroll Wheel (Zoom Gesture on Laptop Trackpad) or + / - Keys</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Basic Operations -->
+<section id="basic-operations" class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Getting Started</h2>
+        <p class="p-4 font-bold">Learn how to add shapes and modify their properties - the foundation of 3D design!</p>
+        <div class="carousel w-full">
+            <div id="slide1" class="carousel-item relative w-full">
+                <div class="card bg-base-200 w-full">
+                    <div class="card-body">
+                        <h3 class="card-title">Step 1: Select Your Shape</h3>
+                        <p class="mb-4">Choose a basic shape from the shapes panel on the right side of your screen.</p>
+                        <img src="https://i.imgur.com/B5EXt3z.png" alt="Step 1" class="rounded-lg shadow-lg mx-auto">
+                    </div>
+                </div>
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                    <a href="#slide3" class="btn btn-circle">❮</a> 
+                    <a href="#slide2" class="btn btn-circle">❯</a>
+                </div>
+            </div>
+            <div id="slide2" class="carousel-item relative w-full">
+                <div class="card bg-base-200 w-full">
+                    <div class="card-body">
+                        <h3 class="card-title">Step 2: Position Your Shape</h3>
+                        <p class="mb-4">Click and drag to position the shape. Use the top arrow to adjust its height.</p>
+                        <img src="https://i.imgur.com/4MH15X5.png" alt="Step 2" class="rounded-lg shadow-lg mx-auto">
+                    </div>
+                </div>
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                    <a href="#slide1" class="btn btn-circle">❮</a> 
+                    <a href="#slide3" class="btn btn-circle">❯</a>
+                </div>
+            </div>
+            <div id="slide3" class="carousel-item relative w-full">
+                <div class="card bg-base-200 w-full">
+                    <div class="card-body">
+                        <h3 class="card-title">Step 3: Modify Properties</h3>
+                        <p class="mb-4">Adjust the shape's size using the white boxes or change values in the sidebar.</p>
+                        <img src="https://i.imgur.com/JSp8cGI.png" alt="Step 3" class="rounded-lg shadow-lg mx-auto">
+                    </div>
+                </div>
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                    <a href="#slide2" class="btn btn-circle">❮</a> 
+                    <a href="#slide1" class="btn btn-circle">❯</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+                <!-- Making Holes Section -->
+                <section id="making-holes" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Making Holes</h2>
+                        <p class="mb-4 font-bold">Learn how to create holes in shapes to create more complex shapes for your prototyping.</p>
+                        <div class="carousel w-full">
+                            <div id="hole1" class="carousel-item relative w-full">
+                                <div class="card bg-base-200 w-full">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Step 1: Create Two Shapes</h3>
+                                        <p class="mb-4">Drag two shapes onto your workplane - for example, a cube and a cylinder.</p>
+                                        <img src="https://i.imgur.com/Rd8eODC.png" alt="Creating two shapes" class="rounded-lg shadow-lg mx-auto">
+                                    </div>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                    <a href="#hole3" class="btn btn-circle">❮</a> 
+                                    <a href="#hole2" class="btn btn-circle">❯</a>
+                                </div>
+                            </div>
+                            <div id="hole2" class="carousel-item relative w-full">
+                                <div class="card bg-base-200 w-full">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Step 2: Position the Hole</h3>
+                                        <p class="mb-4">Position the cylinder where you want the hole to be. Make sure it intersects with the cube.</p>
+                                        <img src="https://i.imgur.com/VX127Hr.png" alt="Positioning shapes" class="rounded-lg shadow-lg mx-auto">
+                                    </div>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                    <a href="#hole1" class="btn btn-circle">❮</a> 
+                                    <a href="#hole3" class="btn btn-circle">❯</a>
+                                </div>
+                            </div>
+                            <div id="hole3" class="carousel-item relative w-full">
+                                <div class="card bg-base-200 w-full">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Step 3: Create the Hole</h3>
+                                        <p class="mb-4">Select the cylinder and click the "Hole" button or press 'H' on your keyboard. The cylinder will turn see-through, indicating it's now a hole.</p>
+                                        <img src="https://i.imgur.com/rJRlZ4r.png" alt="Making a hole" class="rounded-lg shadow-lg mx-auto">
+                                    </div>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                    <a href="#hole2" class="btn btn-circle">❮</a> 
+                                    <a href="#hole4" class="btn btn-circle">❯</a>
+                                </div>
+                            </div>
+                            <div id="hole4" class="carousel-item relative w-full">
+                                <div class="card bg-base-200 w-full">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Step 4: Group to make the hole</h3>
+                                        <p class="mb-4">Select ALL of the objects now. Click the group button or hit CTRL + G on your keyboard to group them together. This will create a hole.</p>
+                                        <img src="https://i.imgur.com/ez9h468.png" alt="Making a hole" class="rounded-lg shadow-lg mx-auto">
+                                    </div>
+                                </div>
+                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                                    <a href="#hole3" class="btn btn-circle">❮</a> 
+                                    <a href="#hole1" class="btn btn-circle">❯</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Grouping Objects Section -->
+<section id="grouping" class="card bg-base-100 shadow-xl mb-8">
+    <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Grouping Objects</h2>
+        <p class="p-4 font-bold">Learn how to combine shapes and align them perfectly using groups and grid snapping!</p>
+        <div class="carousel w-full">
+            <div id="group1" class="carousel-item relative w-full">
+                <div class="card bg-base-200 w-full">
+                    <div class="card-body">
+                        <h3 class="card-title">Step 1: Create Multiple Shapes</h3>
+                        <p class="mb-4">Add several shapes to your workspace. Hold Shift while moving them to snap to the grid for perfect alignment.</p>
+                        <div class="carousel-container bg-gray-100 rounded-lg">
+                            <img src="https://i.imgur.com/XHcPOFD.png" alt="Creating multiple shapes" class="carousel-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                    <a href="#group4" class="btn btn-circle">❮</a> 
+                    <a href="#group2" class="btn btn-circle">❯</a>
+                </div>
+            </div>
+            <div id="group2" class="carousel-item relative w-full">
+                <div class="card bg-base-200 w-full">
+                    <div class="card-body">
+                        <h3 class="card-title">Step 2: Align Your Objects</h3>
+                        <p class="mb-4">Use the alignment tools in the top toolbar (or press L) to perfectly align objects. Select multiple objects by holding Shift while clicking.</p>
+                        <div class="carousel-container bg-gray-100 rounded-lg">
+                            <img src="https://i.imgur.com/gwCpJoD.png" alt="Aligning objects" class="carousel-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                    <a href="#group1" class="btn btn-circle">❮</a> 
+                    <a href="#group3" class="btn btn-circle">❯</a>
+                </div>
+            </div>
+            <div id="group3" class="carousel-item relative w-full">
+                <div class="card bg-base-200 w-full">
+                    <div class="card-body">
+                        <h3 class="card-title">Step 3: Group Objects</h3>
+                        <p class="mb-4">Select all objects you want to group, then press Ctrl+G (or click the Group button). They'll now move and rotate as one unit. You can click the ungroup button to reset this.</p>
+                        <div class="carousel-container bg-gray-100 rounded-lg">
+                            <img src="https://i.imgur.com/EWj0atF.png" alt="Grouping objects" class="carousel-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                    <a href="#group2" class="btn btn-circle">❮</a> 
+                    <a href="#group1" class="btn btn-circle">❯</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+                <!-- Hotkeys Section -->
+                <section id="hotkeys" class="card bg-base-100 shadow-xl mb-8">
+                    <div class="card-body">
+                        <h2 class="card-title text-2xl mb-4">Keyboard Shortcuts</h2>
+                        <p class="mb-4 font-bold">The best designers use keyboard shortcuts to save time from having to click icons!</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Viewing 3D Space</h3>
+                                    <ul class="space-y-2">
+                                        <li>F: Fit selection into view</li>
+                                        <li>Ctrl + Left mouse: Orbit</li>
+                                        <li>Shift + Right mouse: Pan</li>
+                                        <li>+/- or Scroll: Zoom</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Shape Properties</h3>
+                                    <ul class="space-y-2">
+                                        <li>Ctrl + G: Group</li>
+                                        <li>Ctrl + Shift + G: Ungroup</li>
+                                        <li>H: Make a Hole</li>
+                                        <li>S: Make Solid Color</li>
+                                        <li>T: Make Transparent</li>
+                                        <li>Ctrl + L: Lock/Unlock</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Commands</h3>
+                                    <ul class="space-y-2">
+                                        <li>Ctrl + C: Copy</li>
+                                        <li>Ctrl + V: Paste</li>
+                                        <li>Ctrl + D: Duplicate</li>
+                                        <li>Alt + Move: Drag copy</li>
+                                        <li>Ctrl + Z: Undo</li>
+                                        <li>Ctrl + Y: Redo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Helpers</h3>
+                                    <ul class="space-y-2">
+                                        <li>R: Place Ruler</li>
+                                        <li>W: Place Workplane</li>
+                                        <li>Shift + W: Place workplane at shape</li>
+                                        <li>E: Show Shape Workplane</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card bg-base-200">
+                                <div class="card-body">
+                                    <h3 class="card-title">Movement & Scaling</h3>
+                                    <ul class="space-y-2">
+                                        <li>Shift + Rotate: Snap to 45°</li>
+                                        <li>Alt + Scale: Scale about center</li>
+                                        <li>Shift + Scale: Uniform scale</li>
+                                        <li>Arrows: Move 1 grid space</li>
+                                        <li>Ctrl + Arrows: Move up/down</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Drawer Side -->
+        <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 h-full bg-base-100 text-base-content">
+                <li><a href="#controls">Basic Controls</a></li>
+                <li><a href="#basic-operations">Basic Operations</a></li>
+                <li><a href="#making-holes">Making Holes</a></li>
+                <li><a href="#grouping">Grouping Objects</a></li>
+                <li><a href="#hotkeys">Hotkeys</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Close drawer when clicking menu items on mobile
+        document.querySelectorAll('.drawer-side a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('my-drawer').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
