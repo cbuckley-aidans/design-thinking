@@ -1,356 +1,1188 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinkercad Basics</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.4/dist/full.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tinkercad Basics Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: zoom-out;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            margin: auto;
+            display: block;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: zoom-in;
+        }
+        .modal.zoomed .modal-content {
+            max-width: none;
+            max-height: none;
+            cursor: zoom-out;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #002654, #57708e);
+            background-size: 400% 400%;
+            z-index: -1;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        .content-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .tutorial-step {
+            background-color: rgba(87, 112, 142, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .tutorial-step:hover {
+            transform: translateY(-5px);
+            background-color: rgba(87, 112, 142, 0.4);
+        }
+        .tutorial-step.active {
+            background-color: rgba(87, 112, 142, 0.6);
+        }
+        .step-content {
+            background-color: rgba(87, 112, 142, 0.1);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            margin-top: auto;
+        }
+        .nav-button {
+            background-color: #57708e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background-color: #002654;
+        }
+        .nav-button:disabled {
+            background-color: #57708e;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .progress-container {
+            margin-top: auto;
+            width: 100%;
+            padding: 1rem;
+        }
+        .progress-text {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background-color: #57708e;
+            transition: width 0.3s ease;
+        }
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .video-container video {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .carousel {
+            width: 100%;
+            position: relative;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .carousel-container {
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            width: 100%;
+            padding: 1rem 0;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            transition: transform 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+        .carousel-slide img {
+            max-height: 300px;
+            width: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .carousel-slide p {
+            margin-top: 0.75rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            z-index: 10;
+            padding: 0 10px;
+        }
+        .carousel-btn {
+            background-color: rgba(0, 38, 84, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .carousel-btn:hover {
+            background-color: rgba(0, 38, 84, 1);
+        }
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .carousel-indicator.active {
+            background-color: white;
+        }
+        .tip-box {
+            background-color: rgba(30, 64, 175, 0.2);
+            border-left: 4px solid #1e40af;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .tip-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #93c5fd;
+        }
         .control-icon {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             padding: 0.5rem;
-            border: 1px solid #ccc;
+            border: 1px solid #4b6584;
             border-radius: 4px;
             margin: 0.25rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            min-width: 2.5rem;
+        }
+        .keyboard-shortcut {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .key {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            margin-right: 0.5rem;
+            font-family: monospace;
+            font-weight: bold;
+            min-width: 1.5rem;
+            text-align: center;
+        }
+        .shortcut-description {
+            flex: 1;
+        }
+        .sidebar {
+            width: 300px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            background-color: rgba(0, 38, 84, 0.85);
+            backdrop-filter: blur(10px);
+            overflow-y: hidden;
+        }
+
+        /* Scrollable steps container */
+        .steps-container {
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+            padding-right: 5px; /* Add some padding for the scrollbar */
+        }
+
+        /* Webkit scrollbar styling (Chrome, Safari, newer Edge) */
+        .steps-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .steps-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .steps-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .steps-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Firefox scrollbar styling */
+        .steps-container {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+        }
+
+        /* For Edge/IE */
+        .steps-container {
+            -ms-overflow-style: none;
+        }
+
+        @keyframes gentle-pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
         }
         
+        .animate-pulse {
+            animation: gentle-pulse 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-base-200 min-h-screen">
-    <div class="drawer">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-        <div class="drawer-content">
-            <!-- Navbar -->
-            <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
-                <div class="flex-none lg:hidden">
-                    <label for="my-drawer" class="btn btn-square btn-ghost">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </label>
-                </div>
-                <div class="flex-1">
-                    <a href="index.html" class="btn btn-ghost normal-case text-xl">Tinkercad Basics</a>
-                </div>
-                <div class="flex-none hidden lg:block">
-                    <!-- Desktop Nav -->
-<ul class="menu menu-horizontal px-1">
-    <li><a href="#controls">Basic Controls</a></li>
-    <li><a href="#basic-operations">Basic Operations</a></li>
-    <li><a href="#making-holes">Making Holes</a></li>
-    <li><a href="#grouping">Grouping Objects</a></li>
-    <li><a href="#hotkeys">Hotkeys</a></li>
-</ul>
-                </div>
-            </div>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <div class="sidebar">
+            <h1 class="text-2xl font-bold mb-6 text-center">Tinkercad Basics</h1>
 
-            <div class="container mx-auto px-4 py-8">
-                <!-- Basic Controls Section -->
-                <section id="controls" class="card bg-base-100 shadow-xl mb-8">
-                    <div class="card-body">
-                        <h2 class="card-title text-2xl mb-4">Basic Controls</h2>
-                        <p class="p-4 font-bold">When you open up your first 3D design, you'll need to quickly figure out how to get around. Practice these controls first!</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Pan (Moving Around)</h3>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="control-icon">Shift</span>
-                                        <span>+</span>
-                                        <span class="control-icon"><i class="fas fa-mouse-pointer"></i></span>
-                                        <span>+</span>
-                                        <span class="control-icon"><i class="fas fa-arrows-alt"></i></span>
-                                    </div>
-                                    <p class="mt-2">Hold Shift + Right Click + Drag</p>
-                                </div>
-                            </div>
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Rotate</h3>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="control-icon"><i class="fas fa-mouse-pointer"></i></span>
-                                        <span>+</span>
-                                        <span class="control-icon"><i class="fas fa-sync"></i></span>
-                                    </div>
-                                    <p class="mt-2">Right Click + Drag</p>
-                                </div>
-                            </div>
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Zoom</h3>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="control-icon"><i class="fas fa-search-plus"></i></span>
-                                        <span class="control-icon"><i class="fas fa-mouse"></i></span>
-                                    </div>
-                                    <p class="mt-2">Scroll Wheel (Zoom Gesture on Laptop Trackpad) or + / - Keys</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Basic Operations -->
-<section id="basic-operations" class="card bg-base-100 shadow-xl mb-8">
-    <div class="card-body">
-        <h2 class="card-title text-2xl mb-4">Getting Started</h2>
-        <p class="p-4 font-bold">Learn how to add shapes and modify their properties - the foundation of 3D design!</p>
-        <div class="carousel w-full">
-            <div id="slide1" class="carousel-item relative w-full">
-                <div class="card bg-base-200 w-full">
-                    <div class="card-body">
-                        <h3 class="card-title">Step 1: Select Your Shape</h3>
-                        <p class="mb-4">Choose a basic shape from the shapes panel on the right side of your screen.</p>
-                        <img src="https://i.imgur.com/B5EXt3z.png" alt="Step 1" class="rounded-lg shadow-lg mx-auto">
-                    </div>
-                </div>
-                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide3" class="btn btn-circle">❮</a> 
-                    <a href="#slide2" class="btn btn-circle">❯</a>
+            <!-- Progress bar moved to top -->
+            <div class="progress-container mb-4">
+                <div class="progress-text">Progress: <span id="progress-percentage">11%</span></div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 11%;"></div>
                 </div>
             </div>
-            <div id="slide2" class="carousel-item relative w-full">
-                <div class="card bg-base-200 w-full">
-                    <div class="card-body">
-                        <h3 class="card-title">Step 2: Position Your Shape</h3>
-                        <p class="mb-4">Click and drag to position the shape. Use the top arrow to adjust its height.</p>
-                        <img src="https://i.imgur.com/4MH15X5.png" alt="Step 2" class="rounded-lg shadow-lg mx-auto">
-                    </div>
+            <div class="steps-container">
+                <div class="tutorial-step active" data-step="0">
+                    <h2>Learning Intentions and Success Criteria</h2>
                 </div>
-                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide1" class="btn btn-circle">❮</a> 
-                    <a href="#slide3" class="btn btn-circle">❯</a>
+                <div class="tutorial-step" data-step="1">
+                    <h2>Step 1: Creating a New Design</h2>
                 </div>
-            </div>
-            <div id="slide3" class="carousel-item relative w-full">
-                <div class="card bg-base-200 w-full">
-                    <div class="card-body">
-                        <h3 class="card-title">Step 3: Modify Properties</h3>
-                        <p class="mb-4">Adjust the shape's size using the white boxes or change values in the sidebar.</p>
-                        <img src="https://i.imgur.com/JSp8cGI.png" alt="Step 3" class="rounded-lg shadow-lg mx-auto">
-                    </div>
+                <div class="tutorial-step" data-step="2">
+                    <h2>Step 2: Basic Controls</h2>
                 </div>
-                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide2" class="btn btn-circle">❮</a> 
-                    <a href="#slide1" class="btn btn-circle">❯</a>
+                <div class="tutorial-step" data-step="3">
+                    <h2>Step 3: Exploring Basic Shapes</h2>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-                <!-- Making Holes Section -->
-                <section id="making-holes" class="card bg-base-100 shadow-xl mb-8">
-                    <div class="card-body">
-                        <h2 class="card-title text-2xl mb-4">Making Holes</h2>
-                        <p class="mb-4 font-bold">Learn how to create holes in shapes to create more complex shapes for your prototyping.</p>
-                        <div class="carousel w-full">
-                            <div id="hole1" class="carousel-item relative w-full">
-                                <div class="card bg-base-200 w-full">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Step 1: Create Two Shapes</h3>
-                                        <p class="mb-4">Drag two shapes onto your workplane - for example, a cube and a cylinder.</p>
-                                        <img src="https://i.imgur.com/Rd8eODC.png" alt="Creating two shapes" class="rounded-lg shadow-lg mx-auto">
-                                    </div>
-                                </div>
-                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#hole3" class="btn btn-circle">❮</a> 
-                                    <a href="#hole2" class="btn btn-circle">❯</a>
-                                </div>
-                            </div>
-                            <div id="hole2" class="carousel-item relative w-full">
-                                <div class="card bg-base-200 w-full">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Step 2: Position the Hole</h3>
-                                        <p class="mb-4">Position the cylinder where you want the hole to be. Make sure it intersects with the cube.</p>
-                                        <img src="https://i.imgur.com/VX127Hr.png" alt="Positioning shapes" class="rounded-lg shadow-lg mx-auto">
-                                    </div>
-                                </div>
-                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#hole1" class="btn btn-circle">❮</a> 
-                                    <a href="#hole3" class="btn btn-circle">❯</a>
-                                </div>
-                            </div>
-                            <div id="hole3" class="carousel-item relative w-full">
-                                <div class="card bg-base-200 w-full">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Step 3: Create the Hole</h3>
-                                        <p class="mb-4">Select the cylinder and click the "Hole" button or press 'H' on your keyboard. The cylinder will turn see-through, indicating it's now a hole.</p>
-                                        <img src="https://i.imgur.com/rJRlZ4r.png" alt="Making a hole" class="rounded-lg shadow-lg mx-auto">
-                                    </div>
-                                </div>
-                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#hole2" class="btn btn-circle">❮</a> 
-                                    <a href="#hole4" class="btn btn-circle">❯</a>
-                                </div>
-                            </div>
-                            <div id="hole4" class="carousel-item relative w-full">
-                                <div class="card bg-base-200 w-full">
-                                    <div class="card-body">
-                                        <h3 class="card-title">Step 4: Group to make the hole</h3>
-                                        <p class="mb-4">Select ALL of the objects now. Click the group button or hit CTRL + G on your keyboard to group them together. This will create a hole.</p>
-                                        <img src="https://i.imgur.com/ez9h468.png" alt="Making a hole" class="rounded-lg shadow-lg mx-auto">
-                                    </div>
-                                </div>
-                                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                                    <a href="#hole3" class="btn btn-circle">❮</a> 
-                                    <a href="#hole1" class="btn btn-circle">❯</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Grouping Objects Section -->
-<section id="grouping" class="card bg-base-100 shadow-xl mb-8">
-    <div class="card-body">
-        <h2 class="card-title text-2xl mb-4">Grouping Objects</h2>
-        <p class="p-4 font-bold">Learn how to combine shapes and align them perfectly using groups and grid snapping!</p>
-        <div class="carousel w-full">
-            <div id="group1" class="carousel-item relative w-full">
-                <div class="card bg-base-200 w-full">
-                    <div class="card-body">
-                        <h3 class="card-title">Step 1: Create Multiple Shapes</h3>
-                        <p class="mb-4">Add several shapes to your workspace. Hold Shift while moving them to snap to the grid for perfect alignment.</p>
-                        <div class="carousel-container bg-gray-100 rounded-lg">
-                            <img src="https://i.imgur.com/XHcPOFD.png" alt="Creating multiple shapes" class="carousel-image">
-                        </div>
-                    </div>
+                <div class="tutorial-step" data-step="4">
+                    <h2>Step 4: Setting up Basic Pot Plant Shape</h2>
                 </div>
-                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#group4" class="btn btn-circle">❮</a> 
-                    <a href="#group2" class="btn btn-circle">❯</a>
+                <div class="tutorial-step" data-step="5">
+                    <h2>Step 5: Aligning Our Shapes</h2>
                 </div>
-            </div>
-            <div id="group2" class="carousel-item relative w-full">
-                <div class="card bg-base-200 w-full">
-                    <div class="card-body">
-                        <h3 class="card-title">Step 2: Align Your Objects</h3>
-                        <p class="mb-4">Use the alignment tools in the top toolbar (or press L) to perfectly align objects. Select multiple objects by holding Shift while clicking.</p>
-                        <div class="carousel-container bg-gray-100 rounded-lg">
-                            <img src="https://i.imgur.com/gwCpJoD.png" alt="Aligning objects" class="carousel-image">
-                        </div>
-                    </div>
+                <div class="tutorial-step" data-step="6">
+                    <h2>Step 6: Making Holes</h2>
                 </div>
-                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#group1" class="btn btn-circle">❮</a> 
-                    <a href="#group3" class="btn btn-circle">❯</a>
+                <div class="tutorial-step" data-step="7">
+                    <h2>Step 7: (BONUS) Grouping Objects</h2>
                 </div>
-            </div>
-            <div id="group3" class="carousel-item relative w-full">
-                <div class="card bg-base-200 w-full">
-                    <div class="card-body">
-                        <h3 class="card-title">Step 3: Group Objects</h3>
-                        <p class="mb-4">Select all objects you want to group, then press Ctrl+G (or click the Group button). They'll now move and rotate as one unit. You can click the ungroup button to reset this.</p>
-                        <div class="carousel-container bg-gray-100 rounded-lg">
-                            <img src="https://i.imgur.com/EWj0atF.png" alt="Grouping objects" class="carousel-image">
-                        </div>
-                    </div>
+                <div class="tutorial-step" data-step="8">
+                    <h2>Step 8: (BONUS) Keyboard Shortcuts</h2>
                 </div>
-                <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#group2" class="btn btn-circle">❮</a> 
-                    <a href="#group1" class="btn btn-circle">❯</a>
+                <div class="mt-auto py-3 text-center text-xs opacity-70">
+                    Made by <span id="creator-name" class="text-blue-300 hover:text-blue-200 transition-colors duration-200 cursor-pointer">Buckley</span> with <span class="text-red-400">♥️</span>
                 </div>
             </div>
             
         </div>
-    </div>
-</section>
-
-                <!-- Hotkeys Section -->
-                <section id="hotkeys" class="card bg-base-100 shadow-xl mb-8">
-                    <div class="card-body">
-                        <h2 class="card-title text-2xl mb-4">Keyboard Shortcuts</h2>
-                        <p class="mb-4 font-bold">The best designers use keyboard shortcuts to save time from having to click icons!</p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Viewing 3D Space</h3>
-                                    <ul class="space-y-2">
-                                        <li>F: Fit selection into view</li>
-                                        <li>Ctrl + Left mouse: Orbit</li>
-                                        <li>Shift + Right mouse: Pan</li>
-                                        <li>+/- or Scroll: Zoom</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Shape Properties</h3>
-                                    <ul class="space-y-2">
-                                        <li>Ctrl + G: Group</li>
-                                        <li>Ctrl + Shift + G: Ungroup</li>
-                                        <li>H: Make a Hole</li>
-                                        <li>S: Make Solid Color</li>
-                                        <li>T: Make Transparent</li>
-                                        <li>Ctrl + L: Lock/Unlock</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Commands</h3>
-                                    <ul class="space-y-2">
-                                        <li>Ctrl + C: Copy</li>
-                                        <li>Ctrl + V: Paste</li>
-                                        <li>Ctrl + D: Duplicate</li>
-                                        <li>Alt + Move: Drag copy</li>
-                                        <li>Ctrl + Z: Undo</li>
-                                        <li>Ctrl + Y: Redo</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Helpers</h3>
-                                    <ul class="space-y-2">
-                                        <li>R: Place Ruler</li>
-                                        <li>W: Place Workplane</li>
-                                        <li>Shift + W: Place workplane at shape</li>
-                                        <li>E: Show Shape Workplane</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card bg-base-200">
-                                <div class="card-body">
-                                    <h3 class="card-title">Movement & Scaling</h3>
-                                    <ul class="space-y-2">
-                                        <li>Shift + Rotate: Snap to 45°</li>
-                                        <li>Alt + Scale: Scale about center</li>
-                                        <li>Shift + Scale: Uniform scale</li>
-                                        <li>Arrows: Move 1 grid space</li>
-                                        <li>Ctrl + Arrows: Move up/down</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="step-content" id="step-content"></div>
+                <div class="navigation">
+                    <button id="prevButton" class="nav-button" disabled>Previous</button>
+                    <button id="nextButton" class="nav-button">Next</button>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Drawer Side -->
-        <div class="drawer-side">
-            <label for="my-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 h-full bg-base-100 text-base-content">
-                <li><a href="#controls">Basic Controls</a></li>
-                <li><a href="#basic-operations">Basic Operations</a></li>
-                <li><a href="#making-holes">Making Holes</a></li>
-                <li><a href="#grouping">Grouping Objects</a></li>
-                <li><a href="#hotkeys">Hotkeys</a></li>
-            </ul>
-        </div>
+    <div id="imageModal" class="modal">
+        <img id="modalImage" class="modal-content">
     </div>
 
     <script>
-        // Close drawer when clicking menu items on mobile
-        document.querySelectorAll('.drawer-side a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('my-drawer').checked = false;
-            });
+
+
+
+        // Tutorial video sources for each step
+        const videos = {
+            1: "https://i.imgur.com/RHAAdHr.mp4",
+            2: "https://i.imgur.com/k5aOMUy.mp4",
+            3: "https://i.imgur.com/FD0MXNi.mp4",
+            4: "https://i.imgur.com/05B0S7I.mp4",
+            5: "https://i.imgur.com/OxkhZee.mp4",
+            6: "https://i.imgur.com/364mIVD.mp4",
+            7: "",
+            8: "",
+        };
+
+        // Tutorial content for each step
+        const stepContents = [
+            // Step 0: Learning Intentions and Success Criteria
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold mb-4">Learning Intentions and Success Criteria</h3>
+                <div class="intro-section p-6 rounded-lg mb-6" style="background: linear-gradient(135deg, rgba(41, 121, 255, 0.1), rgba(0, 38, 84, 0.2)); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+                    <div class="learning-goals mb-6">
+                        <p class="font-bold text-xl mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Learning Intentions:
+                        </p>
+                        <ul class="ml-8 space-y-2">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-1 mr-2 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                                Learn the basic navigation controls of Tinkercad
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-1 mr-2 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                                Create and align basic shapes
+                            </li>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-1 mr-2 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                                Use holes and grouping to cut out more complex shapes
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="success-criteria">
+                        <p class="font-bold text-xl mb-2 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Success Criteria:
+                        </p>
+                        <ul class="ml-8">
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mt-1 mr-2 text-green-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                                </svg>
+                                You successfully follow along to make a basic hollow pot plant design.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Tutorial Overview</div>
+                    <p>This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools. You'll learn how to navigate in 3D space, manipulate shapes, and use the hole feature to create hollow objects.</p>
+                </div>
+                
+                
+            </div>`,
+            
+            // Step 1: Creating a New Design (formerly Step 0)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold mb-4">Creating a New Design</h3>
+                
+                <div class="video-container">
+                    <video width="100%" controls autoplay loop muted playsinline>
+                        <source src="${videos[1]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <p>Before you can start modeling in 3D, you need to create a new design in Tinkercad.</p>
+                
+                <div class="space-y-4 mt-6">
+                    <h4 class="font-bold text-xl">Creating a New 3D Design from Dashboard:</h4>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Log in to your Tinkercad account</li>
+                        <li>On the dashboard, look for the blue "+ Create" button</li>
+                        <li>Click on "3D Design" to start a new 3D project</li>
+                        <li>Tinkercad will open a new workspace with an empty workplane</li>
+                        <li>Give your design a name by clicking on the randomly generated title in the top-left corner</li>
+                    </ol>
+                </div>
+            </div>`,
+            
+            // Step 2: Basic Controls (formerly Step 1)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">Basic Controls</h3>
+                
+                <div class="video-container">
+                    <video width="100%" controls autoplay loop muted playsinline>
+                        <source src="${videos[2]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <p>When you open up your first 3D design, you'll need to quickly figure out how to get around. Practice these controls first!</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Pan (Moving Around)</h4>
+                        <div class="flex items-center space-x-2">
+                            <span class="control-icon">Shift</span>
+                            <span>+</span>
+                            <span class="control-icon"><i class="fas fa-mouse-pointer"></i></span>
+                            <span>+</span>
+                            <span class="control-icon"><i class="fas fa-arrows-alt"></i></span>
+                        </div>
+                        <p class="mt-2">Hold Shift + Right Click + Drag</p>
+                        
+                    </div>
+                    
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Rotate</h4>
+                        <div class="flex items-center space-x-2">
+                            <span class="control-icon"><i class="fas fa-mouse-pointer"></i></span>
+                            <span>+</span>
+                            <span class="control-icon"><i class="fas fa-sync"></i></span>
+                        </div>
+                        <p class="mt-2">Right Click + Drag</p>
+                        <p class ="mt-2 text-sm">OR drag or click the faces of the cube at the top left</p>
+                    </div>
+                    
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Zoom</h4>
+                        <div class="flex items-center space-x-2">
+                            <span class="control-icon"><i class="fas fa-search-plus"></i></span>
+                            <span class="control-icon"><i class="fas fa-mouse"></i></span>
+                        </div>
+                        <p class="mt-2">Scroll Wheel or Two Finger Trackpad Glide or + / - Keys</p>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Practice Tip</div>
+                    <p>Getting good at moving around in 3D space is the first step to becoming a skilled designer. Try spending 2 minutes just practicing these controls before you start designing.</p>
+                </div>
+            </div>`,
+            
+            // Step 3: Exploring Basic Shapes (formerly Step 2)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">Exploring Basic Shapes</h3>
+                
+                <div class="video-container">
+                    <video width="100%" controls autoplay loop muted playsinline>
+                        <source src="${videos[3]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <p>Let's get comfortable with adding shapes and resizing them. This is a playground step - just experiment!</p>
+                
+                <div class="space-y-4 mt-6">
+                    <h4 class="font-bold text-xl">Practice Adding and Scaling Shapes:</h4>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Look at the right panel - this is where all the basic shapes are located</li>
+                        <li>Find the box/cube shape and drag it onto your workplane</li>
+                        <li>Notice the white handles on the corners and edges - try dragging these to resize the shape</li>
+                        <li>Look at the side panel on the right which shows the dimensions - experiment with typing in different values</li>
+                        <li>Try changing the height, width, and length to different values like 50mm, 100mm, or 150mm</li>
+                        <li>Notice how you can create precise measurements by typing them in</li>
+                        <li>Try deleting the shape and adding a new one with different dimensions</li>
+                    </ol>
+                </div>
+
+                <div class="carousel step-carousel">
+                    <h3 class="text-xl font-bold text-center mb-2">Exploring Shapes</h3>
+                    
+                    <!-- Zoom reminder with subtle animation -->
+                    <div class="zoom-reminder flex items-center justify-center text-sm text-blue-200 mb-3 bg-blue-900 bg-opacity-20 py-1 px-3 rounded-full mx-auto w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                        <span>Click any image to zoom in for a closer look</span>
+                    </div>
+                    
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn">&#10094;</button>
+                        <button class="carousel-btn next-btn">&#10095;</button>
+                    </div>
+                    <div class="carousel-container" id="carousel-3">
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/B5EXt3z.png" alt="Step 1: Find Shapes Panel" class="cursor-pointer">
+                            <p>Look at the right panel to find all the basic shapes available in Tinkercad. Click and drag the box shape onto your workplane to create a new 3D object.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/4MH15X5.png" alt="Step 2: Drag a Box to Workplane" class="cursor-pointer">
+                            <p>You can drag the top black arrow to move shapes up and down vertically.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/JSp8cGI.png" alt="Step 3: Resize with Handles" class="cursor-pointer">
+                            <p>Try dragging the white handles on the edges and corners to resize your object. For precise measurements, you can change the settings on the side panel.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators" id="carousel-indicators-3">
+                        <div class="carousel-indicator active" data-index="0"></div>
+                        <div class="carousel-indicator" data-index="1"></div>
+                        <div class="carousel-indicator" data-index="2"></div>
+                        
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Experimentation Tip</div>
+                    <p>Don't worry about making anything specific yet. This step is just to get comfortable with adding and manipulating shapes. Play around with different sizes and notice how the measurements work!</p>
+                </div>
+            </div>`,
+            
+            // Step 4: Setting up Basic Pot Plant Shape (formerly Step 3)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">Setting up Basic Pot Plant Shape</h3>
+                
+                <div class="video-container">
+                    <video width="100%" controls autoplay loop muted playsinline>
+                        <source src="${videos[4]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <p>Now we'll apply what we've learned to create the basic shapes for our pot plant design.</p>
+                <p class="font-bold">Delete any previous designs you were experimenting with before and start fresh!</p>
+                
+                <div class="space-y-4 mt-6">
+                    <h4 class="font-bold text-xl">Creating Your Pot Plant Base:</h4>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Choose a Box shape from the shapes panel on the right side of your screen</li>
+                        <li>Click and drag to position the box on the workplane</li>
+                        <li>In the right side panel, enter the following <strong>exact</strong> dimensions:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Length: 100 mm</li>
+                                <li>Width: 100 mm</li>
+                                <li>Height: 100 mm</li>
+                            </ul>
+                        </li>
+                        <li>This will be the outer shell of our pot plant</li>
+                        <li>Now, add a second box to the workplane</li>
+                        <li>For this second box, set the following dimensions:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Length: 80 mm</li>
+                                <li>Width: 80 mm</li>
+                                <li>Height: 120 mm</li>
+                            </ul>
+                        </li>
+                        <li>This second box will be used to hollow out the first cube in the next step</li>
+                    </ol>
+                </div>
+
+                <div class="carousel step-carousel">
+                    <h3 class="text-xl font-bold text-center mb-4">Basic Operations Steps</h3>
+                    <!-- Zoom reminder with subtle animation -->
+                    <div class="zoom-reminder flex items-center justify-center text-sm text-blue-200 mb-3 bg-blue-900 bg-opacity-20 py-1 px-3 rounded-full mx-auto w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                        <span>Click any image to zoom in for a closer look</span>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn">&#10094;</button>
+                        <button class="carousel-btn next-btn">&#10095;</button>
+                    </div>
+                    <div class="carousel-container" id="carousel-4">
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/B5EXt3z.png" alt="Step 1: Select Your Shape" class="cursor-pointer">
+                            <p>Choose a Box shape from the shapes panel on the right side of your screen and position it on the workplane.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/cexvFXU.png" alt="Step 2: Enter Exact Dimensions" class="cursor-pointer">
+                            <p>Enter 100 mm for length, width, and height to create the outer shell of the pot.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/8HrrL6T.png" alt="Step 3: Add Second Box" class="cursor-pointer">
+                            <p>Add a second box with dimensions 80 mm × 80 mm × 120 mm that will be used to hollow out the first box.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators" id="carousel-indicators-4">
+                        <div class="carousel-indicator active" data-index="0"></div>
+                        <div class="carousel-indicator" data-index="1"></div>
+                        <div class="carousel-indicator" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Precision Tip</div>
+                    <p>Using exact measurements ensures your design will be consistent and professional. Always use the side panel to enter precise values when creating functional objects.</p>
+                </div>
+            </div>`,
+            
+            // Step 5: Aligning Our Shapes (renamed from Making Holes)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">Aligning Our Shapes</h3>
+                
+                <div class="video-container">
+                    <video width="100%" controls autoplay loop muted playsinline>
+                        <source src="${videos[5]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <p>Now we'll align the two cubes we created so that they're properly positioned for creating our hollow pot plant.</p>
+                
+                <div class="space-y-4 mt-6">
+                    <h4 class="font-bold text-xl">Aligning Shapes:</h4>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Select both cubes by holding Shift while clicking on each one, or clicking and dragging over both</li>
+                        <li>Click the "Align" tool in the top toolbar (or press L on your keyboard)</li>
+                        <li>Click on the first cube we made, because we want to align to this one</li>
+                        <li>This will make some dots appear. Align the centers of both cubes horizontally by clicking the middle dots on both the X and Y axes</li>
+                        <li>Click outside the objects to exit the align tool</li>
+                    </ol>
+                </div>
+
+                <div class="tip-box">
+                    <div class="tip-title">Alignment Tip</div>
+                    <p>When you've entered alignment mode, make sure you click the object you want to align TO first. If the dots aren't appearing, make sure you've clicked the shape to select it.</p>
+                </div>
+
+                <div class="carousel step-carousel">
+                    <h3 class="text-xl font-bold text-center mb-4">Alignment Process</h3>
+                    <!-- Zoom reminder with subtle animation -->
+                    <div class="zoom-reminder flex items-center justify-center text-sm text-blue-200 mb-3 bg-blue-900 bg-opacity-20 py-1 px-3 rounded-full mx-auto w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                        <span>Click any image to zoom in for a closer look</span>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn">&#10094;</button>
+                        <button class="carousel-btn next-btn">&#10095;</button>
+                    </div>
+                    <div class="carousel-container" id="carousel-5">
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/fxbHdWG.png" alt="Step 1: Select Both Cubes" class="cursor-pointer">
+                            <p>Select both cubes by holding Shift while clicking on each one, or clicking and dragging a box over both.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/6uyU92C.png" alt="Step 2: Use Align Tool" class="cursor-pointer">
+                            <p>Click the Align tool (or press L on your keyboard). Click the first cube we made (100x100x100) and click the center dot to align it perfectly.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators" id="carousel-indicators-5">
+                        <div class="carousel-indicator active" data-index="0"></div>
+                        <div class="carousel-indicator" data-index="1"></div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Alignment Tip</div>
+                    <p>Perfect alignment is crucial when making holes. The align tool ensures your objects are perfectly centered, which is essential for creating symmetrical designs like our pot plant.</p>
+                </div>
+            </div>`,
+            
+            // Step 6: Making Holes (new dedicated step)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">Making Holes</h3>
+                
+                <div class="video-container">
+                    <video width="100%" controls autoplay loop muted playsinline>
+                        <source src="${videos[6]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                
+                <p>Now that our shapes are aligned, we'll use the hole feature to hollow out our pot plant.</p>
+                
+                <div class="space-y-4 mt-6">
+                    <h4 class="font-bold text-xl">Creating a Hollow Pot Plant:</h4>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Select the taller second cube (80×80×120mm)</li>
+                        <li>Use the vertical arrow to position it slightly higher than the first cube - the bottom should be about 5mm from the bottom of the larger cube</li>
+                        <li>Click the "Hole" button (or press H on your keyboard) to turn the smaller cube into a hole</li>
+                        <li>Select both shapes and click "Group" (or press Ctrl+G)</li>
+                        <li>The smaller cube will now create a hole in the larger cube, forming your pot plant!</li>
+                    </ol>
+                </div>
+
+                <div class="carousel step-carousel">
+                    <h3 class="text-xl font-bold text-center mb-4">Making Holes Process</h3>
+                    <!-- Zoom reminder with subtle animation -->
+                    <div class="zoom-reminder flex items-center justify-center text-sm text-blue-200 mb-3 bg-blue-900 bg-opacity-20 py-1 px-3 rounded-full mx-auto w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                        <span>Click any image to zoom in for a closer look</span>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn">&#10094;</button>
+                        <button class="carousel-btn next-btn">&#10095;</button>
+                    </div>
+                    <div class="carousel-container" id="carousel-6">
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/9GGlEcQ.png" alt="Step 1: Position Vertically" class="cursor-pointer">
+                            <p>Select the smaller cube and use the vertical arrow to position it with its bottom about 5mm from the bottom of the larger cube.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/hYjje6Z.png" alt="Step 2: Create Hole" class="cursor-pointer">
+                            <p>Select the smaller cube and click the "Hole" button or press 'H' on your keyboard. The cube will turn see-through, indicating it's now a hole.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/sKCRqdf.png" alt="Step 3: Group Objects" class="cursor-pointer">
+                            <p>Select both objects and click the Group button or hit CTRL + G to combine them, creating your hollow pot plant.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators" id="carousel-indicators-6">
+                        <div class="carousel-indicator active" data-index="0"></div>
+                        <div class="carousel-indicator" data-index="1"></div>
+                        <div class="carousel-indicator" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Hole Feature Tip</div>
+                    <p>The hole feature is what makes Tinkercad so powerful for creating complex shapes. Any object can be turned into a hole that subtracts from other objects when grouped together. Try experimenting with different hole shapes!</p>
+                </div>
+            </div>`,
+            
+            // Step 7: Grouping Objects (formerly step 5)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">(BONUS) Grouping Objects</h3>
+                
+                
+                
+                <p>You can use the group tool in a similar way to COMBINE objects to make more complex shapes.</p>
+                
+                <div class="space-y-4 mt-6">
+                    <h4 class="font-bold text-xl">Grouping and Aligning Objects:</h4>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Create multiple shapes on your workplane</li>
+                        <li>Select multiple objects by holding Shift while clicking on them</li>
+                        <li>Use the alignment tools in the top toolbar (or press L) to perfectly align objects</li>
+                        <li>Group objects together by pressing Ctrl+G (or click the Group button)</li>
+                        <li>They'll now move and rotate as one unit</li>
+                        <li>To separate them again, use Ungroup (Ctrl+Shift+G)</li>
+                    </ol>
+                    
+                    <div class="tip-box">
+                        <div class="tip-title">Grid Tip</div>
+                        <p>Hold Shift while moving objects to snap them to the grid for perfect alignment!</p>
+                    </div>
+                </div>
+
+                <div class="carousel step-carousel">
+                    <h3 class="text-xl font-bold text-center mb-4">Grouping Objects Process</h3>
+                    <!-- Zoom reminder with subtle animation -->
+                    <div class="zoom-reminder flex items-center justify-center text-sm text-blue-200 mb-3 bg-blue-900 bg-opacity-20 py-1 px-3 rounded-full mx-auto w-max">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                        <span>Click any image to zoom in for a closer look</span>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev-btn">&#10094;</button>
+                        <button class="carousel-btn next-btn">&#10095;</button>
+                    </div>
+                    <div class="carousel-container" id="carousel-7">
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/XHcPOFD.png" alt="Step 1: Create Multiple Shapes" class="cursor-pointer">
+                            <p>Add several shapes to your workspace.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/gwCpJoD.png" alt="Step 2: Align Your Objects" class="cursor-pointer">
+                            <p>Use the alignment tools in the top toolbar (or press L) to perfectly align objects. Select multiple objects by holding Shift while clicking.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="https://i.imgur.com/EWj0atF.png" alt="Step 3: Group Objects" class="cursor-pointer">
+                            <p>Select all objects you want to group, then press Ctrl+G (or click the Group button). They'll now move and rotate as one unit. You can click the ungroup button to reset this.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators" id="carousel-indicators-7">
+                        <div class="carousel-indicator active" data-index="0"></div>
+                        <div class="carousel-indicator" data-index="1"></div>
+                        <div class="carousel-indicator" data-index="2"></div>
+                    </div>
+                </div>
+            </div>`,
+            
+            // Step 8: Keyboard Shortcuts (formerly step 6)
+            `<div class="space-y-6">
+                <h3 class="text-2xl font-bold">(Optional) Keyboard Shortcuts</h3>
+                
+                
+                <p>The best designers use keyboard shortcuts to save time from having to click icons!</p>
+                <p>Learning these shortcuts will make you much faster at designing in Tinkercad.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Viewing 3D Space</h4>
+                        <div class="keyboard-shortcut">
+                            <span class="key">F</span>
+                            <span class="shortcut-description">Fit selection into view</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key"><i class="fas fa-mouse-pointer"></i></span>
+                            <span class="shortcut-description">Orbit</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Shift</span> + <span class="key"><i class="fas fa-mouse-pointer"></i></span>
+                            <span class="shortcut-description">Pan</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">+</span> / <span class="key">-</span>
+                            <span class="shortcut-description">Zoom</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Shape Properties</h4>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key">G</span>
+                            <span class="shortcut-description">Group</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">G</span>
+                            <span class="shortcut-description">Ungroup</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">H</span>
+                            <span class="shortcut-description">Make a Hole</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">S</span>
+                            <span class="shortcut-description">Make Solid Color</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">T</span>
+                            <span class="shortcut-description">Make Transparent</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Commands</h4>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key">C</span>
+                            <span class="shortcut-description">Copy</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key">V</span>
+                            <span class="shortcut-description">Paste</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key">D</span>
+                            <span class="shortcut-description">Duplicate</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Alt</span> + <span class="key"><i class="fas fa-mouse-pointer"></i></span>
+                            <span class="shortcut-description">Drag copy</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key">Z</span>
+                            <span class="shortcut-description">Undo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-base-100 bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-xl mb-3">Movement & Scaling</h4>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Shift</span> + <span class="key"><i class="fas fa-sync"></i></span>
+                            <span class="shortcut-description">Snap to 45°</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Alt</span> + <span class="key"><i class="fas fa-expand-alt"></i></span>
+                            <span class="shortcut-description">Scale about center</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Shift</span> + <span class="key"><i class="fas fa-expand-alt"></i></span>
+                            <span class="shortcut-description">Uniform scale</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key"><i class="fas fa-arrow-right"></i></span>
+                            <span class="shortcut-description">Move 1 grid space</span>
+                        </div>
+                        <div class="keyboard-shortcut">
+                            <span class="key">Ctrl</span> + <span class="key"><i class="fas fa-arrow-up"></i></span>
+                            <span class="shortcut-description">Move up/down</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <div class="tip-title">Practice Tip</div>
+                    <p>Try to learn just 2-3 shortcuts at a time. Once those become second nature, add a few more to your memory!</p>
+                </div>
+
+                
+            </div>`
+        ];
+
+        // Set up the step navigation and content
+        const steps = document.querySelectorAll('.tutorial-step');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const stepContent = document.getElementById('step-content');
+        const progressBar = document.querySelector('.progress');
+        const progressPercentage = document.getElementById('progress-percentage');
+        let currentStep = 0;
+
+        // Image modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        let isZoomed = false;
+
+        document.addEventListener('click', function(e) {
+            // Allow both step content images and carousel images to be clicked for zoom
+            if (e.target.matches('.step-content img:not(.carousel-slide img)') || e.target.matches('.carousel-slide img')) {
+                modal.style.display = 'block';
+                modalImg.src = e.target.src;
+            }
         });
+
+        modal.addEventListener('click', function() {
+            if (isZoomed) {
+                modal.classList.remove('zoomed');
+                isZoomed = false;
+            } else {
+                modal.style.display = 'none';
+            }
+        });
+
+        modalImg.addEventListener('click', function(e) {
+            e.stopPropagation();
+            modal.classList.toggle('zoomed');
+            isZoomed = !isZoomed;
+        });
+
+        // Carousel functionality
+        function initCarousel(stepNumber) {
+            const container = document.getElementById(`carousel-${stepNumber}`);
+            if (!container) return;
+            
+            const indicators = document.getElementById(`carousel-indicators-${stepNumber}`);
+            if (!indicators) return;
+            
+            const slides = container.querySelectorAll('.carousel-slide');
+            let currentIndex = 0;
+            
+            // Setup indicators
+            indicators.querySelectorAll('.carousel-indicator').forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+            
+            // Setup prev/next buttons
+            const prevBtn = container.parentElement.querySelector('.prev-btn');
+            const nextBtn = container.parentElement.querySelector('.next-btn');
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    goToSlide(currentIndex - 1);
+                } else {
+                    goToSlide(slides.length - 1);
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < slides.length - 1) {
+                    goToSlide(currentIndex + 1);
+                } else {
+                    goToSlide(0);
+                }
+            });
+            
+            function goToSlide(index) {
+                container.scrollLeft = container.clientWidth * index;
+                currentIndex = index;
+                
+                // Update indicators
+                indicators.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
+                    indicator.classList.toggle('active', i === index);
+                });
+            }
+        }
+
+        // Tutorial navigation
+        function updateButtons() {
+            prevButton.disabled = currentStep === 0;
+            
+            // Check if we're on the last step
+            if (currentStep === steps.length - 1) {
+                // Hide the next/finish button on the last step
+                nextButton.style.display = 'none';
+            } else {
+                // Otherwise show the button and set its text
+                nextButton.style.display = 'block';
+                nextButton.textContent = 'Next';
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep + 1) / steps.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${Math.round(progress)}%`;
+        }
+
+        function showStep(step) {
+    steps.forEach(s => s.classList.remove('active'));
+    steps[step].classList.add('active');
+    currentStep = step;
+    updateButtons();
+    updateProgress();
+    stepContent.innerHTML = stepContents[step];
+    
+    // Scroll the main-content div to the top
+    document.querySelector('.main-content').scrollTop = 0;
+    
+    // Initialize the carousel for all steps that have them
+    setTimeout(() => {
+        initCarousel(step);
+    }, 100);
+}
+
+        steps.forEach((step, index) => {
+            step.addEventListener('click', () => showStep(index));
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentStep > 0) showStep(currentStep - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentStep < steps.length - 1) {
+                showStep(currentStep + 1);
+            }
+        });
+
+        // Setup creator name with sound and confetti effects
+document.getElementById('creator-name').addEventListener('click', function(e) {
+    // Play sound effect
+    const quackSound = new Audio('/sounds/quack.mp3');
+    quackSound.play();
+    
+    // Fire confetti
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.8 },
+        colors: ['#FFD700', '#87CEEB', '#57708e', '#002654']
+    });
+    
+    // Fire another burst of confetti after a short delay for more effect
+    setTimeout(() => {
+        confetti({
+            particleCount: 50,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0.1, y: 0.8 },
+            colors: ['#FFD700', '#57708e', '#002654']
+        });
+        
+        confetti({
+            particleCount: 50,
+            angle: 120,
+            spread: 55,
+            origin: { x: 0.9, y: 0.8 },
+            colors: ['#87CEEB', '#57708e', '#002654']
+        });
+    }, 250);
+});
+
+        // Initialize first step
+        showStep(0);
     </script>
 </body>
 </html>
