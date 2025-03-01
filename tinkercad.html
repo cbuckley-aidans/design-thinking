@@ -74,12 +74,37 @@
             align-items: center;
             overflow-y: auto;
             padding: 2rem;
+            /* Custom scrollbar styling for main content */
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
         }
+        
+        /* Webkit scrollbar styling for main content */
+        .main-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
         .content-wrapper {
             width: 100%;
-            max-width: 800px;
+            max-width: 1000px; /* Increased from 800px to use more space */
             margin: 0 auto;
         }
+        
         .tutorial-step {
             background-color: rgba(87, 112, 142, 0.2);
             border-radius: 10px;
@@ -192,6 +217,13 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
+            /* Improve clickability with larger hit area */
+            padding: 5px;
+            transition: transform 0.2s ease;
+        }
+        .carousel-slide img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
         .carousel-slide p {
             margin-top: 0.75rem;
@@ -342,6 +374,43 @@
         .animate-pulse {
             animation: gentle-pulse 2s infinite;
         }
+        
+        .alert-box {
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .alert-warning {
+            border-color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        
+        .alert-danger {
+            border-color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+        
+        .alert-info {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Responsive adjustments for large screens */
+        @media (min-width: 1440px) {
+            .content-wrapper {
+                max-width: 1200px;
+            }
+        }
+        
+        /* Responsive adjustments for extra large screens */
+        @media (min-width: 1920px) {
+            .content-wrapper {
+                max-width: 1400px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -407,9 +476,6 @@
     </div>
 
     <script>
-
-
-
         // Tutorial video sources for each step
         const videos = {
             1: "https://i.imgur.com/RHAAdHr.mp4",
@@ -900,7 +966,7 @@
             
             // Step 8: Keyboard Shortcuts (formerly step 6)
             `<div class="space-y-6">
-                <h3 class="text-2xl font-bold">(Optional) Keyboard Shortcuts</h3>
+                <h3 class="text-2xl font-bold">(BONUS) Keyboard Shortcuts</h3>
                 
                 
                 <p>The best designers use keyboard shortcuts to save time from having to click icons!</p>
@@ -1046,7 +1112,7 @@
             isZoomed = !isZoomed;
         });
 
-        // Carousel functionality
+        // Carousel functionality - improved from template
         function initCarousel(stepNumber) {
             const container = document.getElementById(`carousel-${stepNumber}`);
             if (!container) return;
@@ -1055,6 +1121,8 @@
             if (!indicators) return;
             
             const slides = container.querySelectorAll('.carousel-slide');
+            if (slides.length === 0) return;
+            
             let currentIndex = 0;
             
             // Setup indicators
@@ -1093,6 +1161,13 @@
                     indicator.classList.toggle('active', i === index);
                 });
             }
+            
+            // Hide carousel controls if only one slide
+            if (slides.length <= 1) {
+                const controls = container.parentElement.querySelector('.carousel-controls');
+                if (controls) controls.style.display = 'none';
+                indicators.style.display = 'none';
+            }
         }
 
         // Tutorial navigation
@@ -1101,10 +1176,10 @@
             
             // Check if we're on the last step
             if (currentStep === steps.length - 1) {
-                // Hide the next/finish button on the last step
+                // Hide the next button on the last step instead of showing "Finish"
                 nextButton.style.display = 'none';
             } else {
-                // Otherwise show the button and set its text
+                // Otherwise show the button
                 nextButton.style.display = 'block';
                 nextButton.textContent = 'Next';
             }
@@ -1117,21 +1192,34 @@
         }
 
         function showStep(step) {
-    steps.forEach(s => s.classList.remove('active'));
-    steps[step].classList.add('active');
-    currentStep = step;
-    updateButtons();
-    updateProgress();
-    stepContent.innerHTML = stepContents[step];
-    
-    // Scroll the main-content div to the top
-    document.querySelector('.main-content').scrollTop = 0;
-    
-    // Initialize the carousel for all steps that have them
-    setTimeout(() => {
-        initCarousel(step);
-    }, 100);
-}
+            steps.forEach(s => s.classList.remove('active'));
+            steps[step].classList.add('active');
+            currentStep = step;
+            updateButtons();
+            updateProgress();
+            
+            // If we have content for this step, use it
+            if (step < stepContents.length) {
+                stepContent.innerHTML = stepContents[step];
+                
+                // Replace video URL if available
+                if (videos[step] && videos[step] !== "") {
+                    const videoElement = stepContent.querySelector('video source');
+                    if (videoElement) {
+                        videoElement.src = videos[step];
+                        videoElement.parentElement.load();
+                    }
+                }
+            }
+            
+            // Scroll the main-content div to the top
+            document.querySelector('.main-content').scrollTop = 0;
+            
+            // Initialize the carousel for this step
+            setTimeout(() => {
+                initCarousel(step);
+            }, 100);
+        }
 
         steps.forEach((step, index) => {
             step.addEventListener('click', () => showStep(index));
@@ -1147,39 +1235,35 @@
             }
         });
 
-        // Setup creator name with sound and confetti effects
-document.getElementById('creator-name').addEventListener('click', function(e) {
-    // Play sound effect
-    const quackSound = new Audio('/sounds/quack.mp3');
-    quackSound.play();
-    
-    // Fire confetti
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.8 },
-        colors: ['#FFD700', '#87CEEB', '#57708e', '#002654']
-    });
-    
-    // Fire another burst of confetti after a short delay for more effect
-    setTimeout(() => {
-        confetti({
-            particleCount: 50,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0.1, y: 0.8 },
-            colors: ['#FFD700', '#57708e', '#002654']
+        // Setup creator name with confetti effects
+        document.getElementById('creator-name').addEventListener('click', function(e) {
+            // Fire confetti
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#FFD700', '#87CEEB', '#57708e', '#002654']
+            });
+            
+            // Fire another burst of confetti after a short delay for more effect
+            setTimeout(() => {
+                confetti({
+                    particleCount: 50,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0.1, y: 0.8 },
+                    colors: ['#FFD700', '#57708e', '#002654']
+                });
+                
+                confetti({
+                    particleCount: 50,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 0.9, y: 0.8 },
+                    colors: ['#87CEEB', '#57708e', '#002654']
+                });
+            }, 250);
         });
-        
-        confetti({
-            particleCount: 50,
-            angle: 120,
-            spread: 55,
-            origin: { x: 0.9, y: 0.8 },
-            colors: ['#87CEEB', '#57708e', '#002654']
-        });
-    }, 250);
-});
 
         // Initialize first step
         showStep(0);
