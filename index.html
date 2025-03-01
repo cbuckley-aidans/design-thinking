@@ -4,162 +4,289 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Design Process</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <style>
-        body {
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body, html {
             margin: 0;
             padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
             min-height: 100vh;
-            background: #262626;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
+            overflow-x: hidden;
         }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #fff;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            font-weight: 300;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            justify-items: center;
-        }
-
-        .card {
-            width: 150px;
-            height: 150px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            border: 3px solid #fff;
-        }
-
-        .card a {
+        
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: #fff;
-            text-align: center;
+            background: linear-gradient(45deg, #262626, #4a4a4a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -1;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 2rem;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+        }
+        
+        .card {
+            width: 240px;
+            height: 320px;
+            background-color: rgba(74, 74, 74, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+            background-color: rgba(74, 74, 74, 0.4);
+        }
+        
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--accent-color);
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .card-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             position: relative;
             z-index: 1;
+            transition: all 0.3s ease;
         }
-
-        .card i {
-            font-size: 40px;
-            color: #262626;
-            transition: .5s;
-            z-index: 3;
+        
+        .card:hover .card-icon {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
         }
-
-        .card span {
-            margin-top: 10px;
-            color: #262626;
-            font-weight: bold;
-            transition: .5s;
-            z-index: 3;
+        
+        .card-icon i {
+            font-size: 2.5rem;
+            color: white;
         }
-
-        .card a:before {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: .5s;
-            z-index: 2;
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            color: white;
         }
-
-        .card:hover i,
-        .card:hover span {
-            color: #fff;
-            transform: rotateY(360deg);
+        
+        .card-description {
+            font-size: 0.875rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
         }
-
-        .card:hover a:before {
-            top: 0;
+        
+        .card-empathise {
+            --accent-color: #FF6B6B;
         }
-
-        .card:nth-child(1) a:before {
-            background: #FF6B6B;
+        
+        .card-define {
+            --accent-color: #4ECDC4;
         }
-
-        .card:nth-child(2) a:before {
-            background: #4ECDC4;
+        
+        .card-ideate {
+            --accent-color: #45B7D1;
         }
-
-        .card:nth-child(3) a:before {
-            background: #45B7D1;
+        
+        .card-prototype {
+            --accent-color: #96CEB4;
         }
-
-        .card:nth-child(4) a:before {
-            background: #96CEB4;
+        
+        .card-tinkercad {
+            --accent-color: #6C5B7B;
         }
-
-        .card:nth-child(5) a:before {
-            background: #6C5B7B;
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .card {
+                width: 90%;
+                max-width: 320px;
+                height: auto;
+                min-height: 260px;
+            }
+            
+            .title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="background"></div>
+    
     <div class="container">
-        <h1>Design Process</h1>
-        <div class="grid">
-            <div class="card">
-                <a href="empathise.html">
+        <h1 class="title">Design Process</h1>
+        
+        <div class="search-container">
+            <div class="relative flex items-center max-w-md mx-auto mb-8">
+                <input type="text" id="searchInput" placeholder="Search design stages..." class="w-full py-3 pl-12 pr-4 text-gray-800 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <div class="absolute left-3">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cards-container">
+            <a href="empathise.html" class="card card-empathise">
+                <div class="card-icon">
                     <i class="fa-solid fa-heart"></i>
-                    <span>Empathise</span>
-                </a>
-            </div>
-            <div class="card">
-                <a href="define.html">
+                </div>
+                <h2 class="card-title">Empathise</h2>
+                <p class="card-description">Understanding the needs and challenges of your users through research and observation.</p>
+            </a>
+            
+            <a href="define.html" class="card card-define">
+                <div class="card-icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <span>Define</span>
-                </a>
-            </div>
-            <div class="card">
-                <a href="ideate.html">
+                </div>
+                <h2 class="card-title">Define</h2>
+                <p class="card-description">Clearly articulating the problem based on user needs and insights.</p>
+            </a>
+            
+            <a href="ideate.html" class="card card-ideate">
+                <div class="card-icon">
                     <i class="fa-solid fa-lightbulb"></i>
-                    <span>Ideate</span>
-                </a>
-            </div>
-            <div class="card">
-                <a href="prototype.html">
+                </div>
+                <h2 class="card-title">Ideate</h2>
+                <p class="card-description">Generating a wide range of creative solutions to address the defined problem.</p>
+            </a>
+            
+            <a href="prototype.html" class="card card-prototype">
+                <div class="card-icon">
                     <i class="fa-solid fa-cube"></i>
-                    <span>Prototype</span>
-                </a>
-            </div>
-            <div class="card">
-                <a href="tinkercad.html">
+                </div>
+                <h2 class="card-title">Prototype</h2>
+                <p class="card-description">Building representations of potential solutions to test and refine.</p>
+            </a>
+            
+            <a href="tinkercad.html" class="card card-tinkercad">
+                <div class="card-icon">
                     <i class="fa-solid fa-toolbox"></i>
-                    <span>TinkerCad Prototyping</span>
-                </a>
-            </div>
-
+                </div>
+                <h2 class="card-title">TinkerCad Prototyping</h2>
+                <p class="card-description">Creating 3D models and prototypes using the TinkerCad platform.</p>
+            </a>
         </div>
     </div>
+    <script>
+        // Search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const cards = document.querySelectorAll('.card');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                cards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const description = card.querySelector('.card-description').textContent.toLowerCase();
+                    const isVisible = title.includes(searchTerm) || description.includes(searchTerm);
+                    
+                    // Using opacity for a smooth transition
+                    if (isVisible) {
+                        card.style.display = '';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+                
+                // Show a message if no results found
+                const visibleCards = Array.from(cards).filter(card => card.style.display !== 'none');
+                const noResultsMessage = document.getElementById('no-results-message');
+                
+                if (visibleCards.length === 0 && searchTerm !== '') {
+                    if (!noResultsMessage) {
+                        const message = document.createElement('div');
+                        message.id = 'no-results-message';
+                        message.className = 'text-center my-8 text-white bg-opacity-50 bg-gray-800 p-4 rounded';
+                        message.innerHTML = 'No matching design stages found. Try a different search term.';
+                        document.querySelector('.cards-container').before(message);
+                    }
+                } else if (noResultsMessage) {
+                    noResultsMessage.remove();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
