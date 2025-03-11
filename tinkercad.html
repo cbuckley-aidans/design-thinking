@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/intro.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/introjs.min.css">
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
@@ -346,6 +348,7 @@
             width: 100%;
             padding: 0 1rem;
             pointer-events: none;
+            z-index: 10;
         }
 
         .carousel-btn {
@@ -822,7 +825,6 @@
         const stepInstructions = [
             // Step 0: Learning Intentions and Success Criteria
             `<h3 class="text-xl font-bold mb-4">Learning Intentions and Success Criteria</h3>
-            <p class="mb-4">This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools.</p>
             
             <div class="mb-4">
                 <p class="font-bold mb-2">Learning Intentions:</p>
@@ -1053,6 +1055,16 @@
                     <p class="font-bold">Tutorial Overview</p>
                     <p>This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools. You'll learn how to navigate in 3D space, manipulate shapes, and use the hole feature to create hollow objects.</p>
                 </div>
+
+                <div class="alert-box alert-warning mt-4">
+                    <p class="font-bold"><i class="fas fa-info-circle"></i> Unsure how to use this resource?</p>
+                    <p class="mb-4 mt-4">Click the button below to learn how to navigate the page.</p>
+                    <button id="startWalkthrough" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                        <i class="fas fa-walking mr-2"></i> Start Interactive Tour
+                    </button>
+                </div>
+                
+                
             </div>`,
             
             // Step 1: Creating a New Design
@@ -1623,6 +1635,67 @@
 
         // Initialize with first step
         showStep(0);
+        
+        // Walkthrough functionality using intro.js
+        document.getElementById('startWalkthrough').addEventListener('click', function() {
+            // Set to a specific step before starting the tour (optional)
+            showStep(3); // Show step 3 (index 2) for the walkthrough
+            
+            // Initialize intro.js
+            const intro = introJs();
+            
+            intro.setOptions({
+                steps: [
+                    {
+                        element: document.querySelector('.nav-panel'),
+                        intro: 'Use these numbered icons to navigate between different steps of the tutorial. Click on any number to jump directly to that step.',
+                        position: 'right'
+                    },
+                    {
+                        element: document.querySelector('.instruction-panel'),
+                        intro: 'Read the step-by-step instructions in this middle panel. These detailed instructions will guide you through each part of the tutorial.',
+                        position: 'right'
+                    },
+                    {
+                        element: document.querySelector('.video-container'),
+                        intro: 'Watch demonstration videos that show exactly how to perform each action in Tinkercad.',
+                        position: 'left'
+                    },
+                    {
+                        element: document.querySelector('.carousel'),
+                        intro: 'Browse through images showing different aspects of the current step. Click on any image to see it in full size.',
+                        position: 'left'
+                    },
+                    {
+                        element: document.querySelector('.navigation'),
+                        intro: 'Use these buttons to move forward and backward through the tutorial steps.',
+                        position: 'top'
+                    },
+                    {
+                        element: document.getElementById('current-step-title'),
+                        intro: 'This shows which step you are currently viewing. Always check this to know where you are in the tutorial.',
+                        position: 'bottom'
+                    }
+                ],
+                showBullets: true,
+                showProgress: true,
+                disableInteraction: false,
+                doneLabel: 'Got it!'
+            });
+            
+            intro.start();
+            
+            // After tour completes, show a success message
+            intro.oncomplete(function() {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#0066cc', '#87CEEB', '#57708e', '#002654']
+                });
+                showStep(0);
+            });
+        });
     </script>
 </body>
 </html>
