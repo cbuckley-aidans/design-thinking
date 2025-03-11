@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<!--Alternative design-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinkercad Basics Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header styling */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background-color: white;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 1rem;
+        }
+
+        .nav-item {
+            margin: 0 1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .right-nav {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-select {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-left: 1rem;
+        }
+
+        /* Main container with three panels */
+        .main-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        /* Left sidebar navigation panel */
+        .nav-panel {
+            width: 75px;
+            min-width: 75px;
+            background-color: white;
+            border-right: 1px solid #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid transparent;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .step-icon:hover, .step-icon.active {
+            border-color: #0066cc;
+            background-color: rgba(0, 102, 204, 0.1);
+        }
+
+        .step-tooltip {
+            position: absolute;
+            left: 60px;
+            background-color: #333;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 10;
+        }
+
+        .step-icon:hover .step-tooltip {
+            opacity: 1;
+        }
+
+        /* Middle instruction panel */
+        /* Instruction panel with fixed width and styling */
+        .instruction-panel {
+            width: 450px;
+            min-width: 450px;
+            max-width: 450px;
+            background-color: white;
+            border-right: 1px solid #e5e5e5;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .panel-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .step-content-instructions {
+            margin-top: 1rem;
+        }
+
+        /* Main content area */
+        .content-display {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            background-color: white;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #cce5ff;
+        }
+
+        .content-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0066cc;
+        }
+
+        .content-actions {
+            display: flex;
+        }
+
+        .action-button {
+            margin-left: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            border: none;
+            background-color: #0066cc;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .action-button:hover {
+            background-color: #0055aa;
+        }
+
+        .tab-content {
+            padding: 1rem;
+            min-height: 400px;
+        }
+
+        /* Step content styling - Apply consistent sizing and spacing */
+        .step-instructions h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .step-instructions p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .step-instructions h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #0066cc;
+        }
+        
+        .steps-list {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .steps-list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+        
+        .steps-list ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .steps-list ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            margin-bottom: 1rem;
+        }
+
+        .step-instruction {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-bullet {
+            color: #0066cc;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        /* Media containers */
+        .video-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Carousel with fixed sizing */
+        .carousel {
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .carousel-container {
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .carousel-slide img {
+            max-height: 280px;
+            max-width: 90%;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .carousel-slide img:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel-slide img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .carousel-slide img:hover::after {
+            opacity: 1;
+        }
+
+        .carousel-slide p {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 0 1rem;
+            pointer-events: none;
+        }
+
+        .carousel-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .carousel-indicator.active {
+            background-color: #0066cc;
+        }
+
+        .tip-box {
+            background-color: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip-title {
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .alert-box {
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background-color: #e6f7ff;
+            border-color: #1890ff;
+        }
+
+        .alert-warning {
+            background-color: #fffbe6;
+            border-color: #faad14;
+        }
+
+        .steps-list {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .steps-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Image modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #0066cc;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: translate(-50%, -50%) scale(0.9); }
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* Wave styling */
+        .wave-divider {
+            margin: 0.5rem 0;
+            height: 20px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230099ff' fill-opacity='1' d='M0,192L40,213.3C80,235,160,277,240,272C320,267,400,213,480,202.7C560,192,640,224,720,229.3C800,235,880,213,960,181.3C1040,149,1120,107,1200,101.3C1280,96,1360,128,1400,144L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        /* Navigation buttons with blue styling */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+            justify-content: center;
+        }
+        
+        .nav-button:hover:not(:disabled) {
+            background-color: #0055aa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .nav-button i {
+            margin: 0 8px;
+        }
+
+        /* Progress indicator */
+        .progress-container {
+            margin-top: 1rem;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background-color: #eee;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #0066cc;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        #creator-name {
+            color: #0066cc;
+            cursor: pointer;
+        }
+
+        .instruction-content {
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .instruction-arrow {
+            color: #0099ff;
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        /* Click-to-zoom hint */
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .carousel-slide:hover .zoom-hint {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Panel - Step Icons Navigation -->
+        <div class="nav-panel">
+            <div class="step-icon active" data-step="0">
+                <i class="fas fa-list-ol"></i>
+                <div class="step-tooltip">Learning Intentions</div>
+            </div>
+            <div class="step-icon" data-step="1">
+                <span>1</span>
+                <div class="step-tooltip">Creating a New Design</div>
+            </div>
+            <div class="step-icon" data-step="2">
+                <span>2</span>
+                <div class="step-tooltip">Basic Controls</div>
+            </div>
+            <div class="step-icon" data-step="3">
+                <span>3</span>
+                <div class="step-tooltip">Exploring Basic Shapes</div>
+            </div>
+            <div class="step-icon" data-step="4">
+                <span>4</span>
+                <div class="step-tooltip">Basic Pot Plant Shape</div>
+            </div>
+            <div class="step-icon" data-step="5">
+                <span>5</span>
+                <div class="step-tooltip">Aligning Shapes</div>
+            </div>
+            <div class="step-icon" data-step="6">
+                <span>6</span>
+                <div class="step-tooltip">Making Holes</div>
+            </div>
+            <div class="step-icon" data-step="7">
+                <span>7</span>
+                <div class="step-tooltip">Grouping Objects</div>
+            </div>
+            <div class="step-icon" data-step="8">
+                <span>8</span>
+                <div class="step-tooltip">Keyboard Shortcuts</div>
+            </div>
+        </div>
+
+        <!-- Middle Panel - Text Instructions -->
+        <div class="instruction-panel">
+            
+
+            <div id="current-step-title" class="text-2xl font-bold mb-4 text-blue-800">Print Hello</div>
+            
+            <div class="wave-divider"></div>
+            
+
+            
+            
+
+            <div class="step-content-instructions step-instructions" id="step-instructions">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation">
+                <button id="prevButton" class="nav-button" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                <button id="nextButton" class="nav-button">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-text">Progress: <span id="progress-percentage">11%</span></div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 11%;"></div>
+                </div>
+            </div>
+
+            <div class="footer">
+                Made by <span id="creator-name">Buckley</span> with ♥️
+            </div>
+        </div>
+
+        <!-- Main Content Area - Media Display -->
+        <div class="content-display">
+            <div class="content-header">
+                <div class="content-title">Tinkercad Basics Tutorial</div>
+            </div>
+
+            <div class="tab-content" id="media-content">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" class="modal-content">
+    </div>
+
+    <script>
+        // Tutorial video sources for each step
+        const videos = {
+            1: "https://i.imgur.com/RHAAdHr.mp4",
+            2: "https://i.imgur.com/k5aOMUy.mp4",
+            3: "https://i.imgur.com/FD0MXNi.mp4",
+            4: "https://i.imgur.com/05B0S7I.mp4",
+            5: "https://i.imgur.com/OxkhZee.mp4",
+            6: "https://i.imgur.com/364mIVD.mp4",
+            7: "",
+            8: "",
+        };
+
+        // Step titles for each step
+        const stepTitles = [
+            "Learning Intentions and Success Criteria",
+            "Creating a New Design",
+            "Basic Controls",
+            "Exploring Basic Shapes",
+            "Setting up Basic Pot Plant Shape",
+            "Aligning Our Shapes",
+            "Making Holes",
+            "(BONUS) Grouping Objects",
+            "(BONUS) Keyboard Shortcuts"
+        ];
+
+        // Tutorial content - split into instructions (middle panel) and media (right panel)
+        const stepInstructions = [
+            // Step 0: Learning Intentions and Success Criteria
+            `<h3 class="text-xl font-bold mb-4">Learning Intentions and Success Criteria</h3>
+            <p class="mb-4">This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools.</p>
+            
+            <div class="mb-4">
+                <p class="font-bold mb-2">Learning Intentions:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>Learn the basic navigation controls of Tinkercad</li>
+                    <li>Create and align basic shapes</li>
+                    <li>Use holes and grouping to cut out more complex shapes</li>
+                </ul>
+            </div>
+            
+            <div>
+                <p class="font-bold mb-2">Success Criteria:</p>
+                <ul class="list-disc pl-5">
+                    <li>You successfully follow along to make a basic hollow pot plant design.</li>
+                </ul>
+            </div>`,
+            
+            // Step 1: Creating a New Design
+            `<h3 class="text-xl font-bold mb-4">Creating a New Design</h3>
+            <p class="mb-4">Before you can start modeling in 3D, you need to create a new design in Tinkercad.</p>
+            
+            <h4 class="font-bold mb-2">Creating a New 3D Design from Dashboard:</h4>
+            <ol class="steps-list">
+                <li>Log in to your Tinkercad account</li>
+                <li>On the dashboard, look for the blue "+ Create" button</li>
+                <li>Click on "3D Design" to start a new 3D project</li>
+                <li>Tinkercad will open a new workspace with an empty workplane</li>
+                <li>Give your design a name by clicking on the randomly generated title in the top-left corner</li>
+            </ol>`,
+            
+            // Step 2: Basic Controls
+            `<h3 class="text-xl font-bold mb-4">Basic Controls</h3>
+            <p class="mb-4">When you open up your first 3D design, you'll need to quickly figure out how to get around. Practice these controls first!</p>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">Pan (Moving Around)</h4>
+                <p>Hold Shift + Right Click + Drag</p>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">Rotate</h4>
+                <p>Right Click + Drag</p>
+                <p class="text-sm">OR drag or click the faces of the cube at the top left</p>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">Zoom</h4>
+                <p>Scroll Wheel or Two Finger Trackpad Glide or + / - Keys</p>
+            </div>
+            
+            <div class="tip-box">
+                <div class="tip-title">Practice Tip</div>
+                <p>Getting good at moving around in 3D space is the first step to becoming a skilled designer. Try spending 2 minutes just practicing these controls before you start designing.</p>
+            </div>`,
+            
+            // Step 3: Exploring Basic Shapes
+            `<h3 class="text-xl font-bold mb-4">Exploring Basic Shapes</h3>
+            <p class="mb-4">Let's get comfortable with adding shapes and resizing them. This is a playground step - just experiment!</p>
+            
+            <h4 class="font-bold mb-2">Practice Adding and Scaling Shapes:</h4>
+            <ol class="steps-list">
+                <li>Look at the right panel - this is where all the basic shapes are located</li>
+                <li>Find the box/cube shape and drag it onto your workplane</li>
+                <li>Notice the white handles on the corners and edges - try dragging these to resize the shape</li>
+                <li>Look at the side panel on the right which shows the dimensions - experiment with typing in different values</li>
+                <li>Try changing the height, width, and length to different values like 50mm, 100mm, or 150mm</li>
+                <li>Notice how you can create precise measurements by typing them in</li>
+                <li>Try deleting the shape and adding a new one with different dimensions</li>
+            </ol>
+            
+            <div class="tip-box">
+                <div class="tip-title">Experimentation Tip</div>
+                <p>Don't worry about making anything specific yet. This step is just to get comfortable with adding and manipulating shapes. Play around with different sizes and notice how the measurements work!</p>
+            </div>`,
+            
+            // Step 4: Setting up Basic Pot Plant Shape
+            `<h3 class="text-xl font-bold mb-4">Setting up Basic Pot Plant Shape</h3>
+            <p class="mb-4">Now we'll apply what we've learned to create the basic shapes for our pot plant design.</p>
+            <p class="font-bold mb-4">Delete any previous designs you were experimenting with before and start fresh!</p>
+            
+            <h4 class="font-bold mb-2">Creating Your Pot Plant Base:</h4>
+            <ol class="steps-list">
+                <li>Choose a Box shape from the shapes panel on the right side of your screen</li>
+                <li>Click and drag to position the box on the workplane</li>
+                <li>In the right side panel, enter the following <strong>exact</strong> dimensions:
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>Length: 100 mm</li>
+                        <li>Width: 100 mm</li>
+                        <li>Height: 100 mm</li>
+                    </ul>
+                </li>
+                <li>This will be the outer shell of our pot plant</li>
+                <li>Now, add a second box to the workplane</li>
+                <li>For this second box, set the following dimensions:
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>Length: 80 mm</li>
+                        <li>Width: 80 mm</li>
+                        <li>Height: 120 mm</li>
+                    </ul>
+                </li>
+                <li>This second box will be used to hollow out the first cube in the next step</li>
+            </ol>
+            
+            <div class="tip-box">
+                <div class="tip-title">Precision Tip</div>
+                <p>Using exact measurements ensures your design will be consistent and professional. Always use the side panel to enter precise values when creating functional objects.</p>
+            </div>`,
+            
+            // Step 5: Aligning Our Shapes
+            `<h3 class="text-xl font-bold mb-4">Aligning Our Shapes</h3>
+            <p class="mb-4">Now we'll align the two cubes we created so that they're properly positioned for creating our hollow pot plant.</p>
+            
+            <h4 class="font-bold mb-2">Aligning Shapes:</h4>
+            <ol class="steps-list">
+                <li>Select both cubes by holding Shift while clicking on each one, or clicking and dragging over both</li>
+                <li>Click the "Align" tool in the top toolbar (or press L on your keyboard)</li>
+                <li>Click on the first cube we made, because we want to align to this one</li>
+                <li>This will make some dots appear. Align the centers of both cubes horizontally by clicking the middle dots on both the X and Y axes</li>
+                <li>Click outside the objects to exit the align tool</li>
+            </ol>
+            
+            <div class="tip-box">
+                <div class="tip-title">Alignment Tip</div>
+                <p>When you've entered alignment mode, make sure you click the object you want to align TO first. If the dots aren't appearing, make sure you've clicked the shape to select it.</p>
+            </div>`,
+            
+            // Step 6: Making Holes
+            `<h3 class="text-xl font-bold mb-4">Making Holes</h3>
+            <p class="mb-4">Now that our shapes are aligned, we'll use the hole feature to hollow out our pot plant.</p>
+            
+            <h4 class="font-bold mb-2">Creating a Hollow Pot Plant:</h4>
+            <ol class="steps-list">
+                <li>Select the taller second cube (80×80×120mm)</li>
+                <li>Use the vertical arrow to position it slightly higher than the first cube - the bottom should be about 5mm from the bottom of the larger cube</li>
+                <li>Click the "Hole" button (or press H on your keyboard) to turn the smaller cube into a hole</li>
+                <li>Select both shapes and click "Group" (or press Ctrl+G)</li>
+                <li>The smaller cube will now create a hole in the larger cube, forming your pot plant!</li>
+            </ol>
+            
+            <div class="tip-box">
+                <div class="tip-title">Hole Feature Tip</div>
+                <p>The hole feature is what makes Tinkercad so powerful for creating complex shapes. Any object can be turned into a hole that subtracts from other objects when grouped together. Try experimenting with different hole shapes!</p>
+            </div>`,
+            
+            // Step 7: Grouping Objects
+            `<h3 class="text-xl font-bold mb-4">(BONUS) Grouping Objects</h3>
+            <p class="mb-4">You can use the group tool in a similar way to COMBINE objects to make more complex shapes.</p>
+            
+            <h4 class="font-bold mb-2">Grouping and Aligning Objects:</h4>
+            <ol class="steps-list">
+                <li>Create multiple shapes on your workplane</li>
+                <li>Select multiple objects by holding Shift while clicking on them</li>
+                <li>Use the alignment tools in the top toolbar (or press L) to perfectly align objects</li>
+                <li>Group objects together by pressing Ctrl+G (or click the Group button)</li>
+                <li>They'll now move and rotate as one unit</li>
+                <li>To separate them again, use Ungroup (Ctrl+Shift+G)</li>
+            </ol>
+            
+            <div class="tip-box">
+                <div class="tip-title">Grid Tip</div>
+                <p>Hold Shift while moving objects to snap them to the grid for perfect alignment!</p>
+            </div>`,
+            
+            // Step 8: Keyboard Shortcuts
+            `<h3 class="text-xl font-bold mb-4">(BONUS) Keyboard Shortcuts</h3>
+            <p class="mb-4">The best designers use keyboard shortcuts to save time from having to click icons!</p>
+            <p class="mb-4">Learning these shortcuts will make you much faster at designing in Tinkercad.</p>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">Viewing 3D Space</h4>
+                <ul class="list-disc pl-5">
+                    <li><strong>F</strong>: Fit selection into view</li>
+                    <li><strong>Ctrl + Right-click</strong>: Orbit</li>
+                    <li><strong>Shift + Right-click</strong>: Pan</li>
+                    <li><strong>+ / -</strong>: Zoom</li>
+                </ul>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="font-bold mb-2">Shape Properties</h4>
+                <ul class="list-disc pl-5">
+                    <li><strong>Ctrl + G</strong>: Group</li>
+                    <li><strong>Ctrl + Shift + G</strong>: Ungroup</li>
+                    <li><strong>H</strong>: Make a Hole</li>
+                    <li><strong>S</strong>: Make Solid Color</li>
+                    <li><strong>T</strong>: Make Transparent</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <div class="tip-title">Practice Tip</div>
+                <p>Try to learn just 2-3 shortcuts at a time. Once those become second nature, add a few more to your memory!</p>
+            </div>`
+        ];
+
+        const stepMedia = [
+            // Step 0: Learning Intentions and Success Criteria
+            `<div class="intro-section p-6 rounded-lg" style="background: linear-gradient(135deg, rgba(41, 121, 255, 0.1), rgba(0, 38, 84, 0.2)); border: 1px solid rgba(0, 102, 204, 0.2);">
+                <div class="text-center mb-6">
+                    
+                    
+                </div>
+                
+                <div class="alert-box alert-info">
+                    <p class="font-bold">Tutorial Overview</p>
+                    <p>This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools. You'll learn how to navigate in 3D space, manipulate shapes, and use the hole feature to create hollow objects.</p>
+                </div>
+            </div>`,
+            
+            // Step 1: Creating a New Design
+            `<div class="video-container">
+                <video width="100%" controls autoplay loop muted playsinline>
+                    <source src="${videos[1]}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>`,
+            
+            // Step 2: Basic Controls
+            `<div class="video-container">
+                <video width="100%" controls autoplay loop muted playsinline>
+                    <source src="${videos[2]}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>`,
+            
+            // Step 3: Exploring Basic Shapes
+            `<div class="video-container">
+                <video width="100%" controls autoplay loop muted playsinline>
+                    <source src="${videos[3]}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-3">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/B5EXt3z.png" alt="Shapes Panel" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Look at the right panel to find all the basic shapes available in Tinkercad. Click and drag the box shape onto your workplane to create a new 3D object.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/4MH15X5.png" alt="Vertical Movement" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>You can drag the top black arrow to move shapes up and down vertically.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/JSp8cGI.png" alt="Resize with Handles" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Try dragging the white handles on the edges and corners to resize your object. For precise measurements, you can change the settings on the side panel.</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-3">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                </div>
+            </div>`,
+            
+            // Step 4: Setting up Basic Pot Plant Shape
+            `<div class="video-container">
+                <video width="100%" controls autoplay loop muted playsinline>
+                    <source src="${videos[4]}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-4">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/B5EXt3z.png" alt="Select Your Shape" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Choose a Box shape from the shapes panel on the right side of your screen and position it on the workplane.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/cexvFXU.png" alt="Enter Exact Dimensions" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Enter 100 mm for length, width, and height to create the outer shell of the pot.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/8HrrL6T.png" alt="Add Second Box" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Add a second box with dimensions 80 mm × 80 mm × 120 mm that will be used to hollow out the first box.</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-4">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                </div>
+            </div>`,
+            
+            // Step 5: Aligning Our Shapes
+            `<div class="video-container">
+                <video width="100%" controls autoplay loop muted playsinline>
+                    <source src="${videos[5]}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-5">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/fxbHdWG.png" alt="Select Both Cubes" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Select both cubes by holding Shift while clicking on each one, or clicking and dragging a box over both.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/6uyU92C.png" alt="Use Align Tool" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Click the Align tool (or press L on your keyboard). Click the first cube we made (100x100x100) and click the center dot to align it perfectly.</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-5">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                </div>
+            </div>`,
+            
+            // Step 6: Making Holes
+            `<div class="video-container">
+                <video width="100%" controls autoplay loop muted playsinline>
+                    <source src="${videos[6]}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-6">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/9GGlEcQ.png" alt="Position Vertically" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Select the smaller cube and use the vertical arrow to position it with its bottom about 5mm from the bottom of the larger cube.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/hYjje6Z.png" alt="Create Hole" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Select the smaller cube and click the "Hole" button or press 'H' on your keyboard. The cube will turn see-through, indicating it's now a hole.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/sKCRqdf.png" alt="Group Objects" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Select both objects and click the Group button or hit CTRL + G to combine them, creating your hollow pot plant.</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-6">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                </div>
+            </div>`,
+            
+            // Step 7: Grouping Objects
+            `<div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-7">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/XHcPOFD.png" alt="Create Multiple Shapes" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Add several shapes to your workspace.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/gwCpJoD.png" alt="Align Your Objects" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Use the alignment tools in the top toolbar (or press L) to perfectly align objects. Select multiple objects by holding Shift while clicking.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/EWj0atF.png" alt="Group Objects" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Select all objects you want to group, then press Ctrl+G (or click the Group button). They'll now move and rotate as one unit. You can click the ungroup button to reset this.</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-7">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                </div>
+            </div>`,
+            
+            // Step 8: Keyboard Shortcuts
+            `<div class="grid grid-cols-2 gap-4">
+                <div class="image-container">
+                    <img src="/api/placeholder/400/250" alt="Keyboard Shortcuts - Navigation" class="rounded-lg shadow-md mb-4">
+                    <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                    <p class="text-center text-sm">Navigation shortcuts in action</p>
+                </div>
+                <div class="image-container">
+                    <img src="/api/placeholder/400/250" alt="Keyboard Shortcuts - Editing" class="rounded-lg shadow-md mb-4">
+                    <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                    <p class="text-center text-sm">Editing shortcuts in action</p>
+                </div>
+            </div>
+            
+            <div class="alert-box alert-info mt-4">
+                <p class="font-bold">Keyboard Shortcuts Reference</p>
+                <p>You can find a complete list of keyboard shortcuts in Tinkercad by clicking on the ? icon in the top right corner of the Tinkercad interface.</p>
+            </div>`
+        ];
+
+        // Current step tracking
+        let currentStep = 0;
+        const totalSteps = stepInstructions.length;
+
+        // DOM Elements
+        const stepIcons = document.querySelectorAll('.step-icon');
+        const stepTitleEl = document.getElementById('current-step-title');
+        const instructionsPanel = document.getElementById('step-instructions');
+        const mediaContent = document.getElementById('media-content');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const progressBar = document.querySelector('.progress');
+        const progressPercentage = document.getElementById('progress-percentage');
+
+        // Image modal
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.querySelector('.modal-close');
+
+        // Initialize the tutorial
+        function showStep(step) {
+            // Update active step icon
+            stepIcons.forEach((icon, index) => {
+                icon.classList.toggle('active', index === step);
+            });
+
+            // Update step title
+            stepTitleEl.textContent = step === 0 ? "Learning Intentions and Success Criteria" : `Step ${step}: ${stepTitles[step]}`;
+
+            // Update content
+            instructionsPanel.innerHTML = stepInstructions[step];
+            mediaContent.innerHTML = stepMedia[step];
+
+            // Update navigation buttons
+            prevButton.disabled = step === 0;
+            nextButton.style.display = step === totalSteps - 1 ? 'none' : 'block';
+            
+            // Update progress
+            const progress = Math.round(((step + 1) / totalSteps) * 100);
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${progress}%`;
+            
+            // Initialize carousels if present
+            initCarousels();
+            
+            currentStep = step;
+        }
+
+        // Initialize all carousels on the page
+        function initCarousels() {
+            // Find all carousel elements in the current step
+            document.querySelectorAll('.carousel').forEach((carouselElement, carouselIndex) => {
+                const carouselContainer = carouselElement.querySelector('.carousel-container');
+                if (!carouselContainer) return;
+                
+                const slides = carouselContainer.querySelectorAll('.carousel-slide');
+                if (slides.length <= 1) return;
+                
+                // Get carousel controls
+                const prevBtn = carouselElement.querySelector('.prev-btn');
+                const nextBtn = carouselElement.querySelector('.next-btn');
+                const indicators = carouselElement.querySelector('.carousel-indicators');
+                
+                if (!prevBtn || !nextBtn || !indicators) return;
+                
+                // Clear existing indicators and recreate them
+                indicators.innerHTML = '';
+                slides.forEach((_, i) => {
+                    const indicator = document.createElement('div');
+                    indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
+                    indicator.dataset.index = i;
+                    indicator.addEventListener('click', () => {
+                        scrollToSlide(carouselContainer, indicators, i);
+                    });
+                    indicators.appendChild(indicator);
+                });
+                
+                // Track the current slide for this carousel
+                carouselContainer.dataset.currentSlide = '0';
+                
+                // Add click handlers to navigation buttons
+                prevBtn.onclick = function() {
+                    const currentSlide = parseInt(carouselContainer.dataset.currentSlide || '0');
+                    const newSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    scrollToSlide(carouselContainer, indicators, newSlide);
+                    carouselContainer.dataset.currentSlide = newSlide.toString();
+                };
+                
+                nextBtn.onclick = function() {
+                    const currentSlide = parseInt(carouselContainer.dataset.currentSlide || '0');
+                    const newSlide = (currentSlide + 1) % slides.length;
+                    scrollToSlide(carouselContainer, indicators, newSlide);
+                    carouselContainer.dataset.currentSlide = newSlide.toString();
+                };
+            });
+        }
+
+        // Scroll carousel to specific slide
+        function scrollToSlide(carousel, indicators, index) {
+            // Calculate the scroll position
+            const slideWidth = carousel.clientWidth;
+            const scrollPosition = slideWidth * index;
+            
+            // Animate the scroll
+            carousel.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+            
+            // Update indicators
+            const allIndicators = indicators.querySelectorAll('.carousel-indicator');
+            allIndicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === index);
+            });
+        }
+
+        // Event Listeners
+        stepIcons.forEach((icon, index) => {
+            icon.addEventListener('click', () => showStep(index));
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentStep > 0) showStep(currentStep - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentStep < totalSteps - 1) showStep(currentStep + 1);
+        });
+
+        // Image modal functionality
+        document.addEventListener('click', (e) => {
+            // Check if the clicked element is an image inside a carousel slide or anywhere in the content
+            if (e.target.tagName === 'IMG') {
+                modal.style.display = 'block';
+                modalImg.src = e.target.src;
+                modalImg.alt = e.target.alt;
+            }
+        });
+
+        // Close the modal when clicking on the X or anywhere on the modal
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Also close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Creator name with confetti
+        document.getElementById('creator-name').addEventListener('click', () => {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#FFD700', '#87CEEB', '#57708e', '#002654']
+            });
+        });
+
+        // Initialize with first step
+        showStep(0);
+    </script>
+</body>
+</html>
