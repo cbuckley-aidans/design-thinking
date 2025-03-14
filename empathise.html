@@ -75,9 +75,9 @@
     
     .tab-buttons {
       display: flex;
-      gap: 10px;
+      gap: 20px;
       background: var(--neutral);
-      padding: 8px;
+      padding: 10px 25px;
       border-radius: 50px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
@@ -88,11 +88,13 @@
       color: rgba(255, 255, 255, 0.7);
       font-size: 1.5rem;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+      width: 80px;
+      height: auto;
+      padding: 8px 0;
+      border-radius: 15px;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
@@ -105,6 +107,19 @@
     
     .tab-btn.active {
       background: var(--primary);
+      color: white;
+    }
+    
+    .tab-btn .subtitle {
+      font-size: 0.75rem;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.1;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .tab-btn.active .subtitle {
       color: white;
     }
     
@@ -135,7 +150,7 @@
       padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
-      margin-bottom: 100px; /* Space for tabs */
+      margin-bottom: 120px; /* Adjusted for tabs with subtitles */
     }
     
     .tab-content {
@@ -400,20 +415,46 @@
         font-size: 2rem;
       }
       
+      .tab-buttons {
+        gap: 10px;
+        padding: 8px 15px;
+      }
+      
       .tab-btn {
-        width: 40px;
-        height: 40px;
+        width: 60px;
         font-size: 1.2rem;
+        padding: 6px 0;
+      }
+      
+      .tab-btn .subtitle {
+        font-size: 0.7rem;
+        margin-top: 4px;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
       }
     }
     
-    /* Dark theme and toggle removed */
+    @media (max-width: 480px) {
+      .tab-buttons {
+        gap: 5px;
+        padding: 6px 10px;
+      }
+      
+      .tab-btn {
+        width: 55px;
+        font-size: 1.1rem;
+      }
+      
+      .tab-btn .subtitle {
+        font-size: 0.65rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="app-container">
-    <!-- Theme toggle removed -->
-    
     <!-- Header -->
     <header class="header">
       <h1>Empathising in Design</h1>
@@ -734,48 +775,43 @@
             <p style="margin-top: 15px;">Design opportunity: Stable designs and mounting solutions</p>
           </div>
         </div>
-        
-        
       </div>
     </main>
     
     <!-- Tab navigation -->
-    <!-- Floating tab guide indicator that's always visible -->
-  <div class="tab-guide">
-    <div class="tab-guide-content">
-      <span>Explore more topics below</span>
-      <i class="fas fa-arrow-down"></i>
-    </div>
-  </div>
-  
-  <nav class="tabs-container">
+    <nav class="tabs-container">
       <div class="tab-buttons">
         <button class="tab-btn active" data-tab="intro-content" aria-label="Introduction tab">
           <i class="fas fa-heart"></i>
+          <span class="subtitle">Introduction</span>
           <span class="tooltip">Introduction</span>
           <span class="sr-only">Introduction</span>
         </button>
         
         <button class="tab-btn" data-tab="observe-content" aria-label="Observation tab">
           <i class="fas fa-eye"></i>
+          <span class="subtitle">Observation</span>
           <span class="tooltip">Observation</span>
           <span class="sr-only">Observation</span>
         </button>
         
         <button class="tab-btn" data-tab="roleplay-content" aria-label="Roleplaying tab">
           <i class="fas fa-user-friends"></i>
+          <span class="subtitle">Roleplaying</span>
           <span class="tooltip">Roleplaying</span>
           <span class="sr-only">Roleplaying</span>
         </button>
         
         <button class="tab-btn" data-tab="interview-content" aria-label="Interviews tab">
           <i class="fas fa-comments"></i>
+          <span class="subtitle">Interviews</span>
           <span class="tooltip">Interviews</span>
           <span class="sr-only">Interviews</span>
         </button>
         
         <button class="tab-btn" data-tab="research-content" aria-label="Research tab">
           <i class="fas fa-chart-bar"></i>
+          <span class="subtitle">Research</span>
           <span class="tooltip">Research</span>
           <span class="sr-only">Research</span>
         </button>
@@ -800,32 +836,6 @@
           const tabId = button.getAttribute('data-tab');
           document.getElementById(tabId).classList.add('active');
         });
-      });
-      
-      // Theme toggle
-      const themeToggle = document.getElementById('themeToggle');
-      const body = document.body;
-      const icon = themeToggle.querySelector('i');
-      
-      // Check for saved theme preference
-      if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark-theme');
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      }
-      
-      themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-theme');
-        
-        if (body.classList.contains('dark-theme')) {
-          icon.classList.remove('fa-moon');
-          icon.classList.add('fa-sun');
-          localStorage.setItem('theme', 'dark');
-        } else {
-          icon.classList.remove('fa-sun');
-          icon.classList.add('fa-moon');
-          localStorage.setItem('theme', 'light');
-        }
       });
       
       // Animations
@@ -872,8 +882,6 @@
           }
         });
       });
-      
-    // Tab indicator is now always visible with CSS only - no JS needed
     });
   </script>
 </body>
