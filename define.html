@@ -77,9 +77,9 @@
     
     .tab-buttons {
       display: flex;
-      gap: 10px;
+      gap: 20px;
       background: var(--neutral);
-      padding: 8px;
+      padding: 10px 25px;
       border-radius: 50px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
@@ -90,11 +90,13 @@
       color: rgba(255, 255, 255, 0.7);
       font-size: 1.5rem;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+      width: 80px;
+      height: auto;
+      padding: 8px 0;
+      border-radius: 15px;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
@@ -107,6 +109,19 @@
     
     .tab-btn.active {
       background: var(--primary);
+      color: white;
+    }
+    
+    .tab-btn .subtitle {
+      font-size: 0.75rem;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.1;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .tab-btn.active .subtitle {
       color: white;
     }
     
@@ -137,7 +152,7 @@
       padding: 20px;
       max-width: 1200px;
       margin: 0 auto;
-      margin-bottom: 100px; /* Space for tabs */
+      margin-bottom: 120px; /* Adjusted for tabs with subtitles */
     }
     
     .tab-content {
@@ -323,14 +338,40 @@
         font-size: 2rem;
       }
       
+      .tab-buttons {
+        gap: 10px;
+        padding: 8px 15px;
+      }
+      
       .tab-btn {
-        width: 40px;
-        height: 40px;
+        width: 60px;
         font-size: 1.2rem;
+        padding: 6px 0;
+      }
+      
+      .tab-btn .subtitle {
+        font-size: 0.7rem;
+        margin-top: 4px;
       }
       
       .cards-grid {
         grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .tab-buttons {
+        gap: 5px;
+        padding: 6px 10px;
+      }
+      
+      .tab-btn {
+        width: 55px;
+        font-size: 1.1rem;
+      }
+      
+      .tab-btn .subtitle {
+        font-size: 0.65rem;
       }
     }
 
@@ -643,18 +684,21 @@
       <div class="tab-buttons">
         <button class="tab-btn active" data-tab="creating-content" aria-label="Creating Criteria tab">
           <i class="fas fa-list-check"></i>
+          <span class="subtitle">Creating</span>
           <span class="tooltip">Creating Criteria</span>
           <span class="sr-only">Creating Criteria</span>
         </button>
         
         <button class="tab-btn" data-tab="principles-content" aria-label="Design Principles tab">
           <i class="fas fa-sitemap"></i>
+          <span class="subtitle">Principles</span>
           <span class="tooltip">Design Principles</span>
           <span class="sr-only">Design Principles</span>
         </button>
         
         <button class="tab-btn" data-tab="examples-content" aria-label="Examples tab">
           <i class="fas fa-clipboard-list"></i>
+          <span class="subtitle">Examples</span>
           <span class="tooltip">Examples</span>
           <span class="sr-only">Examples</span>
         </button>
