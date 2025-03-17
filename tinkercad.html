@@ -193,14 +193,15 @@
             font-size: 1.2rem;
         }
     
-        /* Custom tooltip styling */
+        /* Simple, reliable tooltip styling */
         .tooltip {
             position: absolute;
-            background-color: var(--outline-color);
+            background-color: var(--accent-color);
             color: white;
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: var(--border-radius);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 500;
             white-space: nowrap;
             z-index: 2000;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -219,18 +220,18 @@
         
         .tooltip.right::before {
             top: 50%;
-            left: -6px;
+            left: -8px;
             margin-top: -6px;
-            border-width: 6px 6px 6px 0;
-            border-color: transparent var(--outline-color) transparent transparent;
+            border-width: 6px 8px 6px 0;
+            border-color: transparent var(--accent-color) transparent transparent;
         }
         
         .tooltip.bottom::before {
-            top: -6px;
+            top: -8px;
             left: 50%;
             margin-left: -6px;
-            border-width: 0 6px 6px 6px;
-            border-color: transparent transparent var(--outline-color) transparent;
+            border-width: 0 6px 8px 6px;
+            border-color: transparent transparent var(--accent-color) transparent;
         }
     
         /* Instructions Panel */
@@ -1644,52 +1645,50 @@
             });
         }
 
-        // Custom tooltip implementation
+        // Simple tooltip implementation
         function setupTooltips() {
+            // Remove any existing tooltips
+            const existingTooltips = document.querySelectorAll('.tooltip');
+            existingTooltips.forEach(t => t.remove());
+            
+            // Create new tooltip element
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            document.body.appendChild(tooltip);
+            
+            // Add event listeners to all step buttons
             const stepButtons = document.querySelectorAll('.step-button');
-            
-            // Create a single tooltip element that we'll reuse
-            let tooltip = document.querySelector('.tooltip');
-            if (!tooltip) {
-                tooltip = document.createElement('div');
-                tooltip.className = 'tooltip';
-                document.body.appendChild(tooltip);
-            }
-            
             stepButtons.forEach(button => {
                 const tooltipText = button.getAttribute('data-tooltip');
                 if (!tooltipText) return;
                 
+                // On mouse enter
                 button.addEventListener('mouseenter', () => {
-                    // Get position of the button
-                    const buttonRect = button.getBoundingClientRect();
-                    
-                    // Set the tooltip content
+                    // Set tooltip text
                     tooltip.textContent = tooltipText;
                     
-                    // Position the tooltip based on screen size
+                    // Position tooltip based on viewport width
+                    const rect = button.getBoundingClientRect();
                     if (window.innerWidth <= 1024) {
-                        // Mobile positioning (below the button)
+                        // Position below on mobile
                         tooltip.className = 'tooltip bottom';
-                        tooltip.style.top = (buttonRect.bottom + 8) + 'px';
-                        tooltip.style.left = (buttonRect.left + buttonRect.width/2) + 'px';
+                        tooltip.style.top = `${rect.bottom + 10}px`;
+                        tooltip.style.left = `${rect.left + rect.width/2}px`;
                         tooltip.style.transform = 'translateX(-50%)';
                     } else {
-                        // Desktop positioning (to the right of the button)
+                        // Position to the right on desktop
                         tooltip.className = 'tooltip right';
-                        tooltip.style.top = (buttonRect.top + buttonRect.height/2) + 'px';
-                        tooltip.style.left = (buttonRect.right + 12) + 'px';
+                        tooltip.style.top = `${rect.top + rect.height/2}px`;
+                        tooltip.style.left = `${rect.right + 10}px`;
                         tooltip.style.transform = 'translateY(-50%)';
                     }
                     
-                    // Show the tooltip with a small delay
-                    setTimeout(() => {
-                        tooltip.style.opacity = '1';
-                    }, 50);
+                    // Make tooltip visible
+                    tooltip.style.opacity = '1';
                 });
                 
+                // On mouse leave
                 button.addEventListener('mouseleave', () => {
-                    // Hide the tooltip
                     tooltip.style.opacity = '0';
                 });
             });
@@ -1804,11 +1803,14 @@
             
             // Update tooltips on window resize
             window.addEventListener('resize', () => {
-                // Only reposition tooltips if a button is being hovered
-                const tooltip = document.querySelector('.tooltip');
-                if (tooltip && tooltip.style.opacity === '1') {
-                    setupTooltips();
-                }
+                setupTooltips();
+            });
+            
+            // Update tooltips whenever a step button is clicked
+            document.querySelectorAll('.step-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    setTimeout(setupTooltips, 100);
+                });
             });
         });
     </script>
