@@ -1,432 +1,642 @@
 <!DOCTYPE html>
-<!--Alternative design-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tinkercad Basics Tutorial</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/intro.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/introjs.min.css">
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        
-        body, html {
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f7f7f7;
+            --accent-bg: #f0f0f0;
+            --accent-color: #002654;
+            --active-color: #002654;
+            --outline-color: #191919;
+            --text-color: #191919;
+            --shadow-sm: 0 0.15em 0 var(--outline-color);
+            --shadow-md: 0 0.25em 0 var(--outline-color);
+            --border-radius: 0.6em;
+            --transition-time: 0.15s;
+            --bad-color: #ff4d4f;
+            --good-color: #52c41a;
+        }
+    
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+        }
+    
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+            height: 100vh;
             overflow: hidden;
-            height: 100vh;
-            background-color: #f5f5f5;
-            color: #333;
         }
-
-        /* Header styling */
-        .header {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            background-color: white;
-            border-bottom: 1px solid #e5e5e5;
+    
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 14px;
         }
-
-        .logo {
-            height: 40px;
-            margin-right: 1rem;
+    
+        ::-webkit-scrollbar-track {
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
         }
-
-        .nav-item {
-            margin: 0 1rem;
-            font-weight: 500;
-            color: #333;
+    
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color);
+            border: 3px solid var(--secondary-bg);
+            border-radius: 10px;
         }
-
-        .right-nav {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
+    
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--active-color);
+            transform: scale(1.05);
         }
-
-        .language-select {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-left: 1rem;
+    
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-top: 0;
+            position: relative;
         }
-
-        /* Main container with three panels */
-        .main-container {
-            display: flex;
-            height: 100vh;
+    
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+    
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
             width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
         }
-
-        /* Left sidebar navigation panel */
-        .nav-panel {
-            width: 75px;
-            min-width: 75px;
-            background-color: white;
-            border-right: 1px solid #e5e5e5;
+    
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+    
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
+        }
+    
+        h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+    
+        h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+    
+        p {
+            margin-bottom: 1.2rem;
+        }
+    
+        /* Main Layout Structure */
+        .tutorial-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+        }
+    
+        /* Side Navigation */
+        .sidebar {
+            width: 160px;
+            flex: 0 0 160px;
+            background-color: var(--secondary-bg);
+            border-right: 2px solid var(--outline-color);
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 1rem 0;
-        }
-
-        .step-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            padding: 25px 0;
+            overflow-y: auto;
+            overflow-x: hidden !important;
+            z-index: 100;
             position: relative;
-            border: 2px solid transparent;
+        }
+    
+        .sidebar-logo {
+            font-size: 1.1em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            line-height: 1.3;
+            color: var(--accent-color);
+        }
+    
+        .step-button {
+            width: 120px;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 15px 0;
+            margin-bottom: 15px;
+            background-color: var(--accent-bg);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .step-icon:hover, .step-icon.active {
-            border-color: #0066cc;
-            background-color: rgba(0, 102, 204, 0.1);
-        }
-
-        .step-tooltip {
-            position: absolute;
-            left: 60px;
-            background-color: #333;
-            color: white;
-            padding: 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
-            z-index: 10;
-        }
-
-        .step-icon:hover .step-tooltip {
-            opacity: 1;
-        }
-
-        /* Middle instruction panel */
-        /* Instruction panel with fixed width and styling */
-        .instruction-panel {
-            width: 450px;
-            min-width: 450px;
-            max-width: 450px;
-            background-color: white;
-            border-right: 1px solid #e5e5e5;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-
-        .panel-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .panel-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .step-content-instructions {
-            margin-top: 1rem;
-        }
-
-        /* Main content area */
-        .content-display {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            background-color: white;
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            background-color: #f0f7ff;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #cce5ff;
-        }
-
-        .content-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #0066cc;
-        }
-
-        .content-actions {
-            display: flex;
-        }
-
-        .action-button {
-            margin-left: 0.5rem;
-            padding: 0.75rem 2rem;
-            border-radius: 6px;
-            border: none;
-            background-color: #0066cc;
-            color: white;
+            font-size: 0.9em;
+            letter-spacing: 0.03em;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.2s ease;
-        }
-        
-        .action-button:hover {
-            background-color: #0055aa;
-        }
-
-        .tab-content {
-            padding: 1rem;
-            min-height: 400px;
-        }
-
-        /* Step content styling - Apply consistent sizing and spacing */
-        .step-instructions h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-        
-        .step-instructions p {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        
-        .step-instructions h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: #0066cc;
-        }
-        
-        .steps-list {
-            list-style-type: decimal;
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .steps-list li {
-            margin-bottom: 0.75rem;
-            line-height: 1.5;
-        }
-        
-        .steps-list ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .steps-list ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .step-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .step-description {
-            margin-bottom: 1rem;
-        }
-
-        .step-instruction {
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
         }
-
-        .step-bullet {
-            color: #0066cc;
-            margin-right: 0.5rem;
-            font-weight: bold;
+    
+        .step-button:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
         }
-
-        /* Media containers */
+    
+        .step-button.active {
+            background-color: var(--active-color);
+            color: white;
+        }
+    
+        .step-button i, .step-button span {
+            font-size: 1.2rem;
+        }
+    
+        /* Custom tooltip styling */
+        .tooltip {
+            position: absolute;
+            background-color: var(--outline-color);
+            color: white;
+            padding: 6px 10px;
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 2000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        .tooltip::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        
+        .tooltip.right::before {
+            top: 50%;
+            left: -6px;
+            margin-top: -6px;
+            border-width: 6px 6px 6px 0;
+            border-color: transparent var(--outline-color) transparent transparent;
+        }
+        
+        .tooltip.bottom::before {
+            top: -6px;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 0 6px 6px 6px;
+            border-color: transparent transparent var(--outline-color) transparent;
+        }
+    
+        /* Instructions Panel */
+        .instructions-panel {
+            width: 500px;
+            flex: 0 0 500px;
+            background-color: var(--primary-bg);
+            border-right: 2px solid var(--outline-color);
+            height: 100vh;
+            overflow-y: auto;
+            padding: 25px;
+        }
+    
+        /* Content Display */
+        .content-display {
+            flex: 1;
+            background-color: var(--primary-bg);
+            height: 100vh;
+            overflow-y: auto;
+            padding: 25px;
+        }
+    
+        /* Card */
+        .card {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+        }
+    
+        .card:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
+        /* Video container */
         .video-container {
-            width: 90%;
-            max-width: 800px;
-            margin: 0 auto 1.5rem;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 25px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
         }
-
+    
+        .video-container:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
         .video-container video {
             width: 100%;
+            border-radius: calc(var(--border-radius) - 5px);
             display: block;
         }
-
-        /* Carousel with fixed sizing */
+    
+        /* Carousel */
         .carousel {
-            width: 90%;
-            max-width: 800px;
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 25px;
             position: relative;
-            margin: 2rem auto;
-            padding: 1rem;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            border: 1px solid #e5e5e5;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
         }
-
+    
+        .carousel:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
         .carousel-container {
             display: flex;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            width: 100%;
         }
-
+    
         .carousel-slide {
             min-width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 1rem;
+            padding: 10px;
         }
-
+    
         .carousel-slide img {
             max-height: 280px;
-            max-width: 90%;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
             cursor: pointer;
-            transition: transform 0.3s ease;
-            position: relative;
+            transition: transform var(--transition-time);
         }
-
+    
         .carousel-slide img:hover {
             transform: scale(1.05);
         }
-
-        .carousel-slide img::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .carousel-slide img:hover::after {
-            opacity: 1;
-        }
-
-        .carousel-slide p {
-            margin-top: 1rem;
-            text-align: center;
-        }
-
+    
         .carousel-controls {
+            z-index: 50;
             display: flex;
             justify-content: space-between;
             position: absolute;
             top: 50%;
+            width: calc(100% - 40px);
             transform: translateY(-50%);
-            width: 100%;
-            padding: 0 1rem;
             pointer-events: none;
-            z-index: 10;
         }
-
+    
         .carousel-btn {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
+            z-index: 50;
             width: 40px;
             height: 40px;
+            border: 2px solid var(--outline-color);
             border-radius: 50%;
+            background-color: var(--primary-bg);
+            color: var(--accent-color);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             pointer-events: auto;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
         }
-
+    
+        .carousel-btn:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
         .carousel-indicators {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: 1rem;
+            gap: 10px;
+            margin-top: 15px;
         }
-
+    
         .carousel-indicator {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--outline-color);
             border-radius: 50%;
-            background-color: #ccc;
+            background-color: var(--primary-bg);
             cursor: pointer;
+            transition: background-color var(--transition-time);
         }
-
+    
         .carousel-indicator.active {
-            background-color: #0066cc;
+            background-color: var(--accent-color);
         }
-
+    
+        /* Tip boxes */
         .tip-box {
-            background-color: #f0f7ff;
-            border-left: 4px solid #0066cc;
-            padding: 1.25rem;
-            margin: 1.5rem 0;
-            border-radius: 0 8px 8px 0;
+            background-color: var(--secondary-bg);
+            border: 2px solid var(--outline-color);
+            border-left: 5px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            margin: 20px 0;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
         }
-
+    
+        .tip-box:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
         .tip-title {
             font-weight: 700;
-            color: #0066cc;
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
         }
-
-        .alert-box {
+    
+        /* Navigation buttons */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+    
+        .nav-button {
+            padding: 12px 20px;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            background-color: var(--accent-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+            background-color: var(--accent-color);
+            color: white;
+        }
+    
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    
+        /* Progress bar */
+        .progress-container {
+            margin: 20px 0;
+        }
+    
+        .progress-text {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+    
+        .progress-bar {
+            height: 8px;
+            background-color: var(--secondary-bg);
             border-radius: 4px;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-left: 4px solid;
+            overflow: hidden;
+            border: 1px solid var(--outline-color);
         }
-
-        .alert-info {
-            background-color: #e6f7ff;
-            border-color: #1890ff;
+    
+        .progress {
+            height: 100%;
+            background-color: var(--accent-color);
         }
-
-        .alert-warning {
-            background-color: #fffbe6;
-            border-color: #faad14;
+    
+        /* Keyboard keys */
+        .kbd {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: var(--secondary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 2px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
         }
-
+    
+        .kbd:hover {
+            transform: translateY(-0.15em);
+            box-shadow: var(--shadow-md);
+        }
+    
+        .kbd-combo {
+            display: inline-flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+    
+        .kbd-plus {
+            margin: 0 5px;
+            color: var(--text-color);
+        }
+    
+        /* Shortcut categories */
+        .shortcut-category {
+            background-color: var(--secondary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+        }
+    
+        .shortcut-category:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
+        .shortcut-title {
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+    
+        .shortcut-item {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+    
+        .shortcut-item:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
+        .shortcut-action {
+            font-size: 0.8rem;
+            margin-top: 8px;
+        }
+    
+        /* Control items */
+        .control-item {
+            background-color: var(--secondary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+    
+        .control-item:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
+        .control-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--accent-color);
+            width: 40px;
+            text-align: center;
+        }
+    
+        .control-text {
+            flex: 1;
+        }
+    
+        /* Steps list */
         .steps-list {
             list-style-type: decimal;
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
+            padding-left: 20px;
+            margin-bottom: 20px;
         }
-
+    
         .steps-list li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 10px;
+            position: relative;
         }
-
-        /* Image modal */
+    
+        .steps-list ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+    
+        /* Alert boxes */
+        .alert-box {
+            background-color: var(--secondary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin: 15px 0;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+    
+        .alert-box:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+    
+        .alert-info {
+            border-left: 5px solid #1890ff;
+        }
+    
+        .alert-warning {
+            border-left: 5px solid #faad14;
+        }
+    
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -434,11 +644,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0,0,0,0.8);
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
         }
-
+    
         .modal-content {
             max-width: 90%;
             max-height: 90vh;
@@ -446,11 +655,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border-radius: 4px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: zoomIn 0.3s ease;
+            border-radius: var(--border-radius);
         }
-
+    
         .modal-close {
             position: absolute;
             top: 20px;
@@ -459,302 +666,146 @@
             font-size: 30px;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform var(--transition-time);
         }
-
+    
         .modal-close:hover {
-            color: #0066cc;
+            transform: scale(1.1);
+            color: var(--accent-color);
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes zoomIn {
-            from { transform: translate(-50%, -50%) scale(0.9); }
-            to { transform: translate(-50%, -50%) scale(1); }
-        }
-
-        /* Wave styling */
-        .wave-divider {
-            margin: 0.5rem 0;
-            height: 20px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230099ff' fill-opacity='1' d='M0,192L40,213.3C80,235,160,277,240,272C320,267,400,213,480,202.7C560,192,640,224,720,229.3C800,235,880,213,960,181.3C1040,149,1120,107,1200,101.3C1280,96,1360,128,1400,144L1440,160L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-
-        /* Navigation buttons with blue styling */
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            padding: 0 1rem;
-        }
-
-        .nav-button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            background-color: #0066cc;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            justify-content: center;
-        }
-        
-        .nav-button:hover:not(:disabled) {
-            background-color: #0055aa;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        
-        .nav-button i {
-            margin: 0 8px;
-        }
-
-        /* Progress indicator */
-        .progress-container {
-            margin-top: 1rem;
-        }
-
-        .progress-text {
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background-color: #eee;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background-color: #0066cc;
-        }
-
+    
+        /* Footer */
         .footer {
             text-align: center;
-            font-size: 0.75rem;
-            color: #666;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
+            font-size: 0.85rem;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid var(--outline-color);
         }
-
+    
         #creator-name {
-            color: #0066cc;
+            color: var(--accent-color);
+            font-weight: 600;
             cursor: pointer;
+            transition: transform var(--transition-time);
+            display: inline-block;
         }
-
-        .instruction-content {
-            background-color: #e6f7ff;
-            border-radius: 8px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
+    
+        #creator-name:hover {
+            transform: scale(1.1);
         }
-
-        .instruction-arrow {
-            color: #0099ff;
-            margin-right: 0.75rem;
-            font-size: 1.25rem;
-        }
-
-        /* Click-to-zoom hint */
+    
+        /* Zoom hint */
         .image-container {
             position: relative;
             display: inline-block;
         }
-
+    
         .zoom-hint {
             position: absolute;
             bottom: 10px;
             right: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: var(--outline-color);
             color: white;
             padding: 5px 10px;
             border-radius: 15px;
             font-size: 12px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s;
             pointer-events: none;
         }
-
+    
         .carousel-slide:hover .zoom-hint {
             opacity: 1;
         }
-
-        /* NEW STYLES FOR KEYBOARD KEYS */
-        .kbd {
-            display: inline-block;
-            padding: 4px 8px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            line-height: 1;
-            color: #333;
-            background-color: #f7f7f7;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
-            margin: 0 2px;
-            text-align: center;
-            min-width: 20px;
-            vertical-align: middle;
-        }
-
-        .kbd-combo {
-            display: inline-flex;
-            align-items: center;
-            margin: 6px 0;
-        }
-
-        .kbd-plus {
-            margin: 0 4px;
-            color: #666;
-            font-weight: bold;
-        }
-
-        .control-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 10px;
-            border-radius: 6px;
-            background-color: #f5f7fa;
-            border-left: 3px solid #0066cc;
-        }
-
-        .control-icon {
-            font-size: 1.5rem;
-            margin-right: 15px;
-            color: #0066cc;
-            width: 40px;
-            text-align: center;
-        }
-
-        .control-text {
-            flex: 1;
-        }
-
-        .shortcut-category {
-            margin-bottom: 20px;
-            background-color: #f5f7fa;
-            border-radius: 8px;
-            padding: 15px;
-            border-left: 3px solid #0066cc;
-        }
-
-        .shortcut-title {
-            font-weight: 700;
-            color: #0066cc;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
-        }
-
-        .shortcut-title i {
-            margin-right: 10px;
-            font-size: 1.25rem;
-        }
-
-        .shortcut-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        .shortcut-item {
-            padding: 8px;
-            border-radius: 4px;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .shortcut-action {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 5px;
+    
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .tutorial-container {
+                flex-direction: column;
+                height: auto;
+                overflow: visible;
+            }
+            
+            .sidebar-logo {
+                margin-bottom: 0;
+                margin-right: 20px;
+                white-space: nowrap;
+            }
+            
+            .step-button {
+                margin-right: 10px;
+                margin-bottom: 0;
+                width: 80px;
+                flex-shrink: 0;
+            }
+            
+            .instructions-panel, .content-display {
+                width: 100%;
+                height: auto;
+                overflow: visible;
+                flex: 0 0 auto;
+                border-right: none;
+                border-bottom: 2px solid var(--outline-color);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Left Panel - Step Icons Navigation -->
-        <div class="nav-panel">
-            <div class="step-icon active" data-step="0">
+    <div class="tutorial-container">
+        <!-- Left Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-logo">TINKERCAD<br>BASICS<br>TUTORIAL</div>
+            <div class="step-button active" data-step="0" data-tooltip="Learning Intentions">
                 <i class="fas fa-list-ol"></i>
-                <div class="step-tooltip">Learning Intentions</div>
             </div>
-            <div class="step-icon" data-step="1">
+            <div class="step-button" data-step="1" data-tooltip="Creating a New Design">
                 <span>1</span>
-                <div class="step-tooltip">Creating a New Design</div>
             </div>
-            <div class="step-icon" data-step="2">
+            <div class="step-button" data-step="2" data-tooltip="Basic Controls">
                 <span>2</span>
-                <div class="step-tooltip">Basic Controls</div>
             </div>
-            <div class="step-icon" data-step="3">
+            <div class="step-button" data-step="3" data-tooltip="Exploring Basic Shapes">
                 <span>3</span>
-                <div class="step-tooltip">Exploring Basic Shapes</div>
             </div>
-            <div class="step-icon" data-step="4">
+            <div class="step-button" data-step="4" data-tooltip="Basic Pot Plant Shape">
                 <span>4</span>
-                <div class="step-tooltip">Basic Pot Plant Shape</div>
             </div>
-            <div class="step-icon" data-step="5">
+            <div class="step-button" data-step="5" data-tooltip="Aligning Shapes">
                 <span>5</span>
-                <div class="step-tooltip">Aligning Shapes</div>
             </div>
-            <div class="step-icon" data-step="6">
+            <div class="step-button" data-step="6" data-tooltip="Making Holes">
                 <span>6</span>
-                <div class="step-tooltip">Making Holes</div>
             </div>
-            <div class="step-icon" data-step="7">
+            <div class="step-button" data-step="7" data-tooltip="Grouping Objects">
                 <span>7</span>
-                <div class="step-tooltip">Grouping Objects</div>
             </div>
-            <div class="step-icon" data-step="8">
+            <div class="step-button" data-step="8" data-tooltip="Keyboard Shortcuts">
                 <span>8</span>
-                <div class="step-tooltip">Keyboard Shortcuts</div>
             </div>
         </div>
 
-        <!-- Middle Panel - Text Instructions -->
-        <div class="instruction-panel">
+        <!-- Middle Instructions Panel -->
+        <div class="instructions-panel">
+            <h1 id="current-step-title">Learning Intentions and Success Criteria</h1>
             
-
-            <div id="current-step-title" class="text-2xl font-bold mb-4 text-blue-800">Print Hello</div>
-            
-            <div class="wave-divider"></div>
-            
-
-            
-            
-
-            <div class="step-content-instructions step-instructions" id="step-instructions">
+            <div id="step-instructions">
                 <!-- Will be populated by JavaScript -->
+                <h3>Learning Intentions and Success Criteria</h3>
+                
+                <div class="card">
+                    <p><strong>Learning Intentions:</strong></p>
+                    <ol class="steps-list">
+                        <li>Learn the basic navigation controls of Tinkercad</li>
+                        <li>Create and align basic shapes</li>
+                        <li>Use holes and grouping to cut out more complex shapes</li>
+                    </ol>
+                
+                    <p><strong>Success Criteria:</strong></p>
+                    <ol class="steps-list">
+                        <li>You successfully follow along to make a basic hollow pot plant design.</li>
+                    </ol>
+                </div>
             </div>
 
             <!-- Navigation Buttons -->
@@ -772,24 +823,34 @@
             </div>
 
             <div class="footer">
-                Made by <span id="creator-name">Buckley</span> with ♥️
+                Made with <span style="color: var(--accent-color);">♥</span> by <span id="creator-name">Buckley</span>
             </div>
         </div>
 
-        <!-- Main Content Area - Media Display -->
+        <!-- Right Content Display Area -->
         <div class="content-display">
-            <div class="content-header">
-                <div class="content-title">Tinkercad Basics Tutorial</div>
-            </div>
-
-            <div class="tab-content" id="media-content">
+            <div class="card">
+                <h2 id="content-title">Learning Intentions and Success Criteria</h2>
+                <div id="media-content">
                     <!-- Will be populated by JavaScript -->
+                    <div class="alert-box alert-info">
+                        <p><strong>Tutorial Overview</strong></p>
+                        <p>This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools. You'll learn how to navigate in 3D space, manipulate shapes, and use the hole feature to create hollow objects.</p>
+                    </div>
+
+                    <div class="alert-box alert-warning">
+                        <p><strong><i class="fas fa-info-circle"></i> Unsure how to use this resource?</strong></p>
+                        <p>Click the button below to learn how to navigate the page.</p>
+                        <button id="startWalkthrough" class="nav-button">
+                            <i class="fas fa-walking"></i> Start Interactive Tour
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Image Modal -->
+    <!-- Modal for viewing images -->
     <div id="imageModal" class="modal">
         <span class="modal-close">&times;</span>
         <img id="modalImage" class="modal-content">
@@ -824,47 +885,47 @@
         // Tutorial content - split into instructions (middle panel) and media (right panel)
         const stepInstructions = [
             // Step 0: Learning Intentions and Success Criteria
-            `<h3 class="text-xl font-bold mb-4">Learning Intentions and Success Criteria</h3>
+            `<h3>Learning Intentions and Success Criteria</h3>
             
-            <div class="mb-4">
-                <p class="font-bold mb-2">Learning Intentions:</p>
-                <ul class="list-disc pl-5 space-y-2">
+            <div class="card">
+                <p><strong>Learning Intentions:</strong></p>
+                <ol class="steps-list">
                     <li>Learn the basic navigation controls of Tinkercad</li>
                     <li>Create and align basic shapes</li>
                     <li>Use holes and grouping to cut out more complex shapes</li>
-                </ul>
-            </div>
+                </ol>
             
-            <div>
-                <p class="font-bold mb-2">Success Criteria:</p>
-                <ul class="list-disc pl-5">
+                <p><strong>Success Criteria:</strong></p>
+                <ol class="steps-list">
                     <li>You successfully follow along to make a basic hollow pot plant design.</li>
-                </ul>
+                </ol>
             </div>`,
             
             // Step 1: Creating a New Design
-            `<h3 class="text-xl font-bold mb-4">Creating a New Design</h3>
-            <p class="mb-4">Before you can start modeling in 3D, you need to create a new design in Tinkercad.</p>
+            `<h3>Creating a New Design</h3>
+            <p>Before you can start modeling in 3D, you need to create a new design in Tinkercad.</p>
             
-            <h4 class="font-bold mb-2">Creating a New 3D Design from Dashboard:</h4>
-            <ol class="steps-list">
-                <li>Log in to your Tinkercad account</li>
-                <li>On the dashboard, look for the blue "+ Create" button</li>
-                <li>Click on "3D Design" to start a new 3D project</li>
-                <li>Tinkercad will open a new workspace with an empty workplane</li>
-                <li>Give your design a name by clicking on the randomly generated title in the top-left corner</li>
-            </ol>`,
+            <div class="card">
+                <h4>Creating a New 3D Design from Dashboard:</h4>
+                <ol class="steps-list">
+                    <li>Log in to your Tinkercad account</li>
+                    <li>On the dashboard, look for the blue "+ Create" button</li>
+                    <li>Click on "3D Design" to start a new 3D project</li>
+                    <li>Tinkercad will open a new workspace with an empty workplane</li>
+                    <li>Give your design a name by clicking on the randomly generated title in the top-left corner</li>
+                </ol>
+            </div>`,
             
             // Step 2: Basic Controls
-            `<h3 class="text-xl font-bold mb-4">Basic Controls</h3>
-            <p class="mb-4">When you open up your first 3D design, you'll need to quickly figure out how to get around. Practice these controls first!</p>
+            `<h3>Basic Controls</h3>
+            <p>When you open up your first 3D design, you'll need to quickly figure out how to get around. Practice these controls first!</p>
             
             <div class="control-item">
                 <div class="control-icon">
                     <i class="fas fa-arrows-alt"></i>
                 </div>
                 <div class="control-text">
-                    <h4 class="font-bold mb-2">Pan (Moving Around)</h4>
+                    <h4>Pan (Moving Around)</h4>
                     <div class="kbd-combo">
                         <span class="kbd">Shift</span>
                         <span class="kbd-plus">+</span>
@@ -880,13 +941,13 @@
                     <i class="fas fa-sync-alt"></i>
                 </div>
                 <div class="control-text">
-                    <h4 class="font-bold mb-2">Rotate</h4>
+                    <h4>Rotate</h4>
                     <div class="kbd-combo">
                         <span class="kbd"><i class="fas fa-mouse-pointer"></i> Right Click</span>
                         <span class="kbd-plus">+</span>
                         <span class="kbd">Drag</span>
                     </div>
-                    <p class="text-sm mt-2">OR drag or click the faces of the cube at the top left</p>
+                    <p>OR drag or click the faces of the cube at the top left</p>
                 </div>
             </div>
             
@@ -895,7 +956,7 @@
                     <i class="fas fa-search-plus"></i>
                 </div>
                 <div class="control-text">
-                    <h4 class="font-bold mb-2">Zoom</h4>
+                    <h4>Zoom</h4>
                     <div class="kbd-combo">
                         <span class="kbd"><i class="fas fa-mouse"></i> Scroll Wheel</span>
                     </div>
@@ -923,19 +984,21 @@
             </div>`,
             
             // Step 3: Exploring Basic Shapes
-            `<h3 class="text-xl font-bold mb-4">Exploring Basic Shapes</h3>
-            <p class="mb-4">Let's get comfortable with adding shapes and resizing them. This is a playground step - just experiment!</p>
+            `<h3>Exploring Basic Shapes</h3>
+            <p>Let's get comfortable with adding shapes and resizing them. This is a playground step - just experiment!</p>
             
-            <h4 class="font-bold mb-2">Practice Adding and Scaling Shapes:</h4>
-            <ol class="steps-list">
-                <li>Look at the right panel - this is where all the basic shapes are located</li>
-                <li>Find the box/cube shape and drag it onto your workplane</li>
-                <li>Notice the white handles on the corners and edges - try dragging these to resize the shape</li>
-                <li>Look at the side panel on the right which shows the dimensions - experiment with typing in different values</li>
-                <li>Try changing the height, width, and length to different values like 50mm, 100mm, or 150mm</li>
-                <li>Notice how you can create precise measurements by typing them in</li>
-                <li>Try deleting the shape and adding a new one with different dimensions</li>
-            </ol>
+            <div class="card">
+                <h4>Practice Adding and Scaling Shapes:</h4>
+                <ol class="steps-list">
+                    <li>Look at the right panel - this is where all the basic shapes are located</li>
+                    <li>Find the box/cube shape and drag it onto your workplane</li>
+                    <li>Notice the white handles on the corners and edges - try dragging these to resize the shape</li>
+                    <li>Look at the side panel on the right which shows the dimensions - experiment with typing in different values</li>
+                    <li>Try changing the height, width, and length to different values like 50mm, 100mm, or 150mm</li>
+                    <li>Notice how you can create precise measurements by typing them in</li>
+                    <li>Try deleting the shape and adding a new one with different dimensions</li>
+                </ol>
+            </div>
             
             <div class="tip-box">
                 <div class="tip-title">Experimentation Tip</div>
@@ -943,32 +1006,34 @@
             </div>`,
             
             // Step 4: Setting up Basic Pot Plant Shape
-            `<h3 class="text-xl font-bold mb-4">Setting up Basic Pot Plant Shape</h3>
-            <p class="mb-4">Now we'll apply what we've learned to create the basic shapes for our pot plant design.</p>
-            <p class="font-bold mb-4">Delete any previous designs you were experimenting with before and start fresh!</p>
+            `<h3>Setting up Basic Pot Plant Shape</h3>
+            <p>Now we'll apply what we've learned to create the basic shapes for our pot plant design.</p>
+            <p><strong>Delete any previous designs you were experimenting with before and start fresh!</strong></p>
             
-            <h4 class="font-bold mb-2">Creating Your Pot Plant Base:</h4>
-            <ol class="steps-list">
-                <li>Choose a Box shape from the shapes panel on the right side of your screen</li>
-                <li>Click and drag to position the box on the workplane</li>
-                <li>In the right side panel, enter the following <strong>exact</strong> dimensions:
-                    <ul class="list-disc pl-5 mt-2">
-                        <li>Length: 100 mm</li>
-                        <li>Width: 100 mm</li>
-                        <li>Height: 100 mm</li>
-                    </ul>
-                </li>
-                <li>This will be the outer shell of our pot plant</li>
-                <li>Now, add a second box to the workplane</li>
-                <li>For this second box, set the following dimensions:
-                    <ul class="list-disc pl-5 mt-2">
-                        <li>Length: 80 mm</li>
-                        <li>Width: 80 mm</li>
-                        <li>Height: 120 mm</li>
-                    </ul>
-                </li>
-                <li>This second box will be used to hollow out the first cube in the next step</li>
-            </ol>
+            <div class="card">
+                <h4>Creating Your Pot Plant Base:</h4>
+                <ol class="steps-list">
+                    <li>Choose a Box shape from the shapes panel on the right side of your screen</li>
+                    <li>Click and drag to position the box on the workplane</li>
+                    <li>In the right side panel, enter the following <strong>exact</strong> dimensions:
+                        <ul>
+                            <li>Length: 100 mm</li>
+                            <li>Width: 100 mm</li>
+                            <li>Height: 100 mm</li>
+                        </ul>
+                    </li>
+                    <li>This will be the outer shell of our pot plant</li>
+                    <li>Now, add a second box to the workplane</li>
+                    <li>For this second box, set the following dimensions:
+                        <ul>
+                            <li>Length: 80 mm</li>
+                            <li>Width: 80 mm</li>
+                            <li>Height: 120 mm</li>
+                        </ul>
+                    </li>
+                    <li>This second box will be used to hollow out the first cube in the next step</li>
+                </ol>
+            </div>
             
             <div class="tip-box">
                 <div class="tip-title">Precision Tip</div>
@@ -976,17 +1041,19 @@
             </div>`,
             
             // Step 5: Aligning Our Shapes
-            `<h3 class="text-xl font-bold mb-4">Aligning Our Shapes</h3>
-            <p class="mb-4">Now we'll align the two cubes we created so that they're properly positioned for creating our hollow pot plant.</p>
+            `<h3>Aligning Our Shapes</h3>
+            <p>Now we'll align the two cubes we created so that they're properly positioned for creating our hollow pot plant.</p>
             
-            <h4 class="font-bold mb-2">Aligning Shapes:</h4>
-            <ol class="steps-list">
-                <li>Select both cubes by holding Shift while clicking on each one, or clicking and dragging over both</li>
-                <li>Click the "Align" tool in the top toolbar (or press <span class="kbd">L</span> on your keyboard)</li>
-                <li>Click on the first cube we made, because we want to align to this one</li>
-                <li>This will make some dots appear. Align the centers of both cubes horizontally by clicking the middle dots on both the X and Y axes</li>
-                <li>Click outside the objects to exit the align tool</li>
-            </ol>
+            <div class="card">
+                <h4>Aligning Shapes:</h4>
+                <ol class="steps-list">
+                    <li>Select both cubes by holding Shift while clicking on each one, or clicking and dragging over both</li>
+                    <li>Click the "Align" tool in the top toolbar (or press <span class="kbd">L</span> on your keyboard)</li>
+                    <li>Click on the first cube we made, because we want to align to this one</li>
+                    <li>This will make some dots appear. Align the centers of both cubes horizontally by clicking the middle dots on both the X and Y axes</li>
+                    <li>Click outside the objects to exit the align tool</li>
+                </ol>
+            </div>
             
             <div class="tip-box">
                 <div class="tip-title">Alignment Tip</div>
@@ -994,17 +1061,19 @@
             </div>`,
             
             // Step 6: Making Holes
-            `<h3 class="text-xl font-bold mb-4">Making Holes</h3>
-            <p class="mb-4">Now that our shapes are aligned, we'll use the hole feature to hollow out our pot plant.</p>
+            `<h3>Making Holes</h3>
+            <p>Now that our shapes are aligned, we'll use the hole feature to hollow out our pot plant.</p>
             
-            <h4 class="font-bold mb-2">Creating a Hollow Pot Plant:</h4>
-            <ol class="steps-list">
-                <li>Select the taller second cube (80×80×120mm)</li>
-                <li>Use the vertical arrow to position it slightly higher than the first cube - the bottom should be about 5mm from the bottom of the larger cube</li>
-                <li>Click the "Hole" button (or press <span class="kbd">H</span> on your keyboard) to turn the smaller cube into a hole</li>
-                <li>Select both shapes and click "Group" (or press <span class="kbd">Ctrl</span><span class="kbd-plus">+</span><span class="kbd">G</span>)</li>
-                <li>The smaller cube will now create a hole in the larger cube, forming your pot plant!</li>
-            </ol>
+            <div class="card">
+                <h4>Creating a Hollow Pot Plant:</h4>
+                <ol class="steps-list">
+                    <li>Select the taller second cube (80×80×120mm)</li>
+                    <li>Use the vertical arrow to position it slightly higher than the first cube - the bottom should be about 5mm from the bottom of the larger cube</li>
+                    <li>Click the "Hole" button (or press <span class="kbd">H</span> on your keyboard) to turn the smaller cube into a hole</li>
+                    <li>Select both shapes and click "Group" (or press <span class="kbd">Ctrl</span><span class="kbd-plus">+</span><span class="kbd">G</span>)</li>
+                    <li>The smaller cube will now create a hole in the larger cube, forming your pot plant!</li>
+                </ol>
+            </div>
             
             <div class="tip-box">
                 <div class="tip-title">Hole Feature Tip</div>
@@ -1012,18 +1081,20 @@
             </div>`,
             
             // Step 7: Grouping Objects
-            `<h3 class="text-xl font-bold mb-4">(BONUS) Grouping Objects</h3>
-            <p class="mb-4">You can use the group tool in a similar way to COMBINE objects to make more complex shapes.</p>
+            `<h3>(BONUS) Grouping Objects</h3>
+            <p>You can use the group tool in a similar way to COMBINE objects to make more complex shapes.</p>
             
-            <h4 class="font-bold mb-2">Grouping and Aligning Objects:</h4>
-            <ol class="steps-list">
-                <li>Create multiple shapes on your workplane</li>
-                <li>Select multiple objects by holding <span class="kbd">Shift</span> while clicking on them</li>
-                <li>Use the alignment tools in the top toolbar (or press <span class="kbd">L</span>) to perfectly align objects</li>
-                <li>Group objects together by pressing <span class="kbd">Ctrl</span><span class="kbd-plus">+</span><span class="kbd">G</span> (or click the Group button)</li>
-                <li>They'll now move and rotate as one unit</li>
-                <li>To separate them again, use Ungroup (<span class="kbd">Ctrl</span><span class="kbd-plus">+</span><span class="kbd">Shift</span><span class="kbd-plus">+</span><span class="kbd">G</span>)</li>
-            </ol>
+            <div class="card">
+                <h4>Grouping and Aligning Objects:</h4>
+                <ol class="steps-list">
+                    <li>Create multiple shapes on your workplane</li>
+                    <li>Select multiple objects by holding <span class="kbd">Shift</span> while clicking on them</li>
+                    <li>Use the alignment tools in the top toolbar (or press <span class="kbd">L</span>) to perfectly align objects</li>
+                    <li>Group objects together by pressing <span class="kbd">Ctrl</span><span class="kbd-plus">+</span><span class="kbd">G</span> (or click the Group button)</li>
+                    <li>They'll now move and rotate as one unit</li>
+                    <li>To separate them again, use Ungroup (<span class="kbd">Ctrl</span><span class="kbd-plus">+</span><span class="kbd">Shift</span><span class="kbd-plus">+</span><span class="kbd">G</span>)</li>
+                </ol>
+            </div>
             
             <div class="tip-box">
                 <div class="tip-title">Grid Tip</div>
@@ -1031,11 +1102,13 @@
             </div>`,
             
             // Step 8: Keyboard Shortcuts
-            `<h3 class="text-xl font-bold mb-4">(BONUS) Keyboard Shortcuts</h3>
-            <p class="mb-4">The best designers use keyboard shortcuts to save time from having to click icons!</p>
-            <p class="mb-4">Learning these shortcuts will make you much faster at designing in Tinkercad.</p>
+            `<h3>(BONUS) Keyboard Shortcuts</h3>
+            <p>The best designers use keyboard shortcuts to save time from having to click icons!</p>
+            <p>Learning these shortcuts will make you much faster at designing in Tinkercad.</p>
             
-            <p class="mb-4">Check out the visual keyboard shortcut guide in the main display area on the right.</p>
+            <div class="card">
+                <p>Check out the visual keyboard shortcut guide in the main display area on the right.</p>
+            </div>
             
             <div class="tip-box">
                 <div class="tip-title">Practice Tip</div>
@@ -1045,26 +1118,17 @@
 
         const stepMedia = [
             // Step 0: Learning Intentions and Success Criteria
-            `<div class="intro-section p-6 rounded-lg" style="background: linear-gradient(135deg, rgba(41, 121, 255, 0.1), rgba(0, 38, 84, 0.2)); border: 1px solid rgba(0, 102, 204, 0.2);">
-                <div class="text-center mb-6">
-                    
-                    
-                </div>
-                
-                <div class="alert-box alert-info">
-                    <p class="font-bold">Tutorial Overview</p>
-                    <p>This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools. You'll learn how to navigate in 3D space, manipulate shapes, and use the hole feature to create hollow objects.</p>
-                </div>
+            `<div class="alert-box alert-info">
+                <p><strong>Tutorial Overview</strong></p>
+                <p>This tutorial will guide you through creating a simple 3D pot plant design using Tinkercad's basic tools. You'll learn how to navigate in 3D space, manipulate shapes, and use the hole feature to create hollow objects.</p>
+            </div>
 
-                <div class="alert-box alert-warning mt-4">
-                    <p class="font-bold"><i class="fas fa-info-circle"></i> Unsure how to use this resource?</p>
-                    <p class="mb-4 mt-4">Click the button below to learn how to navigate the page.</p>
-                    <button id="startWalkthrough" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
-                        <i class="fas fa-walking mr-2"></i> Start Interactive Tour
-                    </button>
-                </div>
-                
-                
+            <div class="alert-box alert-warning">
+                <p><strong><i class="fas fa-info-circle"></i> Unsure how to use this resource?</strong></p>
+                <p>Click the button below to learn how to navigate the page.</p>
+                <button id="startWalkthrough" class="nav-button">
+                    <i class="fas fa-walking"></i> Start Interactive Tour
+                </button>
             </div>`,
             
             // Step 1: Creating a New Design
@@ -1324,145 +1388,141 @@
             </div>`,
             
             // Step 8: Keyboard Shortcuts
-            `<div class="p-4">
-                <h3 class="text-xl font-bold mb-6 text-center">Tinkercad Keyboard Shortcuts</h3>
-                
-                <div class="shortcut-category">
-                    <div class="shortcut-title">
-                        <i class="fas fa-cube"></i> Viewing 3D Space
+            `<div class="shortcut-category">
+                <div class="shortcut-title">
+                    <i class="fas fa-cube"></i> Viewing 3D Space
+                </div>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="kbd">F</div>
+                        <div class="shortcut-action">Fit selection into view</div>
                     </div>
-                    <div class="shortcut-grid">
-                        <div class="shortcut-item">
-                            <div class="kbd">F</div>
-                            <div class="shortcut-action">Fit selection into view</div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">Right-click</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">Right-click</span>
-                            </div>
-                            <div class="shortcut-action">Orbit</div>
+                        <div class="shortcut-action">Orbit</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Shift</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">Right-click</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Shift</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">Right-click</span>
-                            </div>
-                            <div class="shortcut-action">Pan</div>
+                        <div class="shortcut-action">Pan</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">+</span>
+                            <span class="kbd-plus">/</span>
+                            <span class="kbd">-</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">+</span>
-                                <span class="kbd-plus">/</span>
-                                <span class="kbd">-</span>
-                            </div>
-                            <div class="shortcut-action">Zoom</div>
-                        </div>
+                        <div class="shortcut-action">Zoom</div>
                     </div>
                 </div>
-                
-                <div class="shortcut-category">
-                    <div class="shortcut-title">
-                        <i class="fas fa-object-group"></i> Shape Properties
+            </div>
+            
+            <div class="shortcut-category">
+                <div class="shortcut-title">
+                    <i class="fas fa-object-group"></i> Shape Properties
+                </div>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">G</span>
+                        </div>
+                        <div class="shortcut-action">Group</div>
                     </div>
-                    <div class="shortcut-grid">
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">G</span>
-                            </div>
-                            <div class="shortcut-action">Group</div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">Shift</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">G</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">Shift</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">G</span>
-                            </div>
-                            <div class="shortcut-action">Ungroup</div>
-                        </div>
-                        <div class="shortcut-item">
-                            <div class="kbd">H</div>
-                            <div class="shortcut-action">Make a Hole</div>
-                        </div>
-                        <div class="shortcut-item">
-                            <div class="kbd">S</div>
-                            <div class="shortcut-action">Make Solid Color</div>
-                        </div>
-                        <div class="shortcut-item">
-                            <div class="kbd">T</div>
-                            <div class="shortcut-action">Make Transparent</div>
-                        </div>
-                        <div class="shortcut-item">
-                            <div class="kbd">L</div>
-                            <div class="shortcut-action">Align Tool</div>
-                        </div>
+                        <div class="shortcut-action">Ungroup</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd">H</div>
+                        <div class="shortcut-action">Make a Hole</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd">S</div>
+                        <div class="shortcut-action">Make Solid Color</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd">T</div>
+                        <div class="shortcut-action">Make Transparent</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd">L</div>
+                        <div class="shortcut-action">Align Tool</div>
                     </div>
                 </div>
-                
-                <div class="shortcut-category">
-                    <div class="shortcut-title">
-                        <i class="fas fa-edit"></i> Editing Operations
+            </div>
+            
+            <div class="shortcut-category">
+                <div class="shortcut-title">
+                    <i class="fas fa-edit"></i> Editing Operations
+                </div>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">C</span>
+                        </div>
+                        <div class="shortcut-action">Copy</div>
                     </div>
-                    <div class="shortcut-grid">
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">C</span>
-                            </div>
-                            <div class="shortcut-action">Copy</div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">V</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">V</span>
-                            </div>
-                            <div class="shortcut-action">Paste</div>
+                        <div class="shortcut-action">Paste</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">Z</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">Z</span>
-                            </div>
-                            <div class="shortcut-action">Undo</div>
+                        <div class="shortcut-action">Undo</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">Shift</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">Z</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">Shift</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">Z</span>
-                            </div>
-                            <div class="shortcut-action">Redo</div>
+                        <div class="shortcut-action">Redo</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd">Delete</div>
+                        <div class="shortcut-action">Delete Selection</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="kbd-combo">
+                            <span class="kbd">Ctrl</span>
+                            <span class="kbd-plus">+</span>
+                            <span class="kbd">A</span>
                         </div>
-                        <div class="shortcut-item">
-                            <div class="kbd">Delete</div>
-                            <div class="shortcut-action">Delete Selection</div>
-                        </div>
-                        <div class="shortcut-item">
-                            <div class="kbd-combo">
-                                <span class="kbd">Ctrl</span>
-                                <span class="kbd-plus">+</span>
-                                <span class="kbd">A</span>
-                            </div>
-                            <div class="shortcut-action">Select All</div>
-                        </div>
+                        <div class="shortcut-action">Select All</div>
                     </div>
                 </div>
-                
-                <div class="alert-box alert-info mt-6">
-                    <p class="font-bold"><i class="fas fa-lightbulb"></i> Pro Tip</p>
-                    <p>You can find a complete list of keyboard shortcuts in Tinkercad by clicking on the ? icon in the top right corner of the Tinkercad interface.</p>
-                </div>
+            </div>
+            
+            <div class="alert-box alert-info">
+                <p><strong><i class="fas fa-lightbulb"></i> Pro Tip</strong></p>
+                <p>You can find a complete list of keyboard shortcuts in Tinkercad by clicking on the ? icon in the top right corner of the Tinkercad interface.</p>
             </div>`
         ];
 
@@ -1471,10 +1531,11 @@
         const totalSteps = stepInstructions.length;
 
         // DOM Elements
-        const stepIcons = document.querySelectorAll('.step-icon');
+        const stepButtons = document.querySelectorAll('.step-button');
         const stepTitleEl = document.getElementById('current-step-title');
         const instructionsPanel = document.getElementById('step-instructions');
         const mediaContent = document.getElementById('media-content');
+        const contentTitle = document.getElementById('content-title');
         const prevButton = document.getElementById('prevButton');
         const nextButton = document.getElementById('nextButton');
         const progressBar = document.querySelector('.progress');
@@ -1487,13 +1548,14 @@
 
         // Initialize the tutorial
         function showStep(step) {
-            // Update active step icon
-            stepIcons.forEach((icon, index) => {
-                icon.classList.toggle('active', index === step);
+            // Update active step button
+            stepButtons.forEach((button, index) => {
+                button.classList.toggle('active', index === step);
             });
 
             // Update step title
-            stepTitleEl.textContent = step === 0 ? "Learning Intentions and Success Criteria" : `Step ${step}: ${stepTitles[step]}`;
+            stepTitleEl.textContent = stepTitles[step];
+            contentTitle.textContent = stepTitles[step];
 
             // Update content
             instructionsPanel.innerHTML = stepInstructions[step];
@@ -1501,7 +1563,7 @@
 
             // Update navigation buttons
             prevButton.disabled = step === 0;
-            nextButton.style.display = step === totalSteps - 1 ? 'none' : 'block';
+            nextButton.style.display = step === totalSteps - 1 ? 'none' : 'flex';
             
             // Update progress
             const progress = Math.round(((step + 1) / totalSteps) * 100);
@@ -1517,7 +1579,7 @@
         // Initialize all carousels on the page
         function initCarousels() {
             // Find all carousel elements in the current step
-            document.querySelectorAll('.carousel').forEach((carouselElement, carouselIndex) => {
+            document.querySelectorAll('.carousel').forEach((carouselElement) => {
                 const carouselContainer = carouselElement.querySelector('.carousel-container');
                 if (!carouselContainer) return;
                 
@@ -1535,7 +1597,7 @@
                 indicators.innerHTML = '';
                 slides.forEach((_, i) => {
                     const indicator = document.createElement('div');
-                    indicator.className = `carousel-indicator ${i === -0 ? 'active' : ''}`;
+                    indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
                     indicator.dataset.index = i;
                     indicator.addEventListener('click', () => {
                         scrollToSlide(carouselContainer, indicators, i);
@@ -1582,9 +1644,60 @@
             });
         }
 
+        // Custom tooltip implementation
+        function setupTooltips() {
+            const stepButtons = document.querySelectorAll('.step-button');
+            
+            // Create a single tooltip element that we'll reuse
+            let tooltip = document.querySelector('.tooltip');
+            if (!tooltip) {
+                tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                document.body.appendChild(tooltip);
+            }
+            
+            stepButtons.forEach(button => {
+                const tooltipText = button.getAttribute('data-tooltip');
+                if (!tooltipText) return;
+                
+                button.addEventListener('mouseenter', () => {
+                    // Get position of the button
+                    const buttonRect = button.getBoundingClientRect();
+                    
+                    // Set the tooltip content
+                    tooltip.textContent = tooltipText;
+                    
+                    // Position the tooltip based on screen size
+                    if (window.innerWidth <= 1024) {
+                        // Mobile positioning (below the button)
+                        tooltip.className = 'tooltip bottom';
+                        tooltip.style.top = (buttonRect.bottom + 8) + 'px';
+                        tooltip.style.left = (buttonRect.left + buttonRect.width/2) + 'px';
+                        tooltip.style.transform = 'translateX(-50%)';
+                    } else {
+                        // Desktop positioning (to the right of the button)
+                        tooltip.className = 'tooltip right';
+                        tooltip.style.top = (buttonRect.top + buttonRect.height/2) + 'px';
+                        tooltip.style.left = (buttonRect.right + 12) + 'px';
+                        tooltip.style.transform = 'translateY(-50%)';
+                    }
+                    
+                    // Show the tooltip with a small delay
+                    setTimeout(() => {
+                        tooltip.style.opacity = '1';
+                    }, 50);
+                });
+                
+                button.addEventListener('mouseleave', () => {
+                    // Hide the tooltip
+                    tooltip.style.opacity = '0';
+                });
+            });
+        }
+
         // Event Listeners
-        stepIcons.forEach((icon, index) => {
-            icon.addEventListener('click', () => showStep(index));
+        stepButtons.forEach((button, index) => {
+            button.addEventListener('click', () => showStep(index));
         });
 
         prevButton.addEventListener('click', () => {
@@ -1597,15 +1710,13 @@
 
         // Image modal functionality
         document.addEventListener('click', (e) => {
-            // Check if the clicked element is an image inside a carousel slide or anywhere in the content
-            if (e.target.tagName === 'IMG') {
+            if (e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('image-container')) {
                 modal.style.display = 'block';
                 modalImg.src = e.target.src;
                 modalImg.alt = e.target.alt;
             }
         });
 
-        // Close the modal when clicking on the X or anywhere on the modal
         modalClose.addEventListener('click', () => {
             modal.style.display = 'none';
         });
@@ -1629,71 +1740,75 @@
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.8 },
-                colors: ['#FFD700', '#87CEEB', '#57708e', '#002654']
+                colors: ['#002654', '#f7f7f7', '#f0f0f0', '#191919']
             });
         });
 
-        // Initialize with first step
-        showStep(0);
-        
-        // Walkthrough functionality using intro.js
-        document.getElementById('startWalkthrough').addEventListener('click', function() {
-            // Set to a specific step before starting the tour (optional)
-            showStep(3); // Show step 3 (index 2) for the walkthrough
-            
-            // Initialize intro.js
-            const intro = introJs();
-            
-            intro.setOptions({
-                steps: [
-                    {
-                        element: document.querySelector('.nav-panel'),
-                        intro: 'Use these numbered icons to navigate between different steps of the tutorial. Click on any number to jump directly to that step.',
-                        position: 'right'
-                    },
-                    {
-                        element: document.querySelector('.instruction-panel'),
-                        intro: 'Read the step-by-step instructions in this middle panel. These detailed instructions will guide you through each part of the tutorial.',
-                        position: 'right'
-                    },
-                    {
-                        element: document.querySelector('.video-container'),
-                        intro: 'Watch demonstration videos that show exactly how to perform each action in Tinkercad.',
-                        position: 'left'
-                    },
-                    {
-                        element: document.querySelector('.carousel'),
-                        intro: 'Browse through images showing different aspects of the current step. Click on any image to see it in full size.',
-                        position: 'left'
-                    },
-                    {
-                        element: document.querySelector('.navigation'),
-                        intro: 'Use these buttons to move forward and backward through the tutorial steps.',
-                        position: 'top'
-                    },
-                    {
-                        element: document.getElementById('current-step-title'),
-                        intro: 'This shows which step you are currently viewing. Always check this to know where you are in the tutorial.',
-                        position: 'bottom'
-                    }
-                ],
-                showBullets: true,
-                showProgress: true,
-                disableInteraction: false,
-                doneLabel: 'Got it!'
-            });
-            
-            intro.start();
-            
-            // After tour completes, show a success message
-            intro.oncomplete(function() {
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 },
-                    colors: ['#0066cc', '#87CEEB', '#57708e', '#002654']
+        // Initialize introjs walkthrough
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'startWalkthrough' || e.target.parentElement.id === 'startWalkthrough') {
+                const intro = introJs();
+                
+                intro.setOptions({
+                    steps: [
+                        {
+                            element: document.querySelector('.sidebar'),
+                            intro: 'Use these numbered icons to navigate between different steps of the tutorial. Click on any number to jump directly to that step.',
+                            position: 'right'
+                        },
+                        {
+                            element: document.querySelector('.instructions-panel'),
+                            intro: 'Read the step-by-step instructions in this middle panel. These detailed instructions will guide you through each part of the tutorial.',
+                            position: 'right'
+                        },
+                        {
+                            element: document.querySelector('.content-display'),
+                            intro: 'View demonstration videos and images that show exactly how to perform each action in Tinkercad.',
+                            position: 'left'
+                        },
+                        {
+                            element: document.querySelector('.navigation'),
+                            intro: 'Use these buttons to move forward and backward through the tutorial steps.',
+                            position: 'top'
+                        },
+                        {
+                            element: document.getElementById('current-step-title'),
+                            intro: 'This shows which step you are currently viewing. Always check this to know where you are in the tutorial.',
+                            position: 'bottom'
+                        }
+                    ],
+                    showBullets: true,
+                    showProgress: true,
+                    disableInteraction: false,
+                    doneLabel: 'Got it!'
                 });
-                showStep(0);
+                
+                intro.start();
+                
+                // After tour completes, show a success message
+                intro.oncomplete(function() {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#002654', '#f7f7f7', '#f0f0f0', '#191919']
+                    });
+                });
+            }
+        });
+
+        // Initialize with first step and set up tooltips
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(0);
+            setupTooltips();
+            
+            // Update tooltips on window resize
+            window.addEventListener('resize', () => {
+                // Only reposition tooltips if a button is being hovered
+                const tooltip = document.querySelector('.tooltip');
+                if (tooltip && tooltip.style.opacity === '1') {
+                    setupTooltips();
+                }
             });
         });
     </script>
