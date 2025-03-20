@@ -95,9 +95,6 @@
             margin-bottom: 40px;
         }
 
-        /* Search Box */
-
-
         /* Cards Container */
         .cards-container {
             display: flex;
@@ -215,8 +212,13 @@
         .card-tinkercad .card-icon {
             background-color: #6C5B7B;
         }
-
-
+        
+        .card-slicing::before {
+            background-color: #F67280;
+        }
+        .card-slicing .card-icon {
+            background-color: #F67280;
+        }
 
         /* Responsiveness */
         @media (max-width: 768px) {
@@ -250,8 +252,6 @@
         <div class="title-container">
             <h1>DESIGN PROCESS</h1>
         </div>
-
-
 
         <div class="cards-container">
             <a href="empathise.html" class="card card-empathise">
@@ -293,13 +293,15 @@
                 <h2 class="card-title">TinkerCad Prototyping</h2>
                 <p class="card-description">Creating 3D models and prototypes using the TinkerCad platform.</p>
             </a>
+            
+            <a href="slicing.html" class="card card-slicing">
+                <div class="card-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h2 class="card-title">3D Slicing</h2>
+                <p class="card-description">Preparing 3D models for printing by converting them into printable layers.</p>
+            </a>
         </div>
-
-
     </div>
-
-    <script>
-        // No scripts needed after removing search functionality
-    </script>
 </body>
 </html>
