@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinkercad to FlashPrint 3D Printing Tutorial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/intro.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/6.0.0/introjs.min.css">
+</head>
+<body>
+    <div class="tutorial-container">
+        <!-- Left Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-logo">3D PRINTING<br>WORKFLOW</div>
+            <div class="step-button active" data-step="0" data-tooltip="Introduction">
+                <i class="fas fa-list-ol"></i>
+            </div>
+            <div class="step-button" data-step="1" data-tooltip="Exporting from Tinkercad">
+                <span>1</span>
+            </div>
+            <div class="step-button" data-step="2" data-tooltip="Loading in FlashPrint">
+                <span>2</span>
+            </div>
+            <div class="step-button" data-step="3" data-tooltip="Starting the Slicing Process">
+                <span>3</span>
+            </div>
+            <div class="step-button" data-step="4" data-tooltip="Checking for Errors">
+                <span>4</span>
+            </div>
+            <div class="step-button" data-step="5" data-tooltip="Model Orientation">
+                <span>5</span>
+            </div>
+            <div class="step-button" data-step="6" data-tooltip="Support Generation">
+                <span>6</span>
+            </div>
+            <div class="step-button" data-step="7" data-tooltip="Infill Settings">
+                <span>7</span>
+            </div>
+            <div class="step-button" data-step="8" data-tooltip="Final Export">
+                <span>8</span>
+            </div>
+        </div>
+
+        <!-- Middle Instructions Panel -->
+        <div class="instructions-panel">
+            <h1 id="current-step-title">Introduction</h1>
+            
+            <div id="step-instructions">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="navigation">
+                <button id="prevButton" class="nav-button" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                <button id="nextButton" class="nav-button">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-text">Progress: <span id="progress-percentage">0%</span></div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="footer">
+                Made with <span style="color: var(--accent-color);">♥</span> by <span id="creator-name">Buckley</span>
+            </div>
+        </div>
+
+        <!-- Right Content Display Area -->
+        <div class="content-display">
+            <div class="card">
+                <h2 id="content-title">Introduction</h2>
+                <div id="media-content">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for viewing images -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" class="modal-content">
+    </div>
+
+    <script>
+        // Tutorial content configuration
+        // Define your step titles
+        const stepTitles = [
+            "Introduction",
+            "Exporting from Tinkercad",
+            "Loading in FlashPrint",
+            "Starting the Slicing Process",
+            "Checking for Errors",
+            "Model Orientation",
+            "Support Generation",
+            "Infill Settings",
+            "Final Export"
+        ];
+
+        // Define your step instructions (middle panel content)
+        const stepInstructions = [
+            // Step 0: Introduction
+            `<h3>From Tinkercad to 3D Printer: The Complete Workflow</h3>
+            
+            <div class="card">
+                <p><strong>Learning Intentions:</strong></p>
+                <ol class="steps-list">
+                    <li>Understand how to use FlashPrint to check model viability</li>
+                    <li>Learn how to configure important print settings like supports and infill</li>
+                    <li>Identify and resolve common 3D printing issues before printing</li>
+                </ol>
+            
+                <p><strong>Success Criteria:</strong></p>
+                <ol class="steps-list">
+                    <li>Generate a valid sliced file ready for 3D printing</li>
+                </ol>
+            </div>`,
+            
+            // Step 1: Exporting from Tinkercad
+            `<h3>Step 1: Exporting Your Model from Tinkercad</h3>
+            <p>The first step in the 3D printing process is to export your completed model from Tinkercad in a format that your slicing software can read.</p>
+            
+            <div class="card">
+                <h4>Export Instructions:</h4>
+                <ol class="steps-list">
+                    <li>In Tinkercad, ensure your design is complete and ready for printing</li>
+                    <li>Make sure you've renamed your design with this formula:<br> <strong>FIRST NAME-LAST NAME-CLASS</strong></li>
+                    <li>Click on the "Export" button in the top right corner of the screen</li>
+                    <li>Select the ".STL" file format (this is the standard format for most 3D printers and slicing software)</li>
+                    <li>Click on the ".STL" button to download the file to your computer in your downloads folder.</li>
+                </ol>
+            </div>`,
+            
+            // Step 2: Loading in FlashPrint
+`<h3>Step 2: Loading Your STL File in FlashPrint</h3>
+<p>Now that you have your STL file, you need to open it in FlashPrint to prepare it for printing.</p>
+
+<div class="card">
+    <h4>Loading Your File:</h4>
+    <ol class="steps-list">
+        <li>Open FlashPrint software on your computer</li>
+        <li>Click on the "File" menu in the top left corner</li>
+        <li>Select "Load File..." from the dropdown menu (or use the keyboard shortcut Ctrl+O)</li>
+        <li>Navigate to the location where you saved your STL file</li>
+        <li>Select your file and click "Open"</li>
+        <li>Your model should now appear on the virtual build plate in FlashPrint</li>
+    </ol>
+</div>
+
+<div class="alert-box alert-info">
+    <p><strong><i class="fas fa-lightbulb"></i> Tip</strong></p>
+    <p>If your model doesn't appear or appears very small, click the scale button and increase the size.</p>
+    <div class="image-container">
+        <img src="https://i.imgur.com/l6QQ8YH.png" alt="FlashPrint center and scale tools highlighted" class="cursor-pointer">
+        <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+    </div>
+</div>`,
+            
+            // Step 3: Starting the Slicing Process
+            `<h3>Step 3: Starting the Slicing Process</h3>
+            <p>Once your model is loaded, you need to begin the slicing process to examine how the printer will build your model.</p>
+            
+            <div class="card">
+                <h4>Starting the Slicer:</h4>
+                <ol class="steps-list">
+                    <li>With your model loaded, look for the "Start Slicing" button at the top of the interface</li>
+                    <li>Click this button to begin the slicing process</li>
+                    <li>This will open FlashPrint's slicing interface where you can adjust various settings</li>
+                    <li>After initial slicing, you can click on "Slice Preview" to see how the printer will build your model layer by layer</li>
+                </ol>
+            </div>
+            
+            <div class="tip-box">
+                <div class="tip-title"><i class="fas fa-info-circle"></i> What is Slicing?</div>
+                <p>Slicing is the process of converting a 3D model into a series of thin layers and generating the toolpath instructions for the 3D printer. The slicer determines how the printer will move to create each layer of your model.</p>
+            </div>`,
+            
+            // Step 4: Checking for Errors
+`<h3>Step 4: Checking Your Model for Errors</h3>
+<p>Before proceeding with print settings, it's important to check your model for any structural issues that might prevent successful printing.</p>
+
+<div class="card">
+    <h4>Error Checking Process:</h4>
+    <ol class="steps-list">
+        <li>Examine your model carefully in the FlashPrint interface</li>
+        <li>Check for any floating or disconnected geometry that isn't attached to the build plate</li>
+        <li>Identify overhanging sections that might be difficult to print without support</li>
+        <li>Ensure there are no extremely thin walls that might be too delicate to print</li>
+        <li>Verify that all parts of your model are properly connected if it's a multi-part design</li>
+    </ol>
+</div>
+
+<div class="alert-box alert-warning">
+    <p><strong><i class="fas fa-exclamation-triangle"></i> Watch Out For Floating Geometry</strong></p>
+    <p>Remember that 3D printers build models layer by layer from the bottom up. Any part of your model that "floats" in mid-air with nothing beneath it will fail to print properly unless supports are added.</p>
+    <div class="image-container" style="text-align: center; max-width: 100%; overflow: hidden;">
+        <img src="https://hackaday.com/wp-content/uploads/2016/05/printing_anim.gif" alt="Animation showing 3D printer building layers from bottom up with supports" class="cursor-pointer" style="max-width: 100%; height: auto; object-fit: contain;">
+        <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+    </div>
+</div>
+
+<div class="tip-box">
+    <div class="tip-title"><i class="fas fa-info-circle"></i> Understanding the Layer Process</div>
+    <p>When checking your model, try to mentally slice it into horizontal layers and consider how each layer will be printed on top of the previous one. Any part that has nothing beneath it will need support structures.</p>
+</div>`,
+            
+            // Step 5: Model Orientation
+            `<h3>Step 5: Orienting Your Model Properly</h3>
+            <p>The orientation of your model on the build plate affects print quality, strength, and the need for supports.</p>
+            
+            <div class="card">
+                <h4>Orientation Instructions:</h4>
+                <ol class="steps-list">
+                    <li>Use the rotation tools in FlashPrint to adjust your model's orientation</li>
+                    <li>Click on the "Rotate" icon in the toolbar on the right side of the interface</li>
+                    <li>Use the rotation controls to adjust along the X, Y, and Z axes</li>
+                    <li>You can enter specific degrees in the input fields or use the quick "90°" buttons for common rotations</li>
+                    <li>Consider these principles when orienting:
+                        <ul>
+                            <li>Minimize overhangs to reduce the need for supports</li>
+                            <li>Place the largest flat surface on the build plate for stability</li>
+                            <li>Consider the direction of forces if your part needs to be strong in a particular direction</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="tip-box">
+                <div class="tip-title"><i class="fas fa-lightbulb"></i> Pro Tip</div>
+                <p>For models with overhangs, try to orient them so that overhangs are 45 degrees or less from vertical. Most 3D printers can handle these angles without supports.</p>
+            </div>`,
+            
+            // Step 6: Support Generation
+            `<h3>Step 6: Adding Supports When Necessary</h3>
+            <p>Supports are temporary structures that help print overhanging features that would otherwise droop or fail to print properly.</p>
+            
+            <div class="card">
+                <h4>Support Generation Process:</h4>
+                <ol class="steps-list">
+                    <li>Click on the "Supports" icon in the right toolbar (looks like a small structure or pillar)</li>
+                    <li>In the Supports Options panel, you can choose the support type (tree-like or linear supports)</li>
+                    <li>For automatic support generation, click the "Auto Supports" button</li>
+                    <li>FlashPrint will analyze your model and add supports where needed</li>
+                    <li>Support structures will appear in a different color (often teal or blue) so you can distinguish them from your actual model</li>
+                </ol>
+            </div>
+            
+            <div class="alert-box alert-info">
+                <p><strong><i class="fas fa-tools"></i> When to Use Supports</strong></p>
+                <p>You'll need supports when your model has:</p>
+                <ul>
+                    <li>Overhangs greater than 45-55 degrees from vertical</li>
+                    <li>Floating or disconnected parts</li>
+                    <li>Bridges (horizontal spans) longer than about 5mm</li>
+                </ul>
+            </div>`,
+            
+            // Step 7: Infill Settings
+            `<h3>Step 7: Adjusting Infill Settings</h3>
+            <p>Infill is the internal structure of your 3D print. It affects strength, weight, material usage, and print time.</p>
+            
+            <div class="card">
+                <h4>Infill Configuration:</h4>
+                <ol class="steps-list">
+                    <li>Click on the "Infill" tab in the left sidebar of the slicing interface</li>
+                    <li>Set your desired fill density:
+                        <ul>
+                            <li>10-15%: Suitable for decorative items with minimal structural requirements. <strong>This is what most prints will need.</strong></li>
+                            <li>20-45%: Good for functional parts that need moderate strength</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="tip-box">
+                <div class="tip-title"><i class="fas fa-lightbulb"></i> Efficiency Tip</div>
+                <p>For most student projects, 10-15% infill is sufficient and saves material and print time. Only increase infill for parts that need additional strength.</p>
+            </div>`,
+            
+            // Step 8: Final Export
+            `<h3>Step 8: Final Checks and Exporting the Print File</h3>
+            <p>After configuring all settings, perform final checks and prepare your file for printing.</p>
+            
+            <div class="card">
+                <h4>Final Steps:</h4>
+                <ol class="steps-list">
+                    <li>Use the "Slice Preview" feature to check how your model will print layer by layer</li>
+                    <li>Look for any potential issues like gaps, unsupported areas, or floating sections</li>
+                    <li>Check the estimated print time and material usage (displayed in the preview)</li>
+                    
+                </ol>
+            </div>
+            
+            <div class="alert-box alert-info">
+                <p><strong><i class="fas fa-graduation-cap"></i> Congratulations!</strong></p>
+                <p>You've done all the main checks now!</p>
+                <p>Show your slice to a teacher to check if you're good to print.</p>
+                </div>`
+        ];
+
+        // Define your media content (right panel)
+        const stepMedia = [
+            // Step 0: Introduction
+            `<div class="alert-box alert-info">
+                <p><strong>Tutorial Overview</strong></p>
+                <p>This tutorial will guide you through the complete process of taking a 3D model from Tinkercad and preparing it for successful 3D printing using FlashPrint slicing software.</p>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <p><strong>IMPORTANT</strong></p>
+
+                <p>Your teacher will likely still do the final slice for you. This is just to save the time you could waste from getting a surprise that your design isn't printable.</p>
+            </div>`,
+            
+            // Step 1: Exporting from Tinkercad
+            `<div class="carousel">
+                <div class="carousel-container" id="carousel-export">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/opYcLsT.png" alt="Tinkercad export dialog showing STL format selection" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`,
+            
+            // Step 2: Loading in FlashPrint
+            `<div class="carousel">
+                <div class="carousel-container" id="carousel-loading">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/SSAglQ5.png" alt="FlashPrint File menu with Load File option highlighted" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>In FlashPrint, click on File in the top menu, then select Load File... (Ctrl+O) to open your STL.</p>
+                    </div>
+                </div>
+            </div>`,
+            
+            // Step 3: Starting the Slicing Process
+            `<div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-slicing">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/o6z4qgH.png" alt="FlashPrint interface showing Start Slicing button highlighted" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Click the "Start Slicing" button highlighted in the image to begin preparing your model for printing.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/YhLgmzy.png" alt="FlashPrint interface showing Slice Preview button highlighted" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>After initial processing, click "Slice Preview" to examine how the layers will be constructed.</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-slicing">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                </div>
+            </div>`,
+            
+            // Step 4: Checking for Errors
+            `<div class="carousel">
+                <div class="carousel-container" id="carousel-errors">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/OHc6Dbp.png" alt="Model showing moiré pattern indicating geometry errors" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p><i class="fa-solid fa-triangle-exclamation"></i> This floating object won't be able to be printed!</p>
+                        <p><strong>To fix this kind of issue, go back into Tinkercad and lay this extra piece off to the side on the floor.</strong></p>
+
+                    </div>
+                </div>
+            </div>`,
+            
+            // Step 5: Model Orientation
+            `<div class="carousel">
+                <div class="carousel-container" id="carousel-orientation">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/pWparyp.png" alt="FlashPrint rotation controls with 90 degree rotation buttons highlighted" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Use the rotation controls to properly orient your model. The 90° rotation buttons (circled in red) are useful for common adjustments.</p>
+                    </div>
+                </div>
+            </div>`,
+            
+            // Step 6: Support Generation
+            `<div class="carousel">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&#10094;</button>
+                    <button class="carousel-btn next-btn">&#10095;</button>
+                </div>
+                <div class="carousel-container" id="carousel-supports">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/dB4RzMD.png" alt="FlashPrint interface showing supports icon in toolbar" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Click on the supports icon (circled in red) in the right toolbar to access support generation options.</p>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/e9ced68.png" alt="FlashPrint support generation panel with Auto Supports button highlighted" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Click "Auto Supports" (circled in red) to automatically add supports to overhanging areas. Note the generated support structure (also circled).</p>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators-supports">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                </div>
+            </div>`,
+            
+            // Step 7: Infill Settings
+            `<div class="carousel">
+                <div class="carousel-container" id="carousel-infill">
+                    <div class="carousel-slide">
+                        <div class="image-container">
+                            <img src="https://i.imgur.com/TLIdk3m.png" alt="FlashPrint infill settings panel with density setting highlighted" class="cursor-pointer">
+                            <div class="zoom-hint"><i class="fas fa-search-plus"></i> Click to zoom</div>
+                        </div>
+                        <p>Select the "Infill" tab and adjust the Fill Density percentage (circled in red). 10-15% is suitable for most student projects. When finished, click the "Slice" button.</p>
+                    </div>
+                </div>
+            </div>`,
+            
+            // Step 8: Final Export
+            `
+
+            <div class="alert-box alert-info">
+                <p><strong>Remember!</strong></p>
+                <p>3D printing is iterative. If your first print doesn't come out perfectly, adjust your settings and try again. Each print is a learning opportunity!</p>
+            </div>`
+        ];
+
+        // Current step tracking
+        let currentStep = 0;
+        const totalSteps = stepInstructions.length;
+
+        // DOM Elements
+        const stepButtons = document.querySelectorAll('.step-button');
+        const stepTitleEl = document.getElementById('current-step-title');
+        const instructionsPanel = document.getElementById('step-instructions');
+        const mediaContent = document.getElementById('media-content');
+        const contentTitle = document.getElementById('content-title');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const progressBar = document.querySelector('.progress');
+        const progressPercentage = document.getElementById('progress-percentage');
+
+        // Image modal
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalClose = document.querySelector('.modal-close');
+
+        // Initialize the tutorial
+        function showStep(step) {
+            // Update active step button
+            stepButtons.forEach((button, index) => {
+                button.classList.toggle('active', index === step);
+            });
+
+            // Update step title
+            stepTitleEl.textContent = stepTitles[step];
+            contentTitle.textContent = stepTitles[step];
+
+            // Update content
+            instructionsPanel.innerHTML = stepInstructions[step];
+            mediaContent.innerHTML = stepMedia[step];
+
+            // Update navigation buttons
+            prevButton.disabled = step === 0;
+            nextButton.style.display = step === totalSteps - 1 ? 'none' : 'flex';
+            
+            // Update progress
+            const progress = Math.round(((step + 1) / totalSteps) * 100);
+            progressBar.style.width = `${progress}%`;
+            progressPercentage.textContent = `${progress}%`;
+            
+            // Initialize carousels if present
+            initCarousels();
+            
+            currentStep = step;
+        }
+
+        // Initialize all carousels on the page
+        function initCarousels() {
+            // Find all carousel elements in the current step
+            document.querySelectorAll('.carousel').forEach((carouselElement) => {
+                const carouselContainer = carouselElement.querySelector('.carousel-container');
+                if (!carouselContainer) return;
+                
+                const slides = carouselContainer.querySelectorAll('.carousel-slide');
+                if (slides.length <= 1) return;
+                
+                // Get carousel controls
+                const prevBtn = carouselElement.querySelector('.prev-btn');
+                const nextBtn = carouselElement.querySelector('.next-btn');
+                const indicators = carouselElement.querySelector('.carousel-indicators');
+                
+                if (!prevBtn || !nextBtn || !indicators) return;
+                
+                // Clear existing indicators and recreate them
+                indicators.innerHTML = '';
+                slides.forEach((_, i) => {
+                    const indicator = document.createElement('div');
+                    indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
+                    indicator.dataset.index = i;
+                    indicator.addEventListener('click', () => {
+                        scrollToSlide(carouselContainer, indicators, i);
+                    });
+                    indicators.appendChild(indicator);
+                });
+                
+                // Track the current slide for this carousel
+                carouselContainer.dataset.currentSlide = '0';
+                
+                // Add click handlers to navigation buttons
+                prevBtn.onclick = function() {
+                    const currentSlide = parseInt(carouselContainer.dataset.currentSlide || '0');
+                    const newSlide = (currentSlide - 1 + slides.length) % slides.length;
+                    scrollToSlide(carouselContainer, indicators, newSlide);
+                    carouselContainer.dataset.currentSlide = newSlide.toString();
+                };
+                
+                nextBtn.onclick = function() {
+                    const currentSlide = parseInt(carouselContainer.dataset.currentSlide || '0');
+                    const newSlide = (currentSlide + 1) % slides.length;
+                    scrollToSlide(carouselContainer, indicators, newSlide);
+                    carouselContainer.dataset.currentSlide = newSlide.toString();
+                };
+            });
+        }
+
+        // Scroll carousel to specific slide
+        function scrollToSlide(carousel, indicators, index) {
+            // Calculate the scroll position
+            const slideWidth = carousel.clientWidth;
+            const scrollPosition = slideWidth * index;
+            
+            // Animate the scroll
+            carousel.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+            
+            // Update indicators
+            const allIndicators = indicators.querySelectorAll('.carousel-indicator');
+            allIndicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === index);
+            });
+        }
+
+        // Simple tooltip implementation
+        function setupTooltips() {
+            // Remove any existing tooltips
+            const existingTooltips = document.querySelectorAll('.tooltip');
+            existingTooltips.forEach(t => t.remove());
+            
+            // Create new tooltip element
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            document.body.appendChild(tooltip);
+            
+            // Add event listeners to all step buttons
+            const stepButtons = document.querySelectorAll('.step-button');
+            stepButtons.forEach(button => {
+                const tooltipText = button.getAttribute('data-tooltip');
+                if (!tooltipText) return;
+                
+                // On mouse enter
+                button.addEventListener('mouseenter', () => {
+                    // Set tooltip text
+                    tooltip.textContent = tooltipText;
+                    
+                    // Position tooltip based on viewport width
+                    const rect = button.getBoundingClientRect();
+                    if (window.innerWidth <= 1024) {
+                        // Position below on mobile
+                        tooltip.className = 'tooltip bottom';
+                        tooltip.style.top = `${rect.bottom + 10}px`;
+                        tooltip.style.left = `${rect.left + rect.width/2}px`;
+                        tooltip.style.transform = 'translateX(-50%)';
+                    } else {
+                        // Position to the right on desktop
+                        tooltip.className = 'tooltip right';
+                        tooltip.style.top = `${rect.top + rect.height/2}px`;
+                        tooltip.style.left = `${rect.right + 10}px`;
+                        tooltip.style.transform = 'translateY(-50%)';
+                    }
+                    
+                    // Make tooltip visible
+                    tooltip.style.opacity = '1';
+                });
+                
+                // On mouse leave
+                button.addEventListener('mouseleave', () => {
+                    tooltip.style.opacity = '0';
+                });
+            });
+        }
+
+        // Event Listeners
+        stepButtons.forEach((button, index) => {
+            button.addEventListener('click', () => showStep(index));
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentStep > 0) showStep(currentStep - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentStep < totalSteps - 1) showStep(currentStep + 1);
+        });
+
+        // Image modal functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG' && e.target.parentElement.classList.contains('image-container')) {
+                modal.style.display = 'block';
+                modalImg.src = e.target.src;
+                modalImg.alt = e.target.alt;
+            }
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Creator name with confetti
+        document.getElementById('creator-name').addEventListener('click', () => {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#002654', '#f7f7f7', '#f0f0f0', '#191919']
+            });
+        });
+
+        // Initialize with first step and set up tooltips
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(0);
+            setupTooltips();
+            
+            // Update tooltips on window resize
+            window.addEventListener('resize', () => {
+                setupTooltips();
+            });
+            
+            // Update tooltips whenever a step button is clicked
+            document.querySelectorAll('.step-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    setTimeout(setupTooltips, 100);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
