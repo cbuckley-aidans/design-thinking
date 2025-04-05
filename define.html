@@ -3,434 +3,581 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design Criteria</title>
-    <!-- External CSS -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- Inter Font -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
-    <!-- Font Awesome Icons -->
+    <title>Defining in Design</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ffffff',
+                        secondary: '#f7f7f7',
+                        accent: '#f0f0f0',
+                        accentBlue: '#002654',
+                        outline: '#191919',
+                        text: '#191919',
+                    },
+                    boxShadow: {
+                        'sm-custom': '0 0.15em 0 #191919',
+                        'md-custom': '0 0.25em 0 #191919',
+                    },
+                    borderRadius: {
+                        'custom': '0.6em',
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        /* Additional Custom Styles */
-        .element-content ul li {
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
         }
         
-        .element-content ul li strong {
-            display: inline-block;
-            margin-right: 6px;
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
         
-        .principle-example {
-            margin-top: 12px;
-            padding: 10px 12px;
-            background-color: var(--accent-bg);
-            border-radius: var(--border-radius);
-            font-size: 0.95em;
+        .tab-content {
+            display: none;
         }
         
-        .principle-example:before {
-            content: "Example: ";
-            font-weight: 600;
-            color: var(--accent-color);
-        }
-        
-        .criteria-section {
-            margin-top: 10px;
-        }
-        
-        .criteria-label {
-            font-weight: 600;
+        .tab-content.active {
             display: block;
-            margin-bottom: 6px;
-            color: var(--accent-color);
+            animation: fadeIn 0.3s ease-in-out;
         }
         
-        .criteria-text {
-            margin-bottom: 16px;
-        }
-        
-        .measure-text {
-            background-color: var(--secondary-bg);
-            padding: 12px;
-            border-radius: var(--border-radius);
-            border-left: 2px solid var(--accent-color);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
+<body class="bg-primary text-text flex min-h-screen">
     <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">DESIGN CRITERIA</div>
-        <a href="index.html" class="home-button">
-            <i class="fas fa-home"></i>
+    <aside class="w-40 bg-secondary border-r-2 border-outline fixed h-screen top-0 left-0 flex flex-col items-center py-6 z-10">
+        <div class="text-center font-bold text-base mb-10 px-4 leading-tight">DEFINING</div>
+        
+        <a href="index.html" class="w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2 mb-8 no-underline">
+            <i class="fas fa-home text-xl"></i>
             HOME
         </a>
-        <div class="sidebar-nav">
-            <!-- Tab navigation buttons -->
-            <button class="tab-button active" data-tab="tab1">
-                <i class="fas fa-list-check"></i>
-                CREATING
+        <div class="flex flex-col gap-4 w-full items-center">
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="tab1">
+                <i class="fas fa-list-check text-xl"></i>
+                CRITERIA
             </button>
-            <button class="tab-button" data-tab="tab2">
-                <i class="fas fa-sitemap"></i>
-                PRINCIPLES
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="tab2">
+                <i class="fas fa-user-check text-xl"></i>
+                STORIES
             </button>
-            <button class="tab-button" data-tab="tab3">
-                <i class="fas fa-clipboard-list"></i>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="tab3">
+                <i class="fas fa-clipboard-list text-xl"></i>
                 EXAMPLES
             </button>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <!-- Tab 1 Content - Creating Design Criteria -->
+    <main class="flex-1 ml-40">
+        <!-- Tab 1 Content - Design Criteria -->
         <div id="tab1" class="tab-content active">
-            <div class="light-section">
-                <h1>Creating Design Criteria</h1>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    DESIGN CRITERIA
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
                 <!-- Intro Card -->
-                <div class="card">
-                    <p class="intro-paragraph">Design criteria help you measure how successful your design is. They are like a checklist for your design. Aim to create around 4-6 design criteria for your design. You will evaluate these at the end of your assessment item, so ensure they are well-thought out.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Design criteria are the rules that help you check if your design is good. Think of them as a checklist for your project. Try to create 4-6 criteria that you can test at the end of your project.</p>
                     
-                    <p>Oftentimes, the client will describe what they need. You can easily reword their requirements into clear design criteria.</p>
+                    <p>Often, your client or teacher will tell you what they need. You can turn these needs into clear design criteria.</p>
                 </div>
                 
-                <h2>Design Criteria Types</h2>
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    CREATING GOOD CRITERIA
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
                 <!-- Elements Grid -->
-                <div class="elements-grid">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-8">
                     <!-- Element Card 1 -->
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>Specific Criteria</h3>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <span class="font-bold">1</span>
+                            </div>
+                            <h3 class="text-xl font-bold">BE SPECIFIC</h3>
                         </div>
-                        <div class="element-content">
-                            <p>Be clear and precise. Use clear numbers and measurements instead of vague terms.</p>
-                            <ul>
-                                <li>
-                                    <div><strong>❌ Avoid:</strong> "The design must be light"</div>
-                                    <div><strong>✓ Better:</strong> "The design must weigh less than 500g"</div>
-                                </li>
-                            </ul>
+                        <p class="mb-4">Use clear numbers instead of vague words. This makes it easier to tell if you've met your goal.</p>
+                        <div class="bg-secondary p-4 rounded-lg">
+                            <div class="mb-2">
+                                <strong class="text-accentBlue">❌ Too vague:</strong> "The water bottle must be light"
+                            </div>
+                            <div>
+                                <strong class="text-accentBlue">✓ Better:</strong> "The water bottle must weigh less than 500g"
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Element Card 2 -->
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>Measurable Criteria</h3>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <span class="font-bold">2</span>
+                            </div>
+                            <h3 class="text-xl font-bold">MAKE IT TESTABLE</h3>
                         </div>
-                        <div class="element-content">
-                            <p>Your criteria must be testable. You need to be able to verify if your design meets the criteria.</p>
-                            <ul>
-                                <li>
-                                    <div><strong>❌ Avoid:</strong> "Must be strong"</div>
-                                    <div><strong>✓ Better:</strong> "Must survive a 1m drop test"</div>
-                                </li>
-                            </ul>
+                        <p class="mb-4">You need to be able to check if your design meets each criterion. There should be a clear way to test it.</p>
+                        <div class="bg-secondary p-4 rounded-lg">
+                            <div class="mb-2">
+                                <strong class="text-accentBlue">❌ Hard to test:</strong> "Must be strong"
+                            </div>
+                            <div>
+                                <strong class="text-accentBlue">✓ Better:</strong> "Must survive a 1m drop test without breaking"
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Element Card 3 -->
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>Achievable Criteria</h3>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <span class="font-bold">3</span>
+                            </div>
+                            <h3 class="text-xl font-bold">KEEP IT ACHIEVABLE</h3>
                         </div>
-                        <div class="element-content">
-                            <p>Make sure you can actually meet the criteria with your available resources and skills.</p>
-                            <ul>
-                                <li>
-                                    <div><strong>❌ Avoid:</strong> "Made from gold"</div>
-                                    <div><strong>✓ Better:</strong> "Made from recycled plastic"</div>
-                                </li>
-                            </ul>
+                        <p class="mb-4">Make sure you can actually meet your criteria with the materials, time, and skills you have.</p>
+                        <div class="bg-secondary p-4 rounded-lg">
+                            <div class="mb-2">
+                                <strong class="text-accentBlue">❌ Too difficult:</strong> "Made from titanium"
+                            </div>
+                            <div>
+                                <strong class="text-accentBlue">✓ Better:</strong> "Made from recycled plastic"
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Element Card 4 -->
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>Relevant Criteria</h3>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <span class="font-bold">4</span>
+                            </div>
+                            <h3 class="text-xl font-bold">MAKE IT RELEVANT</h3>
                         </div>
-                        <div class="element-content">
-                            <p>Each criterion should matter to your user and solve their problem.</p>
-                            <ul>
-                                <li>
-                                    <div><strong>❌ Avoid:</strong> "Beach toy must be fireproof"</div>
-                                    <div><strong>✓ Better:</strong> "Beach toy must be water resistant"</div>
-                                </li>
-                            </ul>
+                        <p class="mb-4">Each criterion should solve a real problem for your users. Don't include features nobody needs.</p>
+                        <div class="bg-secondary p-4 rounded-lg">
+                            <div class="mb-2">
+                                <strong class="text-accentBlue">❌ Not relevant:</strong> "Beach toy must be fireproof"
+                            </div>
+                            <div>
+                                <strong class="text-accentBlue">✓ Better:</strong> "Beach toy must float in water"
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 2 Content - Dieter Rams' 10 Principles -->
+        <!-- Tab 2 Content - User Stories -->
         <div id="tab2" class="tab-content">
-            <div class="dark-section">
-                <h2>Dieter Rams' 10 Principles</h2>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    USER STORIES
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="card">
-                    <p class="intro-paragraph">Dieter Rams was a famous designer who developed 10 Principles of Good Design to follow. These principles can help guide and narrow down your design criteria further. Use these in combination with what the client wants.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">User stories help you understand exactly what your users need. They are short, simple statements that describe what a user wants to do and why they want to do it.</p>
+                    
+                    <p>A good user story focuses on the user's goal, not the specific features they might need.</p>
                 </div>
                 
-                <!-- Split Content Example -->
-                <div class="split-content">
-                    <div>
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">1</div>
-                                <h3>Good design is innovative</h3>
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    HOW TO WRITE USER STORIES
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <!-- User Story Format -->
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4">THE USER STORY FORMAT</h3>
+                    
+                    <div class="bg-secondary p-5 rounded-lg text-center mb-6">
+                        <p class="text-lg font-medium">As a <span class="text-accentBlue">type of user</span>, I want to <span class="text-accentBlue">do something</span> so that <span class="text-accentBlue">I get this benefit</span>.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="bg-primary border border-outline rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-accentBlue flex items-center justify-center text-white mr-2">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h4 class="font-bold">WHO?</h4>
                             </div>
-                            <div class="element-content">
-                                <p>Creates new solutions without copying others</p>
-                                <p class="principle-example">Must include at least one feature not found in existing products</p>
-                            </div>
+                            <p class="text-sm">The type of person who will use your design. Be specific about who they are.</p>
                         </div>
                         
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">2</div>
-                                <h3>Makes a product useful</h3>
+                        <div class="bg-primary border border-outline rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-accentBlue flex items-center justify-center text-white mr-2">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <h4 class="font-bold">WHAT?</h4>
                             </div>
-                            <div class="element-content">
-                                <p>Focuses on function over looks</p>
-                                <p class="principle-example">Must complete its main task in under 30 seconds</p>
-                            </div>
+                            <p class="text-sm">The action they want to take. Focus on what they're trying to do, not how.</p>
                         </div>
                         
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">3</div>
-                                <h3>Is aesthetic</h3>
+                        <div class="bg-primary border border-outline rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 rounded-full bg-accentBlue flex items-center justify-center text-white mr-2">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h4 class="font-bold">WHY?</h4>
                             </div>
-                            <div class="element-content">
-                                <p>Looks good while working well</p>
-                                <p class="principle-example">8/10 users must rate appearance as "appealing" or higher</p>
-                            </div>
+                            <p class="text-sm">The benefit they get. This explains why the action matters to them.</p>
                         </div>
-                        
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">4</div>
-                                <h3>Makes a product understandable</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Easy to figure out how to use</p>
-                                <p class="principle-example">New users must be able to use without instructions</p>
-                            </div>
-                        </div>
-                        
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">5</div>
-                                <h3>Is unobtrusive</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Simple and not flashy</p>
-                                <p class="principle-example">Must use no more than 3 colours in design</p>
+                    </div>
+                    
+                    <div class="bg-accent p-4 rounded-lg border-l-4 border-accentBlue">
+                        <p><strong>Example:</strong> As a <span class="text-accentBlue">student with a heavy backpack</span>, I want to <span class="text-accentBlue">easily access my water bottle without removing my backpack</span> so that <span class="text-accentBlue">I can stay hydrated between classes without being late</span>.</p>
+                    </div>
+                </div>
+                
+                <!-- Steps for Creating User Stories -->
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">IDENTIFY YOUR USERS</h3>
+                            <p>Think about different types of people who will use your design. Be specific about who they are and what makes them unique.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example users:</span> Left-handed students, athletes carrying sports equipment, teachers who move between classrooms
                             </div>
                         </div>
                     </div>
                     
-                    <div>
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">6</div>
-                                <h3>Is honest</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Doesn't pretend to be more than it is</p>
-                                <p class="principle-example">All materials must be clearly labeled</p>
-                            </div>
-                        </div>
-                        
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">7</div>
-                                <h3>Is long-lasting</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Built to last, not disposable</p>
-                                <p class="principle-example">Must last 5 years of normal use</p>
-                            </div>
-                        </div>
-                        
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">8</div>
-                                <h3>Is thorough</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Every detail matters</p>
-                                <p class="principle-example">All edges must be rounded to 2mm radius</p>
-                            </div>
-                        </div>
-                        
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">9</div>
-                                <h3>Is environmentally friendly</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Considers environmental impact</p>
-                                <p class="principle-example">Must be made from 90% recyclable materials</p>
-                            </div>
-                        </div>
-                        
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">10</div>
-                                <h3>Is as little design as possible</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>No unnecessary features</p>
-                                <p class="principle-example">Must have no features that aren't used weekly</p>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">UNDERSTAND THEIR GOALS</h3>
+                            <p>What is each user trying to achieve? Focus on their goals, not the specific features they might want.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example goal:</span> Instead of "wants a cup holder," think "wants to keep drink from spilling while walking"
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">CONSIDER THE BENEFITS</h3>
+                            <p>Why does this goal matter to them? What problem does it solve or what benefit does it provide?</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example benefit:</span> "So I don't have to stop and set down my belongings every time I need a drink"
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">4</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">WRITE MULTIPLE STORIES</h3>
+                            <p>Create several user stories for different types of users. This helps you see your design from different perspectives.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Tip:</span> Aim for 5-10 different user stories that cover various users and scenarios
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tips for Good User Stories -->
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mt-10 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-accentBlue"></i>
+                        TIPS FOR GREAT USER STORIES
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Keep stories simple</p>
+                            <p class="text-sm">Each story should focus on one goal. If it's too complex, break it into smaller stories.</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Use real people as inspiration</p>
+                            <p class="text-sm">Think about actual people you know who might use your design.</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Focus on problems, not solutions</p>
+                            <p class="text-sm">Describe what the user needs to achieve, not how your design will work.</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Be specific about the user</p>
+                            <p class="text-sm">"Student" is too general. "7th grade student who plays sports" is better.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary section -->
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-accentBlue"></i>
+                        REMEMBER
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>User stories help you understand what people really need</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Follow the format: As a (who), I want to (what) so that (why)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Focus on the user's goal, not specific features</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Create multiple stories for different types of users</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Tab 3 Content - Example Criteria -->
+        <!-- Tab 3 Content - Examples -->
         <div id="tab3" class="tab-content">
-            <div class="light-section">
-                <h2>Example Criteria</h2>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    EXAMPLE CRITERIA & STORIES
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="card">
-                    <p class="intro-paragraph">Below are examples of clear, specific, and measurable design criteria. These examples show how to write criteria that can be properly evaluated at the end of your project.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="mb-4">Below are examples of good design criteria and user stories that you can use as models for your own project.</p>
                 </div>
                 
-                <!-- Steps Container Example -->
-                <div class="steps-container">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
+                <!-- Example Design Criteria -->
+                <h3 class="text-2xl font-bold mb-4 inline-block pb-1 relative">
+                    DESIGN CRITERIA EXAMPLES
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h3>
+                
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto mb-10">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
                         <div>
-                            <h3>Innovative</h3>
-                            <div class="criteria-section">
-                                <div class="criteria-label">Description</div>
-                                <div class="criteria-text">My water bottle design will be innovative. It will fit in a standard car cup holder while also being combinable to create a larger thermos.</div>
+                            <h3 class="text-xl font-bold mb-3">WATER BOTTLE DESIGN</h3>
+                            <div class="mb-4">
+                                <div class="font-medium text-accentBlue mb-2">Description</div>
+                                <p class="mb-4">My water bottle design will be innovative. It will fit in a standard car cup holder while also being combinable to create a larger thermos.</p>
                                 
-                                <div class="criteria-label">Measure</div>
-                                <div class="measure-text">I will know I have reached this outcome by being able to consistently combine and detach my bottle.</div>
+                                <div class="font-medium text-accentBlue mb-2">Measure</div>
+                                <div class="bg-secondary p-4 rounded-lg border-l-4 border-accentBlue">
+                                    <p>I will know I've met this goal when my bottle fits in all standard cup holders (7-9 cm diameter) and I can attach two bottles together without leaking.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">2</div>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
                         <div>
-                            <h3>Useful</h3>
-                            <div class="criteria-section">
-                                <div class="criteria-label">Description</div>
-                                <div class="criteria-text">My laptop stand will prioritize function. It will be adjustable to three heights for ergonomic typing and fit laptops up to 16 inches.</div>
+                            <h3 class="text-xl font-bold mb-3">BACKPACK ORGANIZER</h3>
+                            <div class="mb-4">
+                                <div class="font-medium text-accentBlue mb-2">Description</div>
+                                <p class="mb-4">My backpack organizer will keep school supplies neat. It will have spaces for at least 5 pens/pencils, a calculator, and 3 small notebooks.</p>
                                 
-                                <div class="criteria-label">Measure</div>
-                                <div class="measure-text">The design will meet the goal if it adjusts to all three heights and holds a 16-inch laptop securely without wobbling.</div>
+                                <div class="font-medium text-accentBlue mb-2">Measure</div>
+                                <div class="bg-secondary p-4 rounded-lg border-l-4 border-accentBlue">
+                                    <p>The design succeeds if a student can find and remove any item in less than 5 seconds during a timed test with 5 different students.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Example User Stories -->
+                <h3 class="text-2xl font-bold mb-4 inline-block pb-1 relative">
+                    USER STORY EXAMPLES
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h3>
+                
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">LOCKER ORGANIZER</h3>
+                            <div class="space-y-4">
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <p><span class="font-medium">Story 1:</span> As a <span class="text-accentBlue">student who plays sports</span>, I want to <span class="text-accentBlue">keep my gym clothes separate from my school books</span> so that <span class="text-accentBlue">my books don't get smelly or damp</span>.</p>
+                                </div>
+                                
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <p><span class="font-medium">Story 2:</span> As a <span class="text-accentBlue">student with many textbooks</span>, I want to <span class="text-accentBlue">quickly find the right book between classes</span> so that <span class="text-accentBlue">I'm not late for my next class</span>.</p>
+                                </div>
+                                
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <p><span class="font-medium">Story 3:</span> As a <span class="text-accentBlue">student who shares a locker</span>, I want to <span class="text-accentBlue">clearly see which items are mine</span> so that <span class="text-accentBlue">I don't accidentally take my locker partner's stuff</span>.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">3</div>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
                         <div>
-                            <h3>Aesthetic</h3>
-                            <div class="criteria-section">
-                                <div class="criteria-label">Description</div>
-                                <div class="criteria-text">My desk organizer will have a sleek, modern look. It will feature a minimalist black-and-white design with hidden storage compartments.</div>
+                            <h3 class="text-xl font-bold mb-3">HOMEWORK PLANNER</h3>
+                            <div class="space-y-4">
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <p><span class="font-medium">Story 1:</span> As a <span class="text-accentBlue">student with ADHD</span>, I want to <span class="text-accentBlue">break down big assignments into smaller steps</span> so that <span class="text-accentBlue">I don't feel overwhelmed and can track my progress</span>.</p>
+                                </div>
                                 
-                                <div class="criteria-label">Measure</div>
-                                <div class="measure-text">The goal is achieved if my client gives me positive feedback in a survey.</div>
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <p><span class="font-medium">Story 2:</span> As a <span class="text-accentBlue">busy student with after-school activities</span>, I want to <span class="text-accentBlue">see all my upcoming deadlines in one place</span> so that <span class="text-accentBlue">I can plan my time and not miss anything important</span>.</p>
+                                </div>
+                                
+                                <div class="bg-secondary p-4 rounded-lg">
+                                    <p><span class="font-medium">Story 3:</span> As a <span class="text-accentBlue">parent checking homework</span>, I want to <span class="text-accentBlue">easily see what assignments are due this week</span> so that <span class="text-accentBlue">I can help my child stay on track</span>.</p>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Combined Example -->
+                <h3 class="text-2xl font-bold mb-4 inline-block pb-1 relative">
+                    PUTTING IT ALL TOGETHER
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h3>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4">LUNCH BOX REDESIGN PROJECT</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold text-lg mb-2 text-accentBlue">User Stories:</h4>
+                        <div class="bg-secondary p-4 rounded-lg mb-3">
+                            <p>As a <span class="text-accentBlue">student who walks to school</span>, I want to <span class="text-accentBlue">carry my lunch without it spilling in my backpack</span> so that <span class="text-accentBlue">my books and homework stay clean</span>.</p>
+                        </div>
+                        <div class="bg-secondary p-4 rounded-lg">
+                            <p>As a <span class="text-accentBlue">student who enjoys hot lunches</span>, I want to <span class="text-accentBlue">keep my food warm until lunchtime</span> so that <span class="text-accentBlue">I can enjoy a hot meal without using a microwave</span>.</p>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <div>
-                            <h3>Environmentally Friendly</h3>
-                            <div class="criteria-section">
-                                <div class="criteria-label">Description</div>
-                                <div class="criteria-text">My shopping bag design will focus on sustainability. It will use 90% recycled materials and be biodegradable within five years.</div>
-                                
-                                <div class="criteria-label">Measure</div>
-                                <div class="measure-text">The design will be successful if all materials used are certified as 90% recycled.</div>
-                            </div>
-                        </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-2 text-accentBlue">Design Criteria:</h4>
+                        <ol class="space-y-3">
+                            <li class="bg-secondary p-3 rounded-lg">
+                                <strong>Leak-proof:</strong> The lunchbox must not leak when shaken upside down for 10 seconds.
+                            </li>
+                            <li class="bg-secondary p-3 rounded-lg">
+                                <strong>Insulated:</strong> Must keep food at least 40°F (22°C) above room temperature for 4 hours.
+                            </li>
+                            <li class="bg-secondary p-3 rounded-lg">
+                                <strong>Lightweight:</strong> Must weigh less than 500g when empty.
+                            </li>
+                            <li class="bg-secondary p-3 rounded-lg">
+                                <strong>Durable:</strong> Must withstand being dropped from desk height (75cm) 10 times without cracking.
+                            </li>
+                        </ol>
                     </div>
+                </div>
+                
+                <!-- Summary section -->
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-accentBlue"></i>
+                        KEY TAKEAWAYS
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Start with user stories to understand what people need</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Create specific, measurable criteria based on those needs</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Make sure you can actually test if your design meets each criterion</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Keep your users' real problems at the center of your design</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- JavaScript for Tab Functionality -->
     <script>
         // Tab functionality
         const tabButtons = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
         
+        function setActiveTab(tabId) {
+            // Scroll to top of page
+            window.scrollTo(0, 0);
+            
+            // Update buttons
+            tabButtons.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.remove('bg-accent', 'text-text');
+                    btn.classList.add('bg-accentBlue', 'text-white');
+                } else {
+                    btn.classList.remove('bg-accentBlue', 'text-white');
+                    btn.classList.add('bg-accent', 'text-text');
+                }
+            });
+            
+            // Update content with animation
+            tabContents.forEach(content => {
+                content.style.opacity = '0';
+                content.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    content.classList.remove('active');
+                }, 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById(tabId).classList.add('active');
+                setTimeout(() => {
+                    document.getElementById(tabId).style.opacity = '1';
+                    document.getElementById(tabId).style.transform = 'translateY(0)';
+                }, 50);
+            }, 200);
+        }
+        
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => {
-                    content.style.opacity = '0';
-                    content.style.transform = 'translateY(10px)';
-                    setTimeout(() => {
-                        content.classList.remove('active');
-                    }, 200);
-                });
-                
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                // Show corresponding content with animation
                 const tabId = button.getAttribute('data-tab');
-                setTimeout(() => {
-                    document.getElementById(tabId).classList.add('active');
-                    setTimeout(() => {
-                        document.getElementById(tabId).style.opacity = '1';
-                        document.getElementById(tabId).style.transform = 'translateY(0)';
-                    }, 50);
-                }, 200);
+                setActiveTab(tabId);
             });
         });
         
-        // For centering last items in grid when needed
-        function adjustGridLayout() {
-            const grids = document.querySelectorAll('.elements-grid');
-            
-            grids.forEach(grid => {
-                const items = grid.querySelectorAll('.element-card');
-                const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-                
-                // If there's only one item in the last row
-                if (items.length % columns === 1) {
-                    const lastItem = items[items.length - 1];
-                    if (window.innerWidth >= 768) { // Only on desktop
-                        lastItem.style.gridColumn = `${Math.ceil(columns/2)} / span 1`;
-                        lastItem.style.justifySelf = 'center';
-                    } else {
-                        lastItem.style.gridColumn = '';
-                        lastItem.style.justifySelf = '';
-                    }
-                }
-            });
-        }
-        
-        window.addEventListener('load', adjustGridLayout);
-        window.addEventListener('resize', adjustGridLayout);
+        // Initialize first tab as active
+        setActiveTab('tab1');
     </script>
 </body>
 </html>
