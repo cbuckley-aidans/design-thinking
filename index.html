@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DESIGN PROCESS</title>
+    <title>DESIGN RESOURCES</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px; /* Accounts for the navbar height */
+            max-width: 100%;
+            overflow-x: hidden;
+        }
         :root {
             --primary-bg: #ffffff;
             --secondary-bg: #f7f7f7;
@@ -30,6 +36,8 @@
             letter-spacing: -0.01em;
             line-height: 1.5;
             min-height: 100vh;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         /* Custom Scrollbar */
@@ -63,16 +71,35 @@
         }
 
         h1 {
-            font-size: 2.5em;
+            font-size: 3em;
             margin-bottom: 20px;
             display: inline-block;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
         }
 
         h1::after {
             content: "";
             position: absolute;
             bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin: 50px 0 30px 0;
+            display: inline-block;
+            padding-bottom: 8px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
             left: 0;
             width: 100%;
             height: 3px;
@@ -84,15 +111,34 @@
         .main-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .title-container {
+        .header-container {
             text-align: center;
-            margin-bottom: 40px;
+            background-color: var(--secondary-bg);
+            padding: 40px 20px;
+            width: 100%;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .header-container h1 {
+            margin: 0 auto;
+        }
+
+        .section-container {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
         }
 
         /* Cards Container */
@@ -220,118 +266,298 @@
             background-color: #F67280;
         }
 
-        /* New card color variations for the added resources */
+        .card-shapr3d::before {
+            background-color: #5D576B;
+        }
+        .card-shapr3d .card-icon {
+            background-color: #5D576B;
+        }
+        
         .card-laser-cutting::before {
             background-color: #FF9A8B;
         }
         .card-laser-cutting .card-icon {
             background-color: #FF9A8B;
         }
-        
-        .card-image-tracing::before {
-            background-color: #5D576B;
+
+        /* Navbar Styles */
+        .navbar {
+            position: -webkit-sticky; /* Safari support */
+            position: sticky;
+            top: 0;
+            background-color: var(--primary-bg);
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-bottom: 2px solid var(--outline-color);
         }
-        .card-image-tracing .card-icon {
-            background-color: #5D576B;
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            height: 60px;
+            overflow-x: hidden;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 40px;
+        }
+
+        .navbar-menu li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color var(--transition-time);
+            padding: 8px 0;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .navbar-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: width var(--transition-time);
+            border-radius: 1.5px;
+        }
+
+        .navbar-menu li a:hover {
+            color: var(--accent-color);
+        }
+
+        .navbar-menu li a:hover::after {
+            width: 100%;
+        }
+        
+        .navbar-menu li a.active {
+            color: var(--accent-color);
+        }
+        
+        .navbar-menu li a.active::after {
+            width: 100%;
+        }
+
+        /* Main Content Adjustment for Navbar */
+        .header-container {
+            margin-top: 0;
+            padding-top: 60px;
         }
 
         /* Responsiveness */
+        @media (max-width: 992px) {
+            .cards-container {
+                justify-content: center;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-container {
-                padding: 40px 15px;
+                padding: 30px 15px;
+            }
+
+            .header-container {
+                padding: 30px 15px;
             }
 
             .cards-container {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
                 gap: 20px;
             }
 
             .card {
                 padding: 20px;
+                width: 260px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                height: auto;
+                padding: 15px;
+            }
+
+            .navbar-menu {
+                gap: 20px;
+            }
+
+            .header-container {
+                padding-top: 40px;
+            }
+
+            html {
+                scroll-padding-top: 90px; /* Adjusted for navbar */
+            }
+            
+            /* Fix horizontal scrolling */
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 20px 15px;
+            }
+
+            .card {
+                width: 100%;
             }
 
             h1 {
                 font-size: 2rem;
             }
-        }
 
-        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.5rem;
+                margin: 30px 0 20px 0;
+            }
+
+            .navbar-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .navbar-menu li a {
+                font-size: 0.95rem;
+            }
+
+            html {
+                scroll-padding-top: 90px;
+            }
+            
+            /* More fixes for horizontal scrolling */
+            .header-container, 
+            .navbar,
+            .main-container,
+            .section-container,
             .cards-container {
-                grid-template-columns: 1fr;
+                max-width: 100%;
+                box-sizing: border-box;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Sticky Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <ul class="navbar-menu">
+                <li><a href="#design-process">Design Process</a></li>
+                <li><a href="#3d-modelling">3D Modelling</a></li>
+                <li><a href="#laser-cutting">Laser Cutting</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="header-container">
+        <h1>DESIGN RESOURCES</h1>
+    </div>
+
     <div class="main-container">
-        <div class="title-container">
-            <h1>DESIGN PROCESS</h1>
+        <div id="design-process" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Design Process</h2>
+            </div>
+            <div class="cards-container">
+                <a href="empathise.html" class="card card-empathise">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h2 class="card-title">Empathise</h2>
+                    <p class="card-description">Understanding the needs and challenges of your users through research and observation.</p>
+                </a>
+                
+                <a href="define.html" class="card card-define">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h2 class="card-title">Define</h2>
+                    <p class="card-description">Clearly articulating the problem based on user needs and insights.</p>
+                </a>
+                
+                <a href="ideate.html" class="card card-ideate">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <h2 class="card-title">Ideate</h2>
+                    <p class="card-description">Generating a wide range of creative solutions to address the defined problem.</p>
+                </a>
+                
+                <a href="prototype.html" class="card card-prototype">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <h2 class="card-title">Prototype</h2>
+                    <p class="card-description">Building representations of potential solutions to test and refine.</p>
+                </a>
+            </div>
         </div>
 
-        <div class="cards-container">
-            <a href="empathise.html" class="card card-empathise">
-                <div class="card-icon">
-                    <i class="fa-solid fa-heart"></i>
-                </div>
-                <h2 class="card-title">Empathise</h2>
-                <p class="card-description">Understanding the needs and challenges of your users through research and observation.</p>
-            </a>
-            
-            <a href="define.html" class="card card-define">
-                <div class="card-icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <h2 class="card-title">Define</h2>
-                <p class="card-description">Clearly articulating the problem based on user needs and insights.</p>
-            </a>
-            
-            <a href="ideate.html" class="card card-ideate">
-                <div class="card-icon">
-                    <i class="fa-solid fa-lightbulb"></i>
-                </div>
-                <h2 class="card-title">Ideate</h2>
-                <p class="card-description">Generating a wide range of creative solutions to address the defined problem.</p>
-            </a>
-            
-            <a href="prototype.html" class="card card-prototype">
-                <div class="card-icon">
-                    <i class="fa-solid fa-cube"></i>
-                </div>
-                <h2 class="card-title">Prototype</h2>
-                <p class="card-description">Building representations of potential solutions to test and refine.</p>
-            </a>
-            
-            <a href="tinkercad.html" class="card card-tinkercad">
-                <div class="card-icon">
-                    <i class="fa-solid fa-toolbox"></i>
-                </div>
-                <h2 class="card-title">TinkerCad Prototyping</h2>
-                <p class="card-description">Creating 3D models and prototypes using the TinkerCad platform.</p>
-            </a>
-            
-            <a href="./slicing/slicing.html" class="card card-slicing">
-                <div class="card-icon">
-                    <i class="fa-solid fa-layer-group"></i>
-                </div>
-                <h2 class="card-title">3D Slicing</h2>
-                <p class="card-description">Preparing 3D models for printing by converting them into printable layers.</p>
-            </a>
+        <div id="3d-modelling" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">3D Modelling Skills</h2>
+            </div>
+            <div class="cards-container">
+                <a href="tinkercad.html" class="card card-tinkercad">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-toolbox"></i>
+                    </div>
+                    <h2 class="card-title">TinkerCad Prototyping</h2>
+                    <p class="card-description">Creating 3D models and prototypes using the TinkerCad platform.</p>
+                </a>
+                
+                <a href="https://cbuckley-aidans.github.io/3d-modelling/" class="card card-shapr3d">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-shapes"></i>
+                    </div>
+                    <h2 class="card-title">Shapr3D</h2>
+                    <p class="card-description">Advanced 3D modelling with precision tools for complex designs and prototypes.</p>
+                </a>
+                
+                <a href="./slicing/slicing.html" class="card card-slicing">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h2 class="card-title">3D Slicing</h2>
+                    <p class="card-description">Preparing 3D models for printing by converting them into printable layers.</p>
+                </a>
+            </div>
+        </div>
 
-            <a href="https://cbuckley-aidans.github.io/laser-cutting/getting-started" class="card card-laser-cutting">
-                <div class="card-icon">
-                    <i class="fa-solid fa-vector-square"></i>
-                </div>
-                <h2 class="card-title">Laser Cutting Setup</h2>
-                <p class="card-description">Getting started with Adobe Illustrator for laser cutting file preparation.</p>
-            </a>
-            
-            <a href="https://cbuckley-aidans.github.io/laser-cutting/image-tracing" class="card card-image-tracing">
-                <div class="card-icon">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                </div>
-                <h2 class="card-title">Image Tracing</h2>
-                <p class="card-description">Learn how to use image tracing in Adobe Illustrator for laser engraving projects.</p>
-            </a>
+        <div id="laser-cutting" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Laser Cutting Skills</h2>
+            </div>
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/laser-cutting/" class="card card-laser-cutting">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-vector-square"></i>
+                    </div>
+                    <h2 class="card-title">Laser Cutting Tutorials</h2>
+                    <p class="card-description">Comprehensive guides for preparing and executing laser cutting projects.</p>
+                </a>
+            </div>
         </div>
     </div>
 </body>
