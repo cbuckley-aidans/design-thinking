@@ -1,886 +1,694 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prototyping in Design</title>
-  
-  <!-- Modern frameworks -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-    
-    :root {
-      --bg-color: #f8f9fa;
-      --text-color: #212529;
-      --primary: #002654;
-      --secondary: #4682B4;
-      --accent: #57708E;
-      --neutral: #1e293b;
-      --light: #fefefe;
-      --card: #ffffff;
-      --shadow: rgba(0, 38, 84, 0.15) 0px 8px 24px;
-      --success: #4caf50;
-      --info: #2196f3;
-      --warning: #ff9800;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Outfit', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-    
-    /* Accessibility */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
-    }
-    
-    .app-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto 1fr;
-      min-height: 100vh;
-    }
-    
-    /* Tab System */
-    .tabs-container {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      display: flex;
-      justify-content: center;
-      padding: 15px 0;
-      background: var(--light);
-      box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.05);
-    }
-    
-    .tab-buttons {
-      display: flex;
-      gap: 20px;
-      background: var(--neutral);
-      padding: 10px 25px;
-      border-radius: 50px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .tab-btn {
-      border: none;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: auto;
-      padding: 8px 0;
-      border-radius: 15px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    .tab-btn:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .tab-btn.active {
-      background: var(--primary);
-      color: white;
-    }
-    
-    .tab-btn .subtitle {
-      font-size: 0.75rem;
-      margin-top: 5px;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.1;
-      text-align: center;
-      width: 100%;
-    }
-    
-    .tab-btn.active .subtitle {
-      color: white;
-    }
-    
-    .tab-btn .tooltip {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--neutral);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s ease;
-      margin-bottom: 10px;
-      white-space: nowrap;
-    }
-    
-    .tab-btn:hover .tooltip {
-      opacity: 1;
-      margin-bottom: 5px;
-    }
-    
-    /* Content */
-    .content-container {
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-      margin-bottom: 120px; /* Adjusted for shorter tabs */
-    }
-    
-    .tab-content {
-      display: none;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s ease;
-    }
-    
-    .tab-content.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Header */
-    .header {
-      text-align: center;
-      padding: 40px 20px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 40px;
-      border-radius: 0 0 30px 30px;
-      box-shadow: 0 5px 15px rgba(0, 38, 84, 0.2);
-    }
-    
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .header p {
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-      opacity: 0.9;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 200%;
-      background: rgba(255, 255, 255, 0.1);
-      transform: rotate(45deg);
-    }
-    
-    /* Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    
-    /* For special grid layout with centered last card */
-    @media (min-width: 992px) {
-      .cards-grid-special {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .cards-grid-special .card:last-child:nth-child(3n+1) {
-        grid-column: 2;
-      }
-      
-      .cards-grid-2col {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    .card {
-      background: var(--card);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-      margin-bottom: 20px;
-    }
-    
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-    }
-    
-    .card-header {
-      padding: 20px;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      color: white;
-      position: relative;
-    }
-    
-    .card-icon {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 2rem;
-      opacity: 0.2;
-    }
-    
-    .card-content {
-      padding: 20px;
-    }
-    
-    /* Alerts */
-    .alert {
-      padding: 15px;
-      border-radius: 10px;
-      margin: 15px 0;
-    }
-    
-    .alert-success {
-      background-color: rgba(76, 175, 80, 0.1);
-      border-left: 5px solid var(--success);
-    }
-    
-    .alert-info {
-      background-color: rgba(33, 150, 243, 0.1);
-      border-left: 5px solid var(--info);
-    }
-
-    .alert-warning {
-      background-color: rgba(255, 152, 0, 0.1);
-      border-left: 5px solid var(--warning);
-    }
-    
-    /* Example box */
-    .example-box {
-      background-color: var(--neutral);
-      color: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px 0;
-    }
-    
-    /* Animations */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .fade-up {
-      animation: fadeUp 0.6s ease forwards;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .header h1 {
-        font-size: 2rem;
-      }
-      
-      .tab-buttons {
-        gap: 10px;
-        padding: 8px 15px;
-      }
-      
-      .tab-btn {
-        width: 60px;
-        font-size: 1.2rem;
-        padding: 6px 0;
-      }
-      
-      .tab-btn .subtitle {
-        font-size: 0.7rem;
-        margin-top: 4px;
-      }
-      
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .tab-buttons {
-        gap: 5px;
-        padding: 6px 10px;
-      }
-      
-      .tab-btn {
-        width: 55px;
-        font-size: 1.1rem;
-      }
-      
-      .tab-btn .subtitle {
-        font-size: 0.65rem;
-      }
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-
-    h3 {
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .lead {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .bold {
-      font-weight: 700;
-    }
-
-    ul {
-      list-style: disc;
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-
-    li {
-      margin-bottom: 8px;
-    }
-
-    .step-box {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 20px;
-    }
-
-    .step-number {
-      background-color: var(--primary);
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      margin-right: 15px;
-      flex-shrink: 0;
-    }
-
-    .step-content {
-      flex: 1;
-    }
-
-    .image-box {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .image-box img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: var(--shadow);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyping in Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ffffff',
+                        secondary: '#f7f7f7',
+                        accent: '#f0f0f0',
+                        accentBlue: '#002654',
+                        outline: '#191919',
+                        text: '#191919',
+                        success: '#4caf50',
+                        info: '#2196f3',
+                        warning: '#ff9800',
+                    },
+                    boxShadow: {
+                        'sm-custom': '0 0.15em 0 #191919',
+                        'md-custom': '0 0.25em 0 #191919',
+                    },
+                    borderRadius: {
+                        'custom': '0.6em',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body>
-  <div class="app-container">
-    <!-- Header -->
-    <header class="header">
-      <h1>Prototyping in Design</h1>
-      <p>Making simple models to test your ideas</p>
-    </header>
-    
-    <!-- Main content area -->
-    <main class="content-container">
-      <!-- Introduction tab content -->
-      <div id="intro-content" class="tab-content active">
-        <h2>What is Prototyping?</h2>
-        <p class="lead">Prototyping means making a simple version of your idea so you can test it out.</p>
+<body class="bg-primary text-text flex min-h-screen">
+    <!-- Sidebar Navigation -->
+    <aside class="w-40 bg-secondary border-r-2 border-outline fixed h-screen top-0 left-0 flex flex-col items-center py-6 z-10">
+        <div class="text-center font-bold text-base mb-10 px-4 leading-tight">PROTOTYPING IN DESIGN</div>
         
-        <div class="alert alert-info">
-          <p>A prototype is like a rough draft of your design. It doesn't need to be perfect - it just needs to help you learn!</p>
+        <a href="index.html" class="w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2 mb-8 no-underline">
+            <i class="fas fa-home text-xl"></i>
+            HOME
+        </a>
+        <div class="flex flex-col gap-4 w-full items-center">
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="intro">
+                <i class="fas fa-info-circle text-xl"></i>
+                INTRO
+            </button>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="improv">
+                <i class="fas fa-theater-masks text-xl"></i>
+                ACT IT OUT
+            </button>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="user">
+                <i class="fas fa-users text-xl"></i>
+                USER-CREATED
+            </button>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="wizard">
+                <i class="fas fa-hat-wizard text-xl"></i>
+                WIZARD OF OZ
+            </button>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="variable">
+                <i class="fas fa-sliders-h text-xl"></i>
+                ONE THING
+            </button>
         </div>
-        
-        <div class="image-box">
-          <img src="https://cdn.prod.website-files.com/5eb3efbd6a6e84b12ef07786/5f90021d5dbf4626161975ae_Lego%20Prototypes.png" alt="LEGO prototyping examples with colorful blocks" style="max-width: 100%; height: auto; max-height: 400px; object-fit: contain;">
-        </div>
-        
-        <div class="cards-grid cards-grid-special">
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Make It Simple</h3>
-              <i class="fas fa-pencil-alt card-icon"></i>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-40">
+        <!-- Intro Tab -->
+        <div id="intro" class="tab-content active">
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    WHAT IS PROTOTYPING?
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Prototyping means making a simple version of your idea so you can test it out.</p>
+                    
+                    <div class="bg-secondary rounded-lg p-4 border-l-4 border-info my-4">
+                        <p>A prototype is like a rough draft of your design. It doesn't need to be perfect - it just needs to help you learn!</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-pencil-alt text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">MAKE IT SIMPLE</h3>
+                        </div>
+                        <p>You can create prototypes from everyday materials:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Paper and cardboard</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Clay or play dough</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>LEGO bricks</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Recycled materials</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-hands text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">LET PEOPLE TRY IT</h3>
+                        </div>
+                        <p>Always have others try your prototype. Watch what they do and ask:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Was it easy to use?</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Did anything confuse you?</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>What would make it better?</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-bullseye text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">HAVE A GOAL</h3>
+                        </div>
+                        <p>Before you make your prototype, know what you want to find out:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Is the size right?</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Does it feel comfortable to hold?</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Can people understand how to use it?</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-quote-left text-accentBlue"></i>
+                        REMEMBER
+                    </h3>
+                    <p class="text-lg">A prototype just needs to be <strong>good enough to test your idea</strong>. The more people test your prototype, the more you'll learn!</p>
+                </div>
             </div>
-            <div class="card-content">
-              <p>You can create prototypes from everyday materials:</p>
-              <ul>
-                <li>Paper and cardboard</li>
-                <li>Clay or play dough</li>
-                <li>LEGO bricks</li>
-                <li>Recycled materials</li>
-              </ul>
-              <div class="alert alert-success">
-                <p>Remember: A prototype just needs to be good enough to test your idea!</p>
-              </div>
+        </div>
+        
+        <!-- Act it Out tab content -->
+        <div id="improv" class="tab-content">
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    ACTING OUT YOUR IDEAS
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Sometimes the easiest way to test an idea is to act it out!</p>
+                    
+                    <div class="bg-secondary rounded-lg p-4 border-l-4 border-info my-4">
+                        <p>Acting out your ideas is like playing a game of pretend - but you're learning about your design at the same time.</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">PICK ROLES FOR EVERYONE</h3>
+                            <p>Decide who will play these parts:</p>
+                            <ul class="mt-3 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>The user (person using your design)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>The product or service</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>The observer (takes notes)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">SET UP A PRETEND SCENARIO</h3>
+                            <p>Create a simple story about how someone would use your design:</p>
+                            <div class="bg-secondary p-3 rounded-lg mt-4">
+                                <p class="font-medium">Example: "You're trying to order food from a new app" or "You're using our backpack on a hike"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">ACT IT OUT!</h3>
+                            <p>Take turns acting out the situation. Remember:</p>
+                            <ul class="mt-3 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Speak your thoughts out loud</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Don't worry about looking silly</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Try to behave naturally</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">4</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">TALK ABOUT WHAT HAPPENED</h3>
+                            <p>After acting it out, discuss:</p>
+                            <ul class="mt-3 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>What worked well?</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>What was difficult or confusing?</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>What would you change?</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-accentBlue"></i>
+                        EXAMPLE: TESTING A NEW LUNCHBOX DESIGN
+                    </h3>
+                    <p class="mb-2"><span class="font-medium">Roles:</span> One student pretends to be a hungry kid at lunch, another acts as the lunchbox, and a third watches and takes notes.</p>
+                    <p class="mb-2"><span class="font-medium">Scenario:</span> "You're sitting down for lunch and need to get food from your new lunchbox that has separate compartments and a special opening mechanism."</p>
+                    <p><span class="font-medium">Learning:</span> While acting this out, you might discover the latch is too hard to open or the compartments are too small for typical lunch items.</p>
+                </div>
             </div>
-          </div>
-          
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Let People Try It</h3>
-              <i class="fas fa-hands card-icon"></i>
+        </div>
+        
+        <!-- User-Created tab content -->
+        <div id="user" class="tab-content">
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    LET USERS CREATE THE PROTOTYPE
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Sometimes the best way to learn is to let your users create their own designs!</p>
+                    
+                    <div class="bg-secondary rounded-lg p-4 border-l-4 border-info my-4">
+                        <p>When users create their own prototypes, they show you what they really want and need.</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-pencil-ruler text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">DRAWING ACTIVITY</h3>
+                        </div>
+                        
+                        <p>Ask users to draw what they want:</p>
+                        <div class="bg-secondary p-3 rounded-lg my-4">
+                            <p class="font-medium">"Draw your dream playground equipment"</p>
+                        </div>
+                        
+                        <p>Provide simple materials:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Plain paper</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Colored pencils or markers</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Stickers or cutouts</span>
+                            </li>
+                        </ul>
+                        <p class="mt-4">After they finish, ask them to explain their drawing.</p>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-cubes text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">BUILDING ACTIVITY</h3>
+                        </div>
+                        
+                        <p>Ask users to build what they want:</p>
+                        <div class="bg-secondary p-3 rounded-lg my-4">
+                            <p class="font-medium">"Make your ideal backpack with these materials"</p>
+                        </div>
+                        
+                        <p>Provide simple materials:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Cardboard and paper</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Tape and scissors</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Clay or play dough</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Building blocks</span>
+                            </li>
+                        </ul>
+                        <p class="mt-4">Watch how they build and ask about their choices.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-accentBlue"></i>
+                        EXAMPLE: DESIGNING A SCHOOL APP
+                    </h3>
+                    <p class="mb-2">Instead of showing students a finished app design, give them paper templates of phone screens and ask them to draw what they want the app to look like.</p>
+                    <p>You might be surprised! Students might create features you never thought of, like weather warnings for outdoor activities or a countdown timer to the next school break.</p>
+                </div>
             </div>
-            <div class="card-content">
-              <p>Always have others try your prototype. Watch what they do and ask:</p>
-              <ul>
-                <li>Was it easy to use?</li>
-                <li>Did anything confuse you?</li>
-                <li>What would make it better?</li>
-              </ul>
-              <div class="alert alert-success">
-                <p>The more people test your prototype, the more you'll learn!</p>
-              </div>
+        </div>
+        
+        <!-- Wizard of Oz tab content -->
+        <div id="wizard" class="tab-content">
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    THE WIZARD OF OZ METHOD
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Make users think something works automatically, when really you're controlling it!</p>
+                    
+                    <div class="bg-secondary rounded-lg p-4 border-l-4 border-info my-4">
+                        <p>This method is named after the movie "The Wizard of Oz" where a man pretends to be a powerful wizard by operating controls behind a curtain!</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">CREATE A FAKE INTERFACE</h3>
+                            <p>Make something that looks like it works on its own:</p>
+                            <ul class="mt-3 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>A cardboard vending machine</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>A paper smartphone screen</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>A "magic" sorting box</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">HIDE THE CONTROLS</h3>
+                            <p>Set up your test so someone can secretly make the prototype "work":</p>
+                            <ul class="mt-3 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Hide behind a screen or in another room</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Have a helper who secretly helps the prototype work</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Use walkie-talkies to communicate with helpers</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">TEST WITH USERS</h3>
+                            <p>Have someone try your "working" prototype:</p>
+                            <ul class="mt-3 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Don't tell them you're controlling it</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Act like it really works by itself</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                                    <span>Watch how they use it</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-accentBlue"></i>
+                        EXAMPLE: VOICE-CONTROLLED ROBOT
+                    </h3>
+                    <p class="mb-2"><span class="font-medium">You want to test:</span> if kids would like a voice-controlled robot that draws pictures.</p>
+                    <p class="mb-2"><span class="font-medium">Setup:</span> Make a cardboard robot with a place to hold markers. Have a friend hide under the table who will actually do the drawing when the user gives voice commands.</p>
+                    <p><span class="font-medium">What you learn:</span> You'll see what commands kids naturally use, what they expect the robot to draw, and how they react when the robot "understands" them.</p>
+                </div>
+                
+                
             </div>
-          </div>
-          
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Have a Goal</h3>
-              <i class="fas fa-bullseye card-icon"></i>
+        </div>
+        
+        <!-- Variables tab content -->
+        <div id="variable" class="tab-content">
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    TESTING ONE THING AT A TIME
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Focus on testing just one part of your design to learn more quickly!</p>
+                    
+                    <div class="bg-secondary rounded-lg p-4 border-l-4 border-info my-4">
+                        <p>When you test just one thing (called a variable), it's easier to figure out what works and what doesn't.</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-ruler text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">SIZE TESTING</h3>
+                        </div>
+                        
+                        <p class="font-semibold text-accentBlue mb-3">Is it the right size?</p>
+                        <p>Make several versions of your design in different sizes:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Small</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Medium</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Large</span>
+                            </li>
+                        </ul>
+                        <div class="bg-secondary p-3 rounded-lg mt-4">
+                            <p><span class="font-medium">Example:</span> Make three different sized handles for a water bottle and ask people which feels best in their hand.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-scroll text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">MATERIAL TESTING</h3>
+                        </div>
+                        
+                        <p class="font-semibold text-accentBlue mb-3">What should it be made of?</p>
+                        <p>Create parts of your design using different materials:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Soft vs. hard</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Smooth vs. textured</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Heavy vs. light</span>
+                            </li>
+                        </ul>
+                        <div class="bg-secondary p-3 rounded-lg mt-4">
+                            <p><span class="font-medium">Example:</span> Create the same pencil grip in rubber, foam, and fabric to see which one users prefer.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-th-large text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">LAYOUT TESTING</h3>
+                        </div>
+                        
+                        <p class="font-semibold text-accentBlue mb-3">What arrangement works best?</p>
+                        <p>Try different arrangements of the same elements:</p>
+                        <ul class="mt-4 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Button placement</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Feature organization</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                                <span>Information order</span>
+                            </li>
+                        </ul>
+                        <div class="bg-secondary p-3 rounded-lg mt-4">
+                            <p><span class="font-medium">Example:</span> Create three paper prototypes of a game controller with buttons in different positions to see which is most comfortable.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-accentBlue"></i>
+                        EXAMPLE: TESTING A LUNCHBOX HANDLE
+                    </h3>
+                    <p class="mb-3">Instead of building several complete lunchboxes, just create different handles and attach them to the same box.</p>
+                    <p class="mb-3"><span class="font-medium">Test:</span></p>
+                    <ul class="space-y-2 mb-3">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>A thin plastic handle</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>A wide fabric handle</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>A rope handle</span>
+                        </li>
+                    </ul>
+                    <p class="mb-3">Ask users to pick up the lunchbox using each handle and tell you which feels most comfortable and secure.</p>
+                    <p>This way, you learn about the best handle without wasting time building complete lunchboxes!</p>
+                </div>
             </div>
-            <div class="card-content">
-              <p>Before you make your prototype, know what you want to find out:</p>
-              <ul>
-                <li>Is the size right?</li>
-                <li>Does it feel comfortable to hold?</li>
-                <li>Can people understand how to use it?</li>
-              </ul>
-              <div class="alert alert-success">
-                <p>Focus on testing one or two things at a time!</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      
-      <!-- Act it Out tab content -->
-      <div id="improv-content" class="tab-content">
-        <h2>Acting Out Your Ideas</h2>
-        <p class="lead">Sometimes the easiest way to test an idea is to act it out!</p>
-        
-        <div class="alert alert-info">
-          <p>Acting out your ideas is like playing a game of pretend - but you're learning about your design at the same time.</p>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3>Pick roles for everyone</h3>
-            <p>Decide who will play these parts:</p>
-            <ul>
-              <li>The user (person using your design)</li>
-              <li>The product or service</li>
-              <li>The observer (takes notes)</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3>Set up a pretend scenario</h3>
-            <p>Create a simple story about how someone would use your design:</p>
-            <div class="alert alert-success">
-              <p>Example: "You're trying to order food from a new app" or "You're using our backpack on a hike"</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3>Act it out!</h3>
-            <p>Take turns acting out the situation. Remember:</p>
-            <ul>
-              <li>Speak your thoughts out loud</li>
-              <li>Don't worry about looking silly</li>
-              <li>Try to behave naturally</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3>Talk about what happened</h3>
-            <p>After acting it out, discuss:</p>
-            <ul>
-              <li>What worked well?</li>
-              <li>What was difficult or confusing?</li>
-              <li>What would you change?</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="example-box">
-          <h3>Example: Testing a New Lunchbox Design</h3>
-          <p>Roles: One student pretends to be a hungry kid at lunch, another acts as the lunchbox, and a third watches and takes notes.</p>
-          <p>Scenario: "You're sitting down for lunch and need to get food from your new lunchbox that has separate compartments and a special opening mechanism."</p>
-          <p>Learning: While acting this out, you might discover the latch is too hard to open or the compartments are too small for typical lunch items.</p>
-        </div>
-      </div>
-      
-      <!-- User-Created tab content -->
-      <div id="user-content" class="tab-content">
-        <h2>Let Users Create the Prototype</h2>
-        <p class="lead">Sometimes the best way to learn is to let your users create their own designs!</p>
-        
-        <div class="alert alert-info">
-          <p>When users create their own prototypes, they show you what they really want and need.</p>
-        </div>
-        
-        <div class="cards-grid cards-grid-2col">
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Drawing Activity</h3>
-              <i class="fas fa-pencil-ruler card-icon"></i>
-            </div>
-            <div class="card-content">
-              <p>Ask users to draw what they want:</p>
-              <div class="alert alert-success">
-                <p>"Draw your dream playground equipment"</p>
-              </div>
-              <p>Provide simple materials:</p>
-              <ul>
-                <li>Plain paper</li>
-                <li>Colored pencils or markers</li>
-                <li>Stickers or cutouts</li>
-              </ul>
-              <p>After they finish, ask them to explain their drawing.</p>
-            </div>
-          </div>
-          
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Building Activity</h3>
-              <i class="fas fa-cubes card-icon"></i>
-            </div>
-            <div class="card-content">
-              <p>Ask users to build what they want:</p>
-              <div class="alert alert-success">
-                <p>"Make your ideal backpack with these materials"</p>
-              </div>
-              <p>Provide simple materials:</p>
-              <ul>
-                <li>Cardboard and paper</li>
-                <li>Tape and scissors</li>
-                <li>Clay or play dough</li>
-                <li>Building blocks</li>
-              </ul>
-              <p>Watch how they build and ask about their choices.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="example-box">
-          <h3>Example: Designing a School App</h3>
-          <p>Instead of showing students a finished app design, give them paper templates of phone screens and ask them to draw what they want the app to look like.</p>
-          <p>You might be surprised! Students might create features you never thought of, like weather warnings for outdoor activities or a countdown timer to the next school break.</p>
-        </div>
-      </div>
-      
-      <!-- Wizard of Oz tab content -->
-      <div id="wizard-content" class="tab-content">
-        <h2>The Wizard of Oz Method</h2>
-        <p class="lead">Make users think something works automatically, when really you're controlling it!</p>
-        
-        <div class="image-box">
-          <img src="https://hcde498processlog.wordpress.com/wp-content/uploads/2015/05/img_7680.jpg?w=2000&h=1500&crop=1" alt="Illustration of Wizard of Oz method: showing a user interface on one side and a person operating it behind the scenes" style="max-width: 100%; height: auto; max-height: 400px; object-fit: contain;">
-        </div>
-        
-        <div class="alert alert-info">
-          <p>This method is named after the movie "The Wizard of Oz" where a man pretends to be a powerful wizard by operating controls behind a curtain!</p>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3>Create a fake interface</h3>
-            <p>Make something that looks like it works on its own:</p>
-            <ul>
-              <li>A cardboard vending machine</li>
-              <li>A paper smartphone screen</li>
-              <li>A "magic" sorting box</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3>Hide the controls</h3>
-            <p>Set up your test so someone can secretly make the prototype "work":</p>
-            <ul>
-              <li>Hide behind a screen or in another room</li>
-              <li>Have a helper who secretly helps the prototype work</li>
-              <li>Use walkie-talkies to communicate with helpers</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="step-box">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3>Test with users</h3>
-            <p>Have someone try your "working" prototype:</p>
-            <ul>
-              <li>Don't tell them you're controlling it</li>
-              <li>Act like it really works by itself</li>
-              <li>Watch how they use it</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="example-box">
-          <h3>Example: Voice-Controlled Robot</h3>
-          <p>You want to test if kids would like a voice-controlled robot that draws pictures.</p>
-          <p>Setup: Make a cardboard robot with a place to hold markers. Have a friend hide under the table who will actually do the drawing when the user gives voice commands.</p>
-          <p>What you learn: You'll see what commands kids naturally use, what they expect the robot to draw, and how they react when the robot "understands" them.</p>
-        </div>
-        
-        <div class="alert alert-warning">
-          <p>Always tell users after the test that you were controlling the prototype! It's important to be honest once testing is complete.</p>
-        </div>
-      </div>
-      
-      <!-- Variables tab content -->
-      <div id="variable-content" class="tab-content">
-        <h2>Testing One Thing at a Time</h2>
-        <p class="lead">Focus on testing just one part of your design to learn more quickly!</p>
-        
-        <div class="alert alert-info">
-          <p>When you test just one thing (called a variable), it's easier to figure out what works and what doesn't.</p>
-        </div>
-        
-        <div class="cards-grid cards-grid-special">
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Size Testing</h3>
-              <i class="fas fa-ruler card-icon"></i>
-            </div>
-            <div class="card-content">
-              <h4 style="font-weight: 600; color: var(--primary); margin-bottom: 10px;">Is it the right size?</h4>
-              <p>Make several versions of your design in different sizes:</p>
-              <ul>
-                <li>Small</li>
-                <li>Medium</li>
-                <li>Large</li>
-              </ul>
-              <div class="alert alert-success">
-                <p>Example: Make three different sized handles for a water bottle and ask people which feels best in their hand.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Material Testing</h3>
-              <i class="fas fa-scroll card-icon"></i>
-            </div>
-            <div class="card-content">
-              <h4 style="font-weight: 600; color: var(--primary); margin-bottom: 10px;">What should it be made of?</h4>
-              <p>Create parts of your design using different materials:</p>
-              <ul>
-                <li>Soft vs. hard</li>
-                <li>Smooth vs. textured</li>
-                <li>Heavy vs. light</li>
-              </ul>
-              <div class="alert alert-success">
-                <p>Example: Create the same pencil grip in rubber, foam, and fabric to see which one users prefer.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="card fade-up">
-            <div class="card-header">
-              <h3>Layout Testing</h3>
-              <i class="fas fa-th-large card-icon"></i>
-            </div>
-            <div class="card-content">
-              <h4 style="font-weight: 600; color: var(--primary); margin-bottom: 10px;">What arrangement works best?</h4>
-              <p>Try different arrangements of the same elements:</p>
-              <ul>
-                <li>Button placement</li>
-                <li>Feature organization</li>
-                <li>Information order</li>
-              </ul>
-              <div class="alert alert-success">
-                <p>Example: Create three paper prototypes of a game controller with buttons in different positions to see which is most comfortable.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="example-box">
-          <h3>Example: Testing a Lunchbox Handle</h3>
-          <p>Instead of building several complete lunchboxes, just create different handles and attach them to the same box.</p>
-          <p>Test:</p>
-          <ul>
-            <li>A thin plastic handle</li>
-            <li>A wide fabric handle</li>
-            <li>A rope handle</li>
-          </ul>
-          <p>Ask users to pick up the lunchbox using each handle and tell you which feels most comfortable and secure.</p>
-          <p>This way, you learn about the best handle without wasting time building complete lunchboxes!</p>
-        </div>
-      </div>
     </main>
-    
-    <!-- Tab navigation -->
-    <nav class="tabs-container">
-      <div class="tab-buttons">
-        <button class="tab-btn active" data-tab="intro-content" aria-label="Introduction tab">
-          <i class="fas fa-info-circle"></i>
-          <span class="subtitle">What Is It?</span>
-          <span class="tooltip">What Is It?</span>
-          <span class="sr-only">What Is It?</span>
-        </button>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
         
-        <button class="tab-btn" data-tab="improv-content" aria-label="Act It Out tab">
-          <i class="fas fa-theater-masks"></i>
-          <span class="subtitle">Act It Out</span>
-          <span class="tooltip">Act It Out</span>
-          <span class="sr-only">Act It Out</span>
-        </button>
+        function setActiveTab(tabId) {
+            // Scroll to top of page
+            window.scrollTo(0, 0);
+            
+            // Update buttons
+            tabButtons.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.remove('bg-accent', 'text-text');
+                    btn.classList.add('bg-accentBlue', 'text-white');
+                } else {
+                    btn.classList.remove('bg-accentBlue', 'text-white');
+                    btn.classList.add('bg-accent', 'text-text');
+                }
+            });
+            
+            // Update content with animation
+            tabContents.forEach(content => {
+                content.style.opacity = '0';
+                content.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    content.classList.remove('active');
+                }, 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById(tabId).classList.add('active');
+                setTimeout(() => {
+                    document.getElementById(tabId).style.opacity = '1';
+                    document.getElementById(tabId).style.transform = 'translateY(0)';
+                }, 50);
+            }, 200);
+        }
         
-        <button class="tab-btn" data-tab="user-content" aria-label="User-Created tab">
-          <i class="fas fa-users"></i>
-          <span class="subtitle">User-Created</span>
-          <span class="tooltip">User-Created</span>
-          <span class="sr-only">User-Created</span>
-        </button>
-        
-        <button class="tab-btn" data-tab="wizard-content" aria-label="Wizard of Oz tab">
-          <i class="fas fa-hat-wizard"></i>
-          <span class="subtitle">Wizard of Oz</span>
-          <span class="tooltip">Wizard of Oz</span>
-          <span class="sr-only">Wizard of Oz</span>
-        </button>
-        
-        <button class="tab-btn" data-tab="variable-content" aria-label="Variables tab">
-          <i class="fas fa-sliders-h"></i>
-          <span class="subtitle">One Thing</span>
-          <span class="tooltip">One Thing</span>
-          <span class="sr-only">One Thing</span>
-        </button>
-      </div>
-    </nav>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Tab functionality
-      const tabButtons = document.querySelectorAll('.tab-btn');
-      const tabContents = document.querySelectorAll('.tab-content');
-      
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          // Remove active class from all buttons and contents
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-          
-          // Add active class to clicked button and corresponding content
-          button.classList.add('active');
-          const tabId = button.getAttribute('data-tab');
-          document.getElementById(tabId).classList.add('active');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                setActiveTab(tabId);
+            });
         });
-      });
-      
-      // Animations
-      const cards = document.querySelectorAll('.card');
-      
-      cards.forEach(card => {
-        card.classList.add('fade-up');
-      });
-      
-      // Register GSAP ScrollTrigger animations
-      gsap.registerPlugin(ScrollTrigger);
-      
-      gsap.utils.toArray('.card, .step-box, .example-box').forEach((element, i) => {
-        gsap.from(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 90%',
-          },
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-          delay: i * 0.1,
-          ease: 'power3.out'
-        });
-      });
-      
-      // Accessible keyboard navigation for tabs
-      tabButtons.forEach(button => {
-        button.addEventListener('keydown', (e) => {
-          // Right arrow
-          if (e.key === 'ArrowRight') {
-            e.preventDefault();
-            const nextSibling = button.nextElementSibling || tabButtons[0];
-            nextSibling.focus();
-            nextSibling.click();
-          }
-          
-          // Left arrow
-          if (e.key === 'ArrowLeft') {
-            e.preventDefault();
-            const prevSibling = button.previousElementSibling || tabButtons[tabButtons.length - 1];
-            prevSibling.focus();
-            prevSibling.click();
-          }
-        });
-      });
-    });
-  </script>
+        
+        // Initialize first tab as active
+        setActiveTab('intro');
+    </script>
 </body>
 </html>
