@@ -4,790 +4,359 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empathising in Design</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f7f7f7;
-            --accent-bg: #f0f0f0;
-            --accent-color: #002654;
-            --active-color: #002654;
-            --outline-color: #191919;
-            --text-color: #191919;
-            --shadow-sm: 0 0.15em 0 var(--outline-color);
-            --shadow-md: 0 0.25em 0 var(--outline-color);
-            --border-radius: 0.6em;
-            --transition-time: 0.15s;
-            --bad-color: #ff4d4f;
-            --good-color: #52c41a;
-            --section-padding: 40px 60px;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ffffff',
+                        secondary: '#f7f7f7',
+                        accent: '#f0f0f0',
+                        accentBlue: '#002654',
+                        outline: '#191919',
+                        text: '#191919',
+                    },
+                    boxShadow: {
+                        'sm-custom': '0 0.15em 0 #191919',
+                        'md-custom': '0 0.25em 0 #191919',
+                    },
+                    borderRadius: {
+                        'custom': '0.6em',
+                    },
+                }
+            }
         }
-
+    </script>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css');
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
             letter-spacing: -0.01em;
             line-height: 1.5;
-            min-height: 100vh;
         }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 14px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: var(--secondary-bg);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: var(--accent-color);
-            border: 3px solid var(--secondary-bg);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: var(--active-color);
-            transform: scale(1.05);
-        }
-
-        /* Typography */
+        
         h1, h2, h3, h4 {
             font-weight: 700;
             line-height: 1.1;
             letter-spacing: -0.02em;
-            margin-top: 0;
-            position: relative;
         }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            display: inline-block;
-            padding-bottom: 8px;
-        }
-
-        h1::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--accent-color);
-            border-radius: 1px;
-        }
-
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            display: inline-block;
-            padding-bottom: 8px;
-        }
-
-        h2::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--accent-color);
-            border-radius: 1px;
-        }
-
-        h3 {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-        }
-
-        /* Side Navigation */
-        .sidebar {
-            width: 160px;
-            background-color: var(--secondary-bg);
-            border-right: 2px solid var(--outline-color);
-            position: fixed;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 25px 0;
-            z-index: 100;
-        }
-
-        .sidebar-logo {
-            font-size: 1.1em;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 0 15px;
-            line-height: 1.3;
-            color: var(--text-color);
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            align-items: center;
-        }
-
-        .tab-button {
-            width: 130px;
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            padding: 15px 0;
-            background-color: var(--accent-bg);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 0.9em;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            transform: translateY(0);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tab-button:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .tab-button.active {
-            background-color: var(--active-color);
-            color: white;
-        }
-
-        .tab-button i {
-            font-size: 1.4em;
-        }
-
-        /* Home button styling */
-        .home-button {
-            width: 130px;
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            padding: 15px 0;
-            background-color: var(--accent-bg);
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 0.9em;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            transform: translateY(0);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 30px;
-            text-decoration: none;
-        }
-
-        .home-button:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .home-button i {
-            font-size: 1.4em;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 160px;
-        }
-
-        /* Tab Content */
+        
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
         }
-
+        
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.3s ease-in-out;
         }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Content Sections */
-        .light-section {
-            background-color: var(--primary-bg);
-            color: var(--text-color);
-            padding: var(--section-padding);
-        }
-
-        .dark-section {
-            background-color: var(--secondary-bg);
-            color: var(--text-color);
-            padding: var(--section-padding);
-        }
-
-        /* Card */
-        .card {
-            background-color: var(--primary-bg);
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            padding: 25px 30px;
-            margin-bottom: 30px;
-            position: relative;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            box-shadow: var(--shadow-sm);
-            transform: translateY(0);
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .card:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Elements Grid */
-        .elements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .element-card {
-            background-color: var(--primary-bg);
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            box-shadow: var(--shadow-sm);
-            transform: translateY(0);
-            overflow: hidden;
-        }
-
-        .element-card:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .element-header {
-            background-color: var(--secondary-bg);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            border-bottom: 2px solid var(--outline-color);
-        }
-
-        .element-number {
-            width: 40px;
-            height: 40px;
-            background-color: var(--accent-color);
-            color: white;
-            border: 2px solid var(--outline-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .element-content {
-            padding: 20px 25px;
-            color: var(--text-color);
-        }
-
-        .element-content ul {
-            list-style-type: none;
-            margin: 15px 0 0;
-            padding: 0;
-        }
-
-        .element-content ul li {
-            margin-bottom: 12px;
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .element-content ul li::before {
-            content: "•";
-            position: absolute;
-            left: 5px;
-            color: var(--accent-color);
-            font-size: 1.2em;
-        }
-
-        /* Split Layout */
-        .split-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            max-width: 1200px;
-            margin: 30px auto;
-        }
-
-        /* Steps Container */
-        .steps-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 30px auto;
-        }
-
-        .step-card {
-            background-color: var(--primary-bg);
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .step-card:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background-color: var(--accent-color);
-            color: white;
-            border: 2px solid var(--outline-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: var(--shadow-sm);
-            flex-shrink: 0;
-        }
-
-        /* Stat Cards */
-        .stat-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .stat-card {
-            background-color: var(--primary-bg);
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            padding: 25px 30px;
-            text-align: center;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            margin: 15px 0;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        /* Center grid items if they're alone in the last row */
-        .elements-grid::after,
-        .stat-cards::after {
-            content: "";
-            grid-column: 1 / -1;
-        }
-
-        /* For odd number of cards */
-        .elements-grid > *:last-child:nth-child(2n+1),
-        .stat-cards > *:last-child:nth-child(2n+1) {
-            grid-column-start: 1;
-            grid-column-end: -1;
-            max-width: 300px;
-            justify-self: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                flex-direction: row;
-                padding: 15px;
-                justify-content: center;
-                align-items: center;
-                overflow-x: auto;
-            }
-            
-            .sidebar-logo {
-                margin-bottom: 0;
-                margin-right: 20px;
-                flex-shrink: 0;
-            }
-            
-            .sidebar-nav {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            
-            .home-button {
-                margin-bottom: 0;
-                margin-right: 15px;
-                flex-shrink: 0;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-
-            .tab-button {
-                width: 110px;
-                padding: 10px 0;
-            }
-
-            .split-content {
-                grid-template-columns: 1fr;
-            }
-
-            .light-section, .dark-section {
-                padding: 30px 20px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .sidebar {
-                flex-wrap: wrap;
-                padding: 10px;
-            }
-            
-            .sidebar-logo {
-                width: 100%;
-                text-align: center;
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .home-button, .tab-button {
-                width: 90px;
-                padding: 8px 0;
-                font-size: 0.8em;
-            }
-            
-            .element-card, .stat-card {
-                grid-column: 1 / -1;
-            }
-        }
     </style>
 </head>
-<body>
+<body class="bg-primary text-text flex min-h-screen">
     <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">EMPATHISING IN DESIGN</div>
-        <a href="index.html" class="home-button">
-            <i class="fas fa-home"></i>
+    <aside class="w-40 bg-secondary border-r-2 border-outline fixed h-screen top-0 left-0 flex flex-col items-center py-6 z-10">
+        <div class="text-center font-bold text-base mb-10 px-4 leading-tight">EMPATHISING IN DESIGN</div>
+        
+        <a href="index.html" class="w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2 mb-8 no-underline">
+            <i class="fas fa-home text-xl"></i>
             HOME
         </a>
-        <div class="sidebar-nav">
-            <button class="tab-button active" data-tab="intro">
-                <i class="fas fa-heart"></i>
+        <div class="flex flex-col gap-4 w-full items-center">
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="intro">
+                <i class="fas fa-info-circle text-xl"></i>
                 INTRO
             </button>
-            <button class="tab-button" data-tab="observe">
-                <i class="fas fa-eye"></i>
-                OBSERVE
-            </button>
-            <button class="tab-button" data-tab="roleplay">
-                <i class="fas fa-user-friends"></i>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="roleplay">
+                <i class="fas fa-user-friends text-xl"></i>
                 ROLEPLAY
             </button>
-            <button class="tab-button" data-tab="interview">
-                <i class="fas fa-comments"></i>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="interview">
+                <i class="fas fa-comments text-xl"></i>
                 INTERVIEW
             </button>
-            <button class="tab-button" data-tab="research">
-                <i class="fas fa-chart-bar"></i>
+            <button class="tab-button w-32 border-2 border-outline rounded-custom py-4 bg-accent text-text font-semibold text-sm tracking-wider cursor-pointer transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom flex flex-col items-center gap-2" data-tab="research">
+                <i class="fas fa-search text-xl"></i>
                 RESEARCH
             </button>
         </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <!-- Introduction Tab -->
+    <main class="flex-1 ml-40">
+        <!-- Intro Tab -->
         <div id="intro" class="tab-content active">
-            <div class="light-section">
-                <h1>WHAT IS EMPATHISING?</h1>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    WHAT IS EMPATHY?
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="card">
-                    <p>Empathising means understanding others' needs and feelings by putting yourself in their shoes. It's about creating a connection with users to design better solutions for them.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="text-lg mb-4">Empathy means understanding how other people feel and what they need. As designers, we need to put ourselves in the users' shoes to make things they'll love to use.</p>
+                    
+                    <p>When we have empathy for users, we can:</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                            <span>Understand what users really need (not just what they say they need)</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                            <span>Find out what makes users frustrated or confused</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                            <span>Learn what would make users happy with our design</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-check-circle text-accentBlue mt-1"></i>
+                            <span>Create designs that people actually want to use</span>
+                        </li>
+                    </ul>
                 </div>
                 
-                <h2>EMPATHY ELEMENTS</h2>
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative mt-8">
+                    WHY DESIGNERS NEED EMPATHY
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="elements-grid">
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>ACTIVE LISTENING</h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Pay attention to what people say, how they say it, and what they don't mention.</p>
-                            <ul>
-                                <li>Listen without interrupting</li>
-                                <li>Note tone and emotions</li>
-                                <li>Observe body language</li>
-                                <li>Ask clarifying questions</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>UNDERSTANDING CONTEXT</h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Each user has different circumstances that affect how they use products.</p>
-                            <ul>
-                                <li>Environmental factors</li>
-                                <li>Time constraints</li>
-                                <li>Social situations</li>
-                                <li>Technical limitations</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>SETTING ASIDE ASSUMPTIONS</h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Put aside your own ideas to truly see things from the user's perspective.</p>
-                            <ul>
-                                <li>Acknowledge biases</li>
-                                <li>Question certainties</li>
-                                <li>Remain curious</li>
-                                <li>Seek diverse perspectives</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>RECOGNIZING EMOTIONS</h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Understanding how users feel when using your product is as important as knowing what they do with it.</p>
-                            <ul>
-                                <li>Frustrations and pain points</li>
-                                <li>Moments of delight</li>
-                                <li>Anxiety triggers</li>
-                                <li>Confidence builders</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Observation Tab -->
-        <div id="observe" class="tab-content">
-            <div class="dark-section">
-                <h2>UNDERSTANDING THROUGH OBSERVATION</h2>
-                
-                <div class="card">
-                    <p>Observation is crucial for understanding how people actually use products in real-world situations. People often can't articulate exactly how they use products, but observation reveals unconscious behaviors and workarounds.</p>
-                </div>
-                
-                <div class="split-content">
-                    <div>
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">1</div>
-                                <h3>WHY OBSERVE?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-exclamation-circle text-2xl"></i>
                             </div>
-                            <div class="element-content">
-                                <ul>
-                                    <li>Reveals unconscious habits</li>
-                                    <li>Uncovers environmental factors</li>
-                                    <li>Shows actual usage vs reported usage</li>
-                                    <li>Identifies unexpected pain points</li>
-                                </ul>
+                            <h3 class="text-xl font-bold">AVOID PROBLEMS</h3>
+                        </div>
+                        <p>Without empathy, we might make things that look cool but are hard to use. This wastes time and money, and frustrates users.</p>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-heart text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">BUILD TRUST</h3>
+                        </div>
+                        <p>When users feel understood, they trust your product more. They're more likely to keep using it and tell others about it.</p>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-lightbulb text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">FIND NEW IDEAS</h3>
+                        </div>
+                        <p>Watching and talking to users can spark new ideas for features or improvements you hadn't thought of before.</p>
+                    </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accentBlue flex items-center justify-center text-white mr-4">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">INCLUDE EVERYONE</h3>
+                        </div>
+                        <p>Empathy helps us design for all users, including those with different abilities, backgrounds, and needs than our own.</p>
+                    </div>
+                </div>
+                
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative mt-8">
+                    HOW TO PRACTICE EMPATHY
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p class="mb-4">There are three main ways to develop empathy for your users:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div class="bg-secondary rounded-custom p-5 border-2 border-outline">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-user-friends text-2xl text-accentBlue mr-3"></i>
+                                <h3 class="text-xl font-bold">ROLEPLAY</h3>
+                            </div>
+                            <p>Watch users as they use a product. See where they get stuck or confused. Notice what they do differently than you expected.</p>
+                            <div class="mt-4">
+                                <button class="tab-button-from-intro w-full bg-accent hover:bg-accentBlue hover:text-white text-text font-semibold py-2 px-4 rounded-lg border-2 border-outline transition-colors duration-150" data-tab="roleplay">
+                                    Learn Roleplaying →
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="element-card" style="margin-top: 25px;">
-                            <div class="element-header">
-                                <div class="element-number">2</div>
-                                <h3>DIRECT EXPERIENCE</h3>
+                        <div class="bg-secondary rounded-custom p-5 border-2 border-outline">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-comments text-2xl text-accentBlue mr-3"></i>
+                                <h3 class="text-xl font-bold">INTERVIEW</h3>
                             </div>
-                            <div class="element-content">
-                                <p>Try using the product yourself in different situations to spot problems firsthand.</p>
-                                <ul>
-                                    <li>Use in various environments</li>
-                                    <li>Try with different constraints</li>
-                                    <li>Note your own frustrations</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <div class="element-card">
-                            <div class="element-header">
-                                <div class="element-number">3</div>
-                                <h3>SHADOW USERS</h3>
-                            </div>
-                            <div class="element-content">
-                                <p>Watch people use the product without interfering. Note where they struggle or find workarounds.</p>
-                                <ul>
-                                    <li>Observe without interrupting</li>
-                                    <li>Note hesitations and confusion</li>
-                                    <li>Track time spent on tasks</li>
-                                </ul>
+                            <p>Ask users questions about their needs, goals, and frustrations. Listen carefully to understand what they really want and why.</p>
+                            <div class="mt-4">
+                                <button class="tab-button-from-intro w-full bg-accent hover:bg-accentBlue hover:text-white text-text font-semibold py-2 px-4 rounded-lg border-2 border-outline transition-colors duration-150" data-tab="interview">
+                                    Learn Interviewing →
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="element-card" style="margin-top: 25px;">
-                            <div class="element-header">
-                                <div class="element-number">4</div>
-                                <h3>DOCUMENT EVERYTHING</h3>
+                        <div class="bg-secondary rounded-custom p-5 border-2 border-outline">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-search text-2xl text-accentBlue mr-3"></i>
+                                <h3 class="text-xl font-bold">RESEARCH</h3>
                             </div>
-                            <div class="element-content">
-                                <p>Take photos, videos, and notes to capture how people use products in real situations.</p>
-                                <ul>
-                                    <li>Capture the environment</li>
-                                    <li>Record user reactions</li>
-                                    <li>Note unexpected uses</li>
-                                </ul>
+                            <p>Find information about users' needs online. Use search engines, videos, and other online resources to discover how people solve similar problems.</p>
+                            <div class="mt-4">
+                                <button class="tab-button-from-intro w-full bg-accent hover:bg-accentBlue hover:text-white text-text font-semibold py-2 px-4 rounded-lg border-2 border-outline transition-colors duration-150" data-tab="research">
+                                    Learn Researching →
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-quote-left text-accentBlue"></i>
+                        REMEMBER
+                    </h3>
+                    <p class="text-lg">Good design isn't about what <strong>you</strong> think is cool or clever. It's about making something that works well for the <strong>people who will use it</strong>.</p>
                 </div>
             </div>
         </div>
 
         <!-- Roleplaying Tab -->
         <div id="roleplay" class="tab-content">
-            <div class="light-section">
-                <h2>CLIENT ROLEPLAYING</h2>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    CLIENT ROLEPLAYING
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="card">
-                    <p>Watch clients use their current solution to spot problems they might not mention. Roleplaying helps you understand the full context of how people interact with products and services.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p>Watch people use their current tools to spot problems they might not tell you about. This helps you understand how people really use products in their daily life.</p>
                 </div>
                 
-                <div class="steps-container">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
                         <div>
-                            <h3>START WITH REAL TASKS</h3>
-                            <p>Ask clients to show you how they complete actual work tasks with their current tools - not hypothetical scenarios.</p>
+                            <h3 class="text-xl font-bold mb-2">USE REAL TASKS</h3>
+                            <p>Ask people to show you how they do actual work with their current tools - not made-up scenarios.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> "Show me how you organise your locker from start to finish."
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">2</div>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
                         <div>
-                            <h3>ENCOURAGE THINKING ALOUD</h3>
-                            <p>Ask the client to verbalize their thoughts as they work through tasks to understand their mental model.</p>
+                            <h3 class="text-xl font-bold mb-2">ASK THEM TO TALK</h3>
+                            <p>Ask the person to say their thoughts out loud as they work. This helps you understand what they're thinking.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> "Please tell me what you're thinking as you work."
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">3</div>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">3</div>
                         <div>
-                            <h3>NOTE HESITATIONS</h3>
-                            <p>Pay attention to moments when the client pauses or appears confused - these indicate potential pain points.</p>
+                            <h3 class="text-xl font-bold mb-2">WATCH FOR PAUSES</h3>
+                            <p>Pay attention when the person stops or looks confused - these show where they might be having problems.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> Notice sighs, frowns, or when they say "This part is annoying."
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">4</div>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">4</div>
                         <div>
-                            <h3>IDENTIFY WORKAROUNDS</h3>
-                            <p>Look for creative solutions the client has developed to handle limitations in their current tools.</p>
+                            <h3 class="text-xl font-bold mb-2">SPOT WORKAROUNDS</h3>
+                            <p>Look for clever solutions the person has made to deal with problems in their current tools.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> They might organize items in their locker by colour or size when the space isn't designed well.
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="step-card">
-                        <div class="step-number">5</div>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">5</div>
                         <div>
-                            <h3>LISTEN TO TERMINOLOGY</h3>
-                            <p>Note the specific words clients use to describe features and functions - use these in your design.</p>
+                            <h3 class="text-xl font-bold mb-2">NOTE THEIR WORDS</h3>
+                            <p>Write down the exact words people use to describe features - use these same words in your design.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> If they call it a "dashboard" instead of "home page," use their term.
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="card" style="margin-top: 40px;">
-                    <h3>USEFUL QUESTIONS</h3>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
-                            <span style="position: absolute; left: 5px; color: var(--accent-color); font-size: 1.2em;">•</span>
-                            "What are you trying to do here?"
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mt-10 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-comment-dots text-accentBlue"></i>
+                        HELPFUL QUESTIONS
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">"What are you trying to do here?"</p>
+                            <p class="text-sm">Helps you understand their goal</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">"Why did you choose that option?"</p>
+                            <p class="text-sm">Shows how they make decisions</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">"Is this how you normally do this?"</p>
+                            <p class="text-sm">Reveals regular habits vs. one-time actions</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">"I saw you pause - was something unclear?"</p>
+                            <p class="text-sm">Finds moments of confusion</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary section -->
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-accentBlue"></i>
+                        MAIN POINTS
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Watch real tasks, not fake ones</span>
                         </li>
-                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
-                            <span style="position: absolute; left: 5px; color: var(--accent-color); font-size: 1.2em;">•</span>
-                            "Why did you pick that option?"
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Pay attention when people pause or look confused</span>
                         </li>
-                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
-                            <span style="position: absolute; left: 5px; color: var(--accent-color); font-size: 1.2em;">•</span>
-                            "Is this your normal way of doing this?"
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Clever workarounds show where tools need to be better</span>
                         </li>
-                        <li style="margin-bottom: 12px; padding-left: 25px; position: relative;">
-                            <span style="position: absolute; left: 5px; color: var(--accent-color); font-size: 1.2em;">•</span>
-                            "I noticed you paused - was something unclear?"
-                        </li>
-                        <li style="padding-left: 25px; position: relative;">
-                            <span style="position: absolute; left: 5px; color: var(--accent-color); font-size: 1.2em;">•</span>
-                            "How often do you need to use that workaround?"
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Use the same words in your design that users use</span>
                         </li>
                     </ul>
                 </div>
@@ -796,174 +365,432 @@
 
         <!-- Interview Tab -->
         <div id="interview" class="tab-content">
-            <div class="dark-section">
-                <h2>EFFECTIVE INTERVIEWING</h2>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    TALKING WITH USERS
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="card">
-                    <p>Good questions reveal more about what users really need. Interviews help you understand the motivations, goals, and frustrations that observation alone might miss.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p>Good questions help you learn what users really need. Interviews help you understand the goals and frustrations that watching alone might miss.</p>
                 </div>
                 
-                <div class="elements-grid">
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>ASK OPEN QUESTIONS</h3>
+                <!-- Interview categories as sequential sections -->
+                <div class="max-w-6xl mx-auto mb-8">
+                    <div class="bg-primary border-2 border-outline rounded-custom overflow-hidden mb-6 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="bg-accentBlue p-4 flex items-center border-b-2 border-outline">
+                            <div class="w-10 h-10 bg-white text-accentBlue border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom mr-4">1</div>
+                            <h3 class="text-xl font-bold text-white">ASK OPEN QUESTIONS</h3>
                         </div>
-                        <div class="element-content">
-                            <p>Instead of "Do you like this?" ask "How do you feel about this?"</p>
-                            <ul>
-                                <li>Starts with how, what, why</li>
-                                <li>Encourages detailed answers</li>
-                                <li>Avoids yes/no responses</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>FIND PAIN POINTS</h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Ask "What frustrates you most when using this?"</p>
-                            <ul>
-                                <li>Identifies improvement areas</li>
-                                <li>Reveals priorities</li>
-                                <li>Uncovers workarounds</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>LEARN ABOUT CONTEXT</h3>
-                        </div>
-                        <div class="element-content">
-                            <p>Ask "When and where do you use this most?"</p>
-                            <ul>
-                                <li>Reveals usage environment</li>
-                                <li>Identifies constraints</li>
-                                <li>Shows integration points</li>
-                            </ul>
+                        <div class="p-6">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center bg-secondary mr-3">
+                                    <i class="fas fa-thumbs-down text-accentBlue text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Don't ask: "Do you like this?"</p>
+                                    <p class="text-sm">This only gets a yes or no answer</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 rounded-full flex items-center justify-center bg-secondary mr-3">
+                                    <i class="fas fa-thumbs-up text-accentBlue text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Do ask: "How do you feel about this?"</p>
+                                    <p class="text-sm">This gets a more detailed answer</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-secondary p-4 rounded-lg mt-4">
+                                <p class="font-medium mb-2">Good questions start with:</p>
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="bg-white px-3 py-1 rounded-full border border-outline">How...</span>
+                                    <span class="bg-white px-3 py-1 rounded-full border border-outline">What...</span>
+                                    <span class="bg-white px-3 py-1 rounded-full border border-outline">Why...</span>
+                                    <span class="bg-white px-3 py-1 rounded-full border border-outline">Tell me about...</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>DISCOVER WISHES</h3>
+
+                    <div class="bg-primary border-2 border-outline rounded-custom overflow-hidden mb-6 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="bg-accentBlue p-4 flex items-center border-b-2 border-outline">
+                            <div class="w-10 h-10 bg-white text-accentBlue border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom mr-4">2</div>
+                            <h3 class="text-xl font-bold text-white">FIND PAIN POINTS</h3>
                         </div>
-                        <div class="element-content">
-                            <p>Ask "What would make this perfect for you?"</p>
-                            <ul>
-                                <li>Reveals desired features</li>
-                                <li>Uncovers aspirations</li>
-                                <li>Identifies value opportunities</li>
+                        <div class="p-6">
+                            <p class="bg-secondary p-3 rounded-lg mb-4 font-medium">Ask: "What frustrates you most when using this?"</p>
+                            
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-accentBlue">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <p>Helps you find what needs fixing</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-accentBlue">
+                                    <i class="fas fa-list-ol"></i>
+                                </div>
+                                <p>Shows what's most important to fix first</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-accentBlue">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <p>Finds clever fixes users have made</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary border-2 border-outline rounded-custom overflow-hidden mb-6 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="bg-accentBlue p-4 flex items-center border-b-2 border-outline">
+                            <div class="w-10 h-10 bg-white text-accentBlue border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom mr-4">3</div>
+                            <h3 class="text-xl font-bold text-white">LEARN ABOUT WHEN AND WHERE</h3>
+                        </div>
+                        <div class="p-6">
+                            <p class="bg-secondary p-3 rounded-lg mb-4 font-medium">Ask: "When and where do you use this most?"</p>
+                            
+                            <div class="flex items-start gap-4 mb-6">
+                                <div class="w-1/3">
+                                    <div class="bg-secondary h-full p-3 rounded-lg flex flex-col items-center justify-center text-center">
+                                        <i class="fas fa-map-marker-alt text-accentBlue text-2xl mb-2"></i>
+                                        <p class="text-sm font-medium">Where they use it</p>
+                                    </div>
+                                </div>
+                                <div class="w-1/3">
+                                    <div class="bg-secondary h-full p-3 rounded-lg flex flex-col items-center justify-center text-center">
+                                        <i class="fas fa-clock text-accentBlue text-2xl mb-2"></i>
+                                        <p class="text-sm font-medium">When they use it</p>
+                                    </div>
+                                </div>
+                                <div class="w-1/3">
+                                    <div class="bg-secondary h-full p-3 rounded-lg flex flex-col items-center justify-center text-center">
+                                        <i class="fas fa-puzzle-piece text-accentBlue text-2xl mb-2"></i>
+                                        <p class="text-sm font-medium">How it fits with other tools</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 border border-accentBlue border-dashed rounded-lg">
+                                <p class="text-sm">Think about: What device they use, time of day, location, noise level, distractions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary border-2 border-outline rounded-custom overflow-hidden transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="bg-accentBlue p-4 flex items-center border-b-2 border-outline">
+                            <div class="w-10 h-10 bg-white text-accentBlue border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom mr-4">4</div>
+                            <h3 class="text-xl font-bold text-white">FIND OUT WISHES</h3>
+                        </div>
+                        <div class="p-6">
+                            <p class="bg-secondary p-3 rounded-lg mb-4 font-medium">Ask: "What would make this perfect for you?"</p>
+                            
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-accentBlue">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <p>Reveals features they want</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-accentBlue">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <p>Shows what they hope for</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-accentBlue">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                </div>
+                                <p>Gives ideas for improvements</p>
+                            </div>
+                            
+                            <div class="mt-4 p-3 border border-accentBlue border-dashed rounded-lg">
+                                <p class="text-sm">Follow up with: "Why would that be perfect?" to understand deeper needs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Example Questions -->
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mt-10 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-question-circle text-accentBlue"></i>
+                        EXAMPLE QUESTIONS
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="font-medium mb-1">ABOUT GOALS</p>
+                            <ul class="list-none pl-0 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"What are you trying to achieve when you use this?"</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"How do you know when you've been successful?"</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="font-medium mb-1">ABOUT CHALLENGES</p>
+                            <ul class="list-none pl-0 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"What parts of this take you the most time?"</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"When was the last time you felt stuck using this?"</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="font-medium mb-1">ABOUT FEELINGS</p>
+                            <ul class="list-none pl-0 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"How do you feel when you use this feature?"</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"What part of this do you enjoy the most?"</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="font-medium mb-1">ABOUT IMPROVEMENTS</p>
+                            <ul class="list-none pl-0 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"If you had a magic wand, what would you change?"</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-caret-right text-accentBlue mt-1"></i>
+                                    <span>"What's one thing that would make this easier to use?"</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 
-                <h3 style="margin-top: 40px; margin-bottom: 20px;">EXAMPLE INTERVIEW QUESTIONS</h3>
-                
-                <div class="elements-grid">
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">1</div>
-                            <h3>ABOUT USE</h3>
-                        </div>
-                        <div class="element-content">
-                            <ul>
-                                <li>"How do you typically use this product?"</li>
-                                <li>"Where and when do you use it most?"</li>
-                                <li>"Who else is involved in using it?"</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">2</div>
-                            <h3>PROBLEMS</h3>
-                        </div>
-                        <div class="element-content">
-                            <ul>
-                                <li>"What's the most annoying part?"</li>
-                                <li>"What would you change first?"</li>
-                                <li>"Tell me about a time it didn't work well."</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">3</div>
-                            <h3>GOALS</h3>
-                        </div>
-                        <div class="element-content">
-                            <ul>
-                                <li>"What are you trying to achieve?"</li>
-                                <li>"How do you know if you've succeeded?"</li>
-                                <li>"Why is this important to you?"</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="element-card">
-                        <div class="element-header">
-                            <div class="element-number">4</div>
-                            <h3>ALTERNATIVES</h3>
-                        </div>
-                        <div class="element-content">
-                            <ul>
-                                <li>"What other solutions have you tried?"</li>
-                                <li>"How do you work around limitations?"</li>
-                                <li>"What would make you switch products?"</li>
-                            </ul>
-                        </div>
-                    </div>
+                <!-- Summary section -->
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-accentBlue"></i>
+                        MAIN POINTS
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Ask questions that start with how, what, or why</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Find out what frustrates users the most</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Understand when and where people use your design</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Ask what would make the design perfect for them</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <!-- Research Tab -->
         <div id="research" class="tab-content">
-            <div class="light-section">
-                <h2>RESEARCH AND STATISTICS</h2>
+            <div class="bg-primary text-text px-16 py-10">
+                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                    ONLINE RESEARCH
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <div class="card">
-                    <p>There are times when designers need to make the first move without a client requesting something in particular. You can use statistics to get an idea for what needs to be improved.</p>
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <p>Looking at what's already online can teach you a lot about your users. You can find out what people like, what problems they have, and what solutions already exist.</p>
                 </div>
                 
-                <div class="stat-cards">
-                    <div class="stat-card">
-                        <div class="stat-label">SHOPPING CART SAFETY</div>
-                        <div class="stat-number">24,000</div>
-                        <p>Child injuries per year from shopping carts</p>
-                        <p style="margin-top: 15px;">Design opportunity: Better safety features and restraints</p>
+                <div class="flex flex-col gap-5 max-w-6xl mx-auto">
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">1</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">CHECK REVIEWS</h3>
+                            <p>Look at reviews of similar products to see what people like and don't like.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> Read reviews of locker organizers to learn what features people want.
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-label">KITCHEN BURNS</div>
-                        <div class="stat-number">486,000</div>
-                        <p>Burn incidents per year in kitchens</p>
-                        <p style="margin-top: 15px;">Design opportunity: Improved handles and heat indicators</p>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">2</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">SEE VISUALS AND EXAMPLES</h3>
+                            <p>Look at images and examples of how people organize their spaces in the real world.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> Look at Pinterest boards of "school locker organization" to see creative solutions.
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-label">MEDICATION ERRORS</div>
-                        <div class="stat-number">1.5M</div>
-                        <p>Preventable medication errors yearly</p>
-                        <p style="margin-top: 15px;">Design opportunity: Better packaging and labels</p>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">3</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">USE ONLINE RESOURCES</h3>
+                            <p>Search engines, YouTube videos, blogs, and research tools can help you find useful information quickly.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> Watch YouTube videos of "dorm room organization" to see real-life solutions.
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="stat-card">
-                        <div class="stat-label">FURNITURE TIP-OVERS</div>
-                        <div class="stat-number">25,500</div>
-                        <p>Injuries annually from furniture tipping</p>
-                        <p style="margin-top: 15px;">Design opportunity: Stable designs and mounting solutions</p>
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">4</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">FOLLOW TRENDS</h3>
+                            <p>Look for popular trends to understand what people currently care about.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> If sustainable products are trending, users might want eco-friendly options.
+                            </div>
+                        </div>
                     </div>
+                    
+                    <div class="bg-primary border-2 border-outline rounded-custom p-5 flex items-start gap-5 transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom">
+                        <div class="w-10 h-10 bg-accentBlue text-white border-2 border-outline rounded-full flex items-center justify-center font-bold text-lg shadow-sm-custom flex-shrink-0">5</div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">SEARCH SMART</h3>
+                            <p>Learn to search in ways that find exactly what you need.</p>
+                            <div class="mt-3 bg-secondary rounded-lg p-3 text-sm">
+                                <span class="font-medium">Example:</span> Instead of "locker ideas," try "high school locker organization solutions for small spaces."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mt-10 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-lightbulb text-accentBlue"></i>
+                        SEARCH TIPS
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Use quote marks</p>
+                            <p class="text-sm">"locker organization ideas" finds that exact phrase</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Add specific details</p>
+                            <p class="text-sm">Add words like "budget" or "small space" to focus results</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Try different words</p>
+                            <p class="text-sm">"Storage" might show different results than "organization"</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <p class="mb-2 font-medium">Use helpful tools</p>
+                            <p class="text-sm">YouTube, Pinterest, Reddit, Google, Perplexity, and other resources all offer different perspectives</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tools section -->
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mt-10 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-tools text-accentBlue"></i>
+                        HELPFUL ONLINE RESOURCES
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <div class="flex items-center mb-2">
+                                <i class="fab fa-youtube text-xl text-accentBlue mr-2"></i>
+                                <p class="font-medium">YouTube</p>
+                            </div>
+                            <p class="text-sm">Great for seeing real people using products and explaining problems</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <div class="flex items-center mb-2">
+                                <i class="fab fa-pinterest text-xl text-accentBlue mr-2"></i>
+                                <p class="font-medium">Pinterest</p>
+                            </div>
+                            <p class="text-sm">Visual inspiration and creative solutions that people actually use</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-newspaper text-xl text-accentBlue mr-2"></i>
+                                <p class="font-medium">Blogs & Articles</p>
+                            </div>
+                            <p class="text-sm">Detailed reviews and advice from experts and other students</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <div class="flex items-center mb-2">
+                                <i class="fab fa-google text-xl text-accentBlue mr-2"></i>
+                                <p class="font-medium">Google</p>
+                            </div>
+                            <p class="text-sm">Search for articles, reviews, and specific information</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-robot text-xl text-accentBlue mr-2"></i>
+                                <p class="font-medium">AI Search Tools</p>
+                            </div>
+                            <p class="text-sm">Tools like Perplexity that can summarize information from many sources</p>
+                        </div>
+                        
+                        <div class="bg-secondary p-4 rounded-lg border border-outline">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-chart-bar text-xl text-accentBlue mr-2"></i>
+                                <p class="font-medium">Surveys & Polls</p>
+                            </div>
+                            <p class="text-sm">Find statistics and research about what large groups of users prefer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Summary section -->
+                <div class="bg-secondary border-2 border-outline rounded-custom p-6 mt-10 max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-accentBlue"></i>
+                        MAIN POINTS
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Look at reviews to find what people like and dislike</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Visual examples show how people are really using products</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Use many different online resources to get a complete picture</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-arrow-right text-accentBlue mt-1"></i>
+                            <span>Better search terms lead to more useful results</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -972,59 +799,58 @@
     <script>
         // Tab functionality
         const tabButtons = document.querySelectorAll('.tab-button');
+        const tabButtonsFromIntro = document.querySelectorAll('.tab-button-from-intro');
         const tabContents = document.querySelectorAll('.tab-content');
+        
+        function setActiveTab(tabId) {
+            // Scroll to top of page
+            window.scrollTo(0, 0);
+            
+            // Update buttons
+            tabButtons.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.remove('bg-accent', 'text-text');
+                    btn.classList.add('bg-accentBlue', 'text-white');
+                } else {
+                    btn.classList.remove('bg-accentBlue', 'text-white');
+                    btn.classList.add('bg-accent', 'text-text');
+                }
+            });
+            
+            // Update content with animation
+            tabContents.forEach(content => {
+                content.style.opacity = '0';
+                content.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    content.classList.remove('active');
+                }, 200);
+            });
+            
+            setTimeout(() => {
+                document.getElementById(tabId).classList.add('active');
+                setTimeout(() => {
+                    document.getElementById(tabId).style.opacity = '1';
+                    document.getElementById(tabId).style.transform = 'translateY(0)';
+                }, 50);
+            }, 200);
+        }
         
         tabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => {
-                    content.style.opacity = '0';
-                    content.style.transform = 'translateY(10px)';
-                    setTimeout(() => {
-                        content.classList.remove('active');
-                    }, 200);
-                });
-                
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                // Show corresponding content with animation
                 const tabId = button.getAttribute('data-tab');
-                setTimeout(() => {
-                    document.getElementById(tabId).classList.add('active');
-                    setTimeout(() => {
-                        document.getElementById(tabId).style.opacity = '1';
-                        document.getElementById(tabId).style.transform = 'translateY(0)';
-                    }, 50);
-                }, 200);
+                setActiveTab(tabId);
             });
         });
         
-        // For centering last items in grid when needed
-        function adjustGridLayout() {
-            const grids = document.querySelectorAll('.elements-grid, .stat-cards');
-            
-            grids.forEach(grid => {
-                const items = grid.querySelectorAll('.element-card, .stat-card');
-                const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-                
-                // If there's only one item in the last row
-                if (items.length % columns === 1) {
-                    const lastItem = items[items.length - 1];
-                    if (window.innerWidth >= 768) { // Only on desktop
-                        lastItem.style.gridColumn = `${Math.ceil(columns/2)} / span 1`;
-                        lastItem.style.justifySelf = 'center';
-                    } else {
-                        lastItem.style.gridColumn = '';
-                        lastItem.style.justifySelf = '';
-                    }
-                }
+        tabButtonsFromIntro.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                setActiveTab(tabId);
             });
-        }
+        });
         
-        window.addEventListener('load', adjustGridLayout);
-        window.addEventListener('resize', adjustGridLayout);
+        // Initialize first tab as active
+        setActiveTab('intro');
     </script>
 </body>
 </html>
