@@ -9,7 +9,7 @@
     <style>
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 70px; /* Accounts for the navbar height */
+            scroll-padding-top: 70px;
             max-width: 100%;
             overflow-x: hidden;
         }
@@ -25,6 +25,7 @@
             --shadow-md: 0 0.25em 0 var(--outline-color);
             --border-radius: 0.6em;
             --transition-time: 0.15s;
+            --section-spacing: 80px; /* Added more spacing between sections */
         }
 
         body {
@@ -38,258 +39,20 @@
             min-height: 100vh;
             max-width: 100%;
             overflow-x: hidden;
+            padding-top: 60px; /* Added to account for fixed navbar */
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 14px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background-color: var(--secondary-bg);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: var(--accent-color);
-            border: 3px solid var(--secondary-bg);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: var(--active-color);
-            transform: scale(1.05);
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-top: 0;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        h1::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: var(--accent-color);
-            border-radius: 2px;
-        }
-
-        .section-title {
-            font-size: 2em;
-            margin: 50px 0 30px 0;
-            display: inline-block;
-            padding-bottom: 8px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--accent-color);
-            border-radius: 1px;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .header-container {
-            text-align: center;
-            background-color: var(--secondary-bg);
-            padding: 40px 20px;
-            width: 100%;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .header-container h1 {
-            margin: 0 auto;
-        }
-
-        .section-container {
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 30px;
-            width: 100%;
-        }
-
-        /* Cards Container */
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        /* Card Design */
-        .card {
-            background-color: var(--primary-bg);
-            border: 2px solid var(--outline-color);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            box-shadow: var(--shadow-sm);
-            transform: translateY(0);
-            text-decoration: none;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            width: 280px;
-        }
-
-        .card:hover {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
+        /* FIXED Navbar Styles - completely revised */
+        #navbar {
+            position: fixed; /* Changed from sticky to fixed */
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background-color: var(--accent-color);
-        }
-
-        .card-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--accent-color);
-            border: 2px solid var(--outline-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            transition: transform var(--transition-time), box-shadow var(--transition-time);
-            box-shadow: var(--shadow-sm);
-            transform: translateY(0);
-        }
-
-        .card:hover .card-icon {
-            transform: translateY(-0.25em);
-            box-shadow: var(--shadow-md);
-        }
-
-        .card-icon i {
-            font-size: 2rem;
-            color: white;
-        }
-
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .card-description {
-            font-size: 0.95rem;
-            text-align: center;
-            line-height: 1.5;
-            color: var(--text-color);
-        }
-
-        /* Card color variations */
-        .card-empathise::before {
-            background-color: #FF6B6B;
-        }
-        .card-empathise .card-icon {
-            background-color: #FF6B6B;
-        }
-
-        .card-define::before {
-            background-color: #4ECDC4;
-        }
-        .card-define .card-icon {
-            background-color: #4ECDC4;
-        }
-
-        .card-ideate::before {
-            background-color: #45B7D1;
-        }
-        .card-ideate .card-icon {
-            background-color: #45B7D1;
-        }
-
-        .card-prototype::before {
-            background-color: #96CEB4;
-        }
-        .card-prototype .card-icon {
-            background-color: #96CEB4;
-        }
-
-        .card-tinkercad::before {
-            background-color: #6C5B7B;
-        }
-        .card-tinkercad .card-icon {
-            background-color: #6C5B7B;
-        }
-        
-        .card-slicing::before {
-            background-color: #F67280;
-        }
-        .card-slicing .card-icon {
-            background-color: #F67280;
-        }
-
-        .card-shapr3d::before {
-            background-color: #5D576B;
-        }
-        .card-shapr3d .card-icon {
-            background-color: #5D576B;
-        }
-        
-        .card-laser-cutting::before {
-            background-color: #FF9A8B;
-        }
-        .card-laser-cutting .card-icon {
-            background-color: #FF9A8B;
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            position: -webkit-sticky; /* Safari support */
-            position: sticky;
-            top: 0;
             background-color: var(--primary-bg);
-            width: 100%;
             z-index: 1000;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             border-bottom: 2px solid var(--outline-color);
+            height: 60px;
         }
 
         .navbar-container {
@@ -299,8 +62,7 @@
             justify-content: center;
             align-items: center;
             padding: 0 20px;
-            height: 60px;
-            overflow-x: hidden;
+            height: 100%;
         }
 
         .navbar-menu {
@@ -349,49 +111,163 @@
             width: 100%;
         }
 
-        /* Main Content Adjustment for Navbar */
-        .header-container {
-            margin-top: 0;
-            padding-top: 60px;
+        /* Main content layout */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        /* Improved section spacing */
+        .section-container {
+            width: 100%;
+            margin-bottom: var(--section-spacing); /* Increased spacing */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            border: 2px solid var(--outline-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            margin: 0 0 5px 0;
+            display: inline-block;
+            padding-bottom: 5px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 1px;
+        }
+
+        /* Improved cards layout */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 360px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        /* For single cards that need centering */
+        .cards-container.single-card {
+            grid-template-columns: 1fr;
+            justify-items: center;
+            max-width: 180px; /* More focused width for single card */
+        }
+
+        /* Card Design */
+        .card {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 20px 15px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            width: 160px;
+            height: 140px;
+        }
+
+        .card:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-color);
+            border: 2px solid var(--outline-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(0);
+        }
+
+        .card:hover .card-icon {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        /* Card color variations - unchanged */
+        .card-empathise::before { background-color: #FF6B6B; }
+        .card-empathise .card-icon { background-color: #FF6B6B; }
+        .card-define::before { background-color: #4ECDC4; }
+        .card-define .card-icon { background-color: #4ECDC4; }
+        .card-ideate::before { background-color: #45B7D1; }
+        .card-ideate .card-icon { background-color: #45B7D1; }
+        .card-prototype::before { background-color: #96CEB4; }
+        .card-prototype .card-icon { background-color: #96CEB4; }
+        .card-tinkercad::before { background-color: #6C5B7B; }
+        .card-tinkercad .card-icon { background-color: #6C5B7B; }
+        .card-slicing::before { background-color: #F67280; }
+        .card-slicing .card-icon { background-color: #F67280; }
+        .card-shapr3d::before { background-color: #5D576B; }
+        .card-shapr3d .card-icon { background-color: #5D576B; }
+        .card-laser-cutting::before { background-color: #FF9A8B; }
+        .card-laser-cutting .card-icon { background-color: #FF9A8B; }
 
         /* Responsiveness */
-        @media (max-width: 992px) {
-            .cards-container {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 30px 15px;
-            }
-
-            .header-container {
-                padding: 30px 15px;
-            }
-
-            .cards-container {
-                gap: 20px;
-            }
-
-            .card {
-                padding: 20px;
-                width: 260px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
-
         @media (max-width: 768px) {
             .navbar-container {
-                height: auto;
                 padding: 15px;
             }
 
@@ -399,37 +275,59 @@
                 gap: 20px;
             }
 
-            .header-container {
-                padding-top: 40px;
-            }
-
-            html {
-                scroll-padding-top: 90px; /* Adjusted for navbar */
+            .cards-container {
+                gap: 15px;
+                max-width: 320px;
             }
             
-            /* Fix horizontal scrolling */
-            body {
-                overflow-x: hidden;
-                width: 100%;
+            .card {
+                width: 140px;
+                height: 125px;
+                padding: 15px 10px;
+            }
+            
+            .card-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 8px;
+            }
+            
+            .card-title {
+                font-size: 0.9rem;
+            }
+            
+            .section-container {
+                padding: 25px 15px;
             }
         }
 
         @media (max-width: 480px) {
             .main-container {
-                padding: 20px 15px;
+                padding: 40px 15px;
             }
 
             .card {
-                width: 100%;
+                width: 120px;
+                height: 110px;
+                padding: 12px 8px;
+            }
+            
+            .card-icon {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 8px;
+            }
+            
+            .card-icon i {
+                font-size: 1.25rem;
             }
 
-            h1 {
-                font-size: 2rem;
+            .card-title {
+                font-size: 0.8rem;
             }
 
             .section-title {
                 font-size: 1.5rem;
-                margin: 30px 0 20px 0;
             }
 
             .navbar-menu {
@@ -441,26 +339,21 @@
             .navbar-menu li a {
                 font-size: 0.95rem;
             }
-
-            html {
-                scroll-padding-top: 90px;
+            
+            .cards-container {
+                gap: 12px;
+                max-width: 260px;
             }
             
-            /* More fixes for horizontal scrolling */
-            .header-container, 
-            .navbar,
-            .main-container,
-            .section-container,
-            .cards-container {
-                max-width: 100%;
-                box-sizing: border-box;
+            .section-container {
+                padding: 20px 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sticky Navigation Bar -->
-    <nav class="navbar">
+    <!-- Fixed Navigation Bar -->
+    <nav id="navbar">
         <div class="navbar-container">
             <ul class="navbar-menu">
                 <li><a href="#design-process">Design Process</a></li>
@@ -469,10 +362,6 @@
             </ul>
         </div>
     </nav>
-
-    <div class="header-container">
-        <h1>DESIGN RESOURCES</h1>
-    </div>
 
     <div class="main-container">
         <div id="design-process" class="section-container">
@@ -485,7 +374,6 @@
                         <i class="fa-solid fa-heart"></i>
                     </div>
                     <h2 class="card-title">Empathise</h2>
-                    <p class="card-description">Understanding the needs and challenges of your users through research and observation.</p>
                 </a>
                 
                 <a href="define.html" class="card card-define">
@@ -493,7 +381,6 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <h2 class="card-title">Define</h2>
-                    <p class="card-description">Clearly articulating the problem based on user needs and insights.</p>
                 </a>
                 
                 <a href="ideate.html" class="card card-ideate">
@@ -501,7 +388,6 @@
                         <i class="fa-solid fa-lightbulb"></i>
                     </div>
                     <h2 class="card-title">Ideate</h2>
-                    <p class="card-description">Generating a wide range of creative solutions to address the defined problem.</p>
                 </a>
                 
                 <a href="prototype.html" class="card card-prototype">
@@ -509,7 +395,6 @@
                         <i class="fa-solid fa-cube"></i>
                     </div>
                     <h2 class="card-title">Prototype</h2>
-                    <p class="card-description">Building representations of potential solutions to test and refine.</p>
                 </a>
             </div>
         </div>
@@ -523,8 +408,7 @@
                     <div class="card-icon">
                         <i class="fa-solid fa-toolbox"></i>
                     </div>
-                    <h2 class="card-title">TinkerCad Prototyping</h2>
-                    <p class="card-description">Creating 3D models and prototypes using the TinkerCad platform.</p>
+                    <h2 class="card-title">TinkerCad</h2>
                 </a>
                 
                 <a href="https://cbuckley-aidans.github.io/3d-modelling/" class="card card-shapr3d">
@@ -532,15 +416,16 @@
                         <i class="fa-solid fa-shapes"></i>
                     </div>
                     <h2 class="card-title">Shapr3D</h2>
-                    <p class="card-description">Advanced 3D modelling with precision tools for complex designs and prototypes.</p>
                 </a>
-                
+            </div>
+            
+            <!-- Separate container for 3D Slicing to avoid overlap -->
+            <div class="cards-container single-card" style="margin-top: 20px;">
                 <a href="./slicing/slicing.html" class="card card-slicing">
                     <div class="card-icon">
                         <i class="fa-solid fa-layer-group"></i>
                     </div>
                     <h2 class="card-title">3D Slicing</h2>
-                    <p class="card-description">Preparing 3D models for printing by converting them into printable layers.</p>
                 </a>
             </div>
         </div>
@@ -549,16 +434,45 @@
             <div class="section-header">
                 <h2 class="section-title">Laser Cutting Skills</h2>
             </div>
-            <div class="cards-container">
+            <div class="cards-container single-card">
                 <a href="https://cbuckley-aidans.github.io/laser-cutting/" class="card card-laser-cutting">
                     <div class="card-icon">
                         <i class="fa-solid fa-vector-square"></i>
                     </div>
-                    <h2 class="card-title">Laser Cutting Tutorials</h2>
-                    <p class="card-description">Comprehensive guides for preparing and executing laser cutting projects.</p>
+                    <h2 class="card-title">Laser Cutting</h2>
                 </a>
             </div>
         </div>
     </div>
+
+    <script>
+        // Simplified script for just highlighting the active section
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section-container');
+            const navLinks = document.querySelectorAll('.navbar-menu li a');
+            
+            function highlightActiveSection() {
+                let scrollPosition = window.scrollY + 120; // Increased offset for fixed navbar
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === '#' + sectionId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightActiveSection);
+            highlightActiveSection(); // Call once on page load
+        });
+    </script>
 </body>
 </html>
