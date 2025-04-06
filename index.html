@@ -273,91 +273,7 @@
         .card-laser-cutting::before { background-color: #FF9A8B; }
         .card-laser-cutting .card-icon { background-color: #FF9A8B; }
 
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .navbar-container {
-                padding: 15px;
-            }
-
-            .navbar-menu {
-                gap: 20px;
-            }
-
-            .cards-container {
-                gap: 15px;
-                max-width: 320px;
-            }
-            
-            .card {
-                width: 140px;
-                height: 125px;
-                padding: 15px 10px;
-            }
-            
-            .card-icon {
-                width: 50px;
-                height: 50px;
-                margin-bottom: 8px;
-            }
-            
-            .card-title {
-                font-size: 0.9rem;
-            }
-            
-            .section-container {
-                padding: 25px 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-container {
-                padding: 40px 15px;
-            }
-
-            .card {
-                width: 120px;
-                height: 110px;
-                padding: 12px 8px;
-            }
-            
-            .card-icon {
-                width: 45px;
-                height: 45px;
-                margin-bottom: 8px;
-            }
-            
-            .card-icon i {
-                font-size: 1.25rem;
-            }
-
-            .card-title {
-                font-size: 0.8rem;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-
-            .navbar-menu {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .navbar-menu li a {
-                font-size: 0.95rem;
-            }
-            
-            .cards-container {
-                gap: 12px;
-                max-width: 260px;
-            }
-            
-            .section-container {
-                padding: 20px 15px;
-            }
-
-            .floating-card {
+        .floating-card {
     position: fixed;
     top: 80px;
     left: 20px;
@@ -442,6 +358,7 @@
     opacity: 1;
 }
 
+/* Then add these to the existing media queries section */
 @media (max-width: 768px) {
     .floating-card {
         padding: 10px;
@@ -464,6 +381,92 @@
         left: 10px;
     }
 }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 15px;
+            }
+
+            .navbar-menu {
+                gap: 20px;
+            }
+
+            .cards-container {
+                gap: 15px;
+                max-width: 320px;
+            }
+            
+            .card {
+                width: 140px;
+                height: 125px;
+                padding: 15px 10px;
+            }
+            
+            .card-icon {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 8px;
+            }
+            
+            .card-title {
+                font-size: 0.9rem;
+            }
+            
+            .section-container {
+                padding: 25px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 40px 15px;
+            }
+
+            .card {
+                width: 120px;
+                height: 110px;
+                padding: 12px 8px;
+            }
+            
+            .card-icon {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 8px;
+            }
+            
+            .card-icon i {
+                font-size: 1.25rem;
+            }
+
+            .card-title {
+                font-size: 0.8rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .navbar-menu {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .navbar-menu li a {
+                font-size: 0.95rem;
+            }
+            
+            .cards-container {
+                gap: 12px;
+                max-width: 260px;
+            }
+            
+            .section-container {
+                padding: 20px 15px;
+            }
+
+            
         }
     </style>
 </head>
