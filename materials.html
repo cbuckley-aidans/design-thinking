@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laser Cutting Materials</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">LASER CUTTING MATERIALS</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="lisc">
+                <i class="fas fa-clipboard-list"></i>
+                LI/SC
+            </button>
+            <button class="tab-button" data-tab="chunk1">
+                <i class="fas fa-cube"></i>
+                CHUNK 1
+            </button>
+            <button class="tab-button" data-tab="chew1">
+                <i class="fas fa-utensils"></i>
+                CHEW 1
+            </button>
+            <button class="tab-button" data-tab="chunk2">
+                <i class="fas fa-cube"></i>
+                CHUNK 2
+            </button>
+            <button class="tab-button" data-tab="chew2">
+                <i class="fas fa-utensils"></i>
+                CHEW 2
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Learning Intentions and Success Criteria section -->
+        <section id="lisc" class="tab-content active light-section">
+            <h1>LEARNING INTENTIONS & SUCCESS CRITERIA <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>Learning Intentions <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Understand the properties and uses of common laser cutting materials (acrylic and plywood)</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Evaluate the sustainability aspects of different laser cutting materials</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">2</div>
+                    <h3>Success Criteria <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <p>By the end of this lesson, you should be able to:</p>
+                
+                <ul>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Compare the properties of acrylic and plywood for laser cutting projects</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Analyze the environmental impact of materials and make informed decisions about material selection</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: Material Properties -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: LASER CUTTING MATERIALS <i class="fas fa-cut" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Understanding Materials for Laser Cutting</h3>
+                
+                <p>When creating projects with a laser cutter, choosing the right material is just as important as your design. Today, we'll focus on two popular materials: acrylic plastic and plywood.</p>
+                
+                <div class="two-column-grid" style="margin-top: 30px;">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">1</div>
+                            <h3>Acrylic Plastic <i class="fas fa-flask" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <div class="variable-animation" style="padding: 30px;">
+                            <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Properties of Acrylic:</p>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Appearance</h4>
+                                    <p>Clear or coloured, glossy finish, can be transparent or opaque</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Strength & Durability</h4>
+                                    <p>Strong, shatter-resistant, weather-resistant, doesn't yellow with age</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-cut"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Laser Cutting</h4>
+                                    <p>Cuts with clean edges, melts rather than burns, can be engraved</p>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 20px; height: 45px;">
+                                <button id="acrylic-examples-btn" class="action-btn" onclick="toggleAcrylicExamples()">Show Example Uses</button>
+                            </div>
+                            
+                            <div id="acrylic-examples" style="display: none; margin-top: 20px; background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px;">
+                                <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Common Uses:</h4>
+                                <ul>
+                                    <li>Signage and displays</li>
+                                    <li>Jewelry and accessories</li>
+                                    <li>Custom awards and trophies</li>
+                                    <li>Phone stands and device holders</li>
+                                    <li>Light fixtures and lamp shades</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">2</div>
+                            <h3>Plywood <i class="fas fa-tree" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <div class="variable-animation" style="padding: 30px;">
+                            <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Properties of Plywood:</p>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Composition</h4>
+                                    <p>Made of multiple thin layers of wood veneer glued together, with alternating grain direction</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-tree"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Appearance</h4>
+                                    <p>Natural wood grain, warm color, can be stained or painted</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container">
+                                    <i class="fas fa-cut"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Laser Cutting</h4>
+                                    <p>Burns when cut (creating darker edges), can be engraved, may have some char</p>
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 20px; height: 45px;">
+                                <button id="plywood-examples-btn" class="action-btn" onclick="togglePlywoodExamples()">Show Example Uses</button>
+                            </div>
+                            
+                            <div id="plywood-examples" style="display: none; margin-top: 20px; background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: 10px;">
+                                <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> Common Uses:</h4>
+                                <ul>
+                                    <li>Decorative wall art and signs</li>
+                                    <li>Puzzle pieces and board games</li>
+                                    <li>Model building and architectural models</li>
+                                    <li>Small furniture and organizers</li>
+                                    <li>Jewelry boxes and containers</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Material Comparison Section -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Comparing Materials <i class="fas fa-balance-scale" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Let's compare acrylic and plywood side by side:</p>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <tr style="background-color: var(--accent-color); color: white;">
+                            <th style="padding: 15px; border: 1px solid var(--outline-color);">Feature</th>
+                            <th style="padding: 15px; border: 1px solid var(--outline-color);">Acrylic</th>
+                            <th style="padding: 15px; border: 1px solid var(--outline-color);">Plywood</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Cost</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">More expensive</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Less expensive</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Engraving</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">"Etched" kind of style</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Burnt engraving patterns</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Water Resistance</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Excellent</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Poor to moderate (depends on finish)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Flexibility</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Somewhat flexible in thin sheets</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Some flex in thin sheets, more rigid</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Post-Processing</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Can be heated and bent, hard to sand</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color);">Easy to sand, paint, stain, or glue</td>
+                        </tr>
+                    </table>
+                </div>
+                
+
+            </div>
+        </section>
+
+        <!-- CHEW 1: Material Exploration -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: MATERIAL EXPLORATION <i class="fas fa-search" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Hands-On Material Exploration</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Compare acrylic and plywood samples through direct observation</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Evaluate which material would be best for your project</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Material Exploration Stations <i class="fas fa-hands" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Visit the material exploration stations around the classroom. At each station, you'll find samples of acrylic and plywood in different sizes, colours, and finishes.</p>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;">At each station, observe and record:</p>
+                        <ol style="font-size: 1.1em;">
+                            <li style="margin-bottom: 10px;">How do the materials look? (Colour, transparency, texture)</li>
+                            <li style="margin-bottom: 10px;">How do they feel? (Weight, smoothness, temperature)</li>
+                            <li style="margin-bottom: 10px;">Examine the laser-cut edges. How do they differ?</li>
+                            <li style="margin-bottom: 10px;">Test the strength by gently flexing each material</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <i class="fas fa-clipboard-list" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Material Properties Worksheet <i class="fas fa-file-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Complete the worksheet by comparing your observations:</p>
+                    
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                        <tr style="background-color: var(--chew-color); color: white;">
+                            <th style="padding: 15px; border: 1px solid var(--outline-color);">Property</th>
+                            <th style="padding: 15px; border: 1px solid var(--outline-color);">Acrylic Observations</th>
+                            <th style="padding: 15px; border: 1px solid var(--outline-color);">Plywood Observations</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Appearance</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Texture/Feel</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Edge Quality</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); font-weight: bold;">Strength/Flexibility</td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                            <td style="padding: 15px; border: 1px solid var(--outline-color); height: 40px;"></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Think-Pair-Share <i class="fas fa-users" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Based on your observations, discuss with a partner:</p>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Discussion Questions:</strong></p>
+                        <ol>
+                            <li style="margin-bottom: 10px;">What are the biggest differences you noticed between acrylic and plywood?</li>
+                            <li style="margin-bottom: 10px;">What kinds of projects would be better suited for acrylic? Why?</li>
+                            <li style="margin-bottom: 10px;">What kinds of projects would be better suited for plywood? Why?</li>
+                            <li style="margin-bottom: 10px;">Which material would you choose for your project? Explain your reasoning.</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <i class="fas fa-comments" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Sustainability -->
+        <section id="chunk2" class="tab-content dark-section">
+            <h1>CHUNK 2: MATERIAL SUSTAINABILITY <i class="fas fa-leaf" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Thinking About Environmental Impact</h3>
+                
+                <p>When designing and making products, it's important to consider how our material choices affect the environment. Let's explore the sustainability aspects of acrylic and plywood.</p>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>What is Sustainability? <i class="fas fa-recycle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Sustainability refers to how our choices today affect the future of our planet and its resources.</p>
+                    
+                    <div class="variable-animation" style="padding: 30px;">
+                        <p style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 25px;">Key Sustainability Factors:</p>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Production Impact</h4>
+                                <p>How much energy and resources are used to create the material?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Transport Footprint</h4>
+                                <p>How far does the material travel to reach you? What's the carbon footprint?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-hourglass-half"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Lifespan</h4>
+                                <p>How long will products made from this material last?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-trash-alt"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>End of Life</h4>
+                                <p>What happens to the material when it's no longer needed?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="two-column-grid" style="margin-top: 30px;">
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">2</div>
+                            <h3>Acrylic Sustainability <i class="fas fa-flask" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <div class="variable-animation" style="padding: 30px;">
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #ff4d4f;">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Production</h4>
+                                    <p>Made from petroleum (non-renewable), chemical-intensive manufacturing process</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #faad14;">
+                                    <i class="fas fa-recycle"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Recyclability</h4>
+                                    <p>Technically recyclable but not commonly accepted in curbside programs</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #52c41a;">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Durability</h4>
+                                    <p>Very durable, can last decades without degrading</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #ff4d4f;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Biodegradability</h4>
+                                    <p>Not biodegradable, can persist in landfills for hundreds of years</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-card">
+                        <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                            <div class="element-number">3</div>
+                            <h3>Plywood Sustainability <i class="fas fa-tree" style="margin-left: 10px;"></i></h3>
+                        </div>
+                        
+                        <div class="variable-animation" style="padding: 30px;">
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #faad14;">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Production</h4>
+                                    <p>Made from trees (renewable if responsibly sourced), but uses adhesives and energy to process</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #52c41a;">
+                                    <i class="fas fa-recycle"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Recyclability</h4>
+                                    <p>Can be repurposed, chipped for mulch, or burned for energy</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #faad14;">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Durability</h4>
+                                    <p>Moderately durable, susceptible to water damage and warping if not properly sealed</p>
+                                </div>
+                            </div>
+                            
+                            <div class="icon-box">
+                                <div class="icon-container" style="background-color: #52c41a;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </div>
+                                <div class="icon-text">
+                                    <h4>Biodegradability</h4>
+                                    <p>Biodegradable, though glues may slow the process</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+                <!-- Laser Cutting Impact -->
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
+                        <h3>Laser Cutting Environmental Impact <i class="fas fa-smog" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">The laser cutting process itself has environmental considerations:</p>
+                    
+                    <div class="variable-animation" style="padding: 30px;">
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Energy Use</h4>
+                                <p>Laser cutters use electricity; different materials require different power settings</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Emissions</h4>
+                                <p>Cutting acrylic releases VOCs (Volatile Organic Compounds); wood releases smoke and particulates</p>
+                            </div>
+                        </div>
+                        
+                        <div class="icon-box">
+                            <div class="icon-container">
+                                <i class="fas fa-cut"></i>
+                            </div>
+                            <div class="icon-text">
+                                <h4>Material Waste</h4>
+                                <p>Efficient nesting of parts can minimize waste; scraps might not be recyclable</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                            <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Design Tip:</strong> Plan your designs to use material efficiently and minimize waste!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 2: Sustainability Research -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: SUSTAINABILITY RESEARCH <i class="fas fa-search-plus" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Research and Evaluate Material Sustainability</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Research the environmental impact of your chosen material</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Consider ways to make your project more sustainable</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Material Sustainability Research <i class="fas fa-laptop" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Research the material you're planning to use for your project. You may wish to use these questions to guide your sustainability research:</p>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Research Questions:</strong></p>
+                        <ol>
+                            <li style="margin-bottom: 10px;">How is your chosen material (acrylic or plywood) manufactured?</li>
+                            <li style="margin-bottom: 10px;">What resources are needed to create this material?</li>
+                            <li style="margin-bottom: 10px;">What is the typical lifespan of products made from this material?</li>
+                            <li style="margin-bottom: 10px;">How can this material be recycled or disposed of responsibly?</li>
+                            <li style="margin-bottom: 10px;">Are there any eco-friendly alternatives to this material?</li>
+                            <li style="margin-bottom: 10px;">What certifications should you look for when purchasing this material?</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <i class="fas fa-search" style="font-size: 5em; color: var(--chew-color);"></i>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Material Life Cycle Analysis <i class="fas fa-recycle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; text-align: center; margin-bottom: 20px;">Screenshot this worksheet, put it into your assessment and answer the questions:</p>
+                    
+                    <div style="background-color: white; border: 1px solid var(--outline-color); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <h4 style="text-align: center; margin-top: 0; margin-bottom: 20px;">Material Life Cycle Worksheet</h4>
+                        
+                        <p style="font-weight: bold; margin-bottom: 5px;">My chosen material: 
+                            <span style="display: inline-block; width: 200px; border-bottom: 1px solid black;"></span>
+                        </p>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">1. Raw materials and extraction:</p>
+                            <div style="height: 50px; border: 1px solid var(--outline-color); border-radius: 5px;"></div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">2. Manufacturing process:</p>
+                            <div style="height: 50px; border: 1px solid var(--outline-color); border-radius: 5px;"></div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">3. Transportation and distribution:</p>
+                            <div style="height: 50px; border: 1px solid var(--outline-color); border-radius: 5px;"></div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">4. Usage and maintenance:</p>
+                            <div style="height: 50px; border: 1px solid var(--outline-color); border-radius: 5px;"></div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">5. End of life (disposal, recycling, etc.):</p>
+                            <div style="height: 50px; border: 1px solid var(--outline-color); border-radius: 5px;"></div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <p style="font-weight: bold; margin-bottom: 10px;">6. Environmental impact score (1-10, with 10 being highest impact):</p>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span>10</span>
+                            </div>
+                            <div style="height: 30px; border: 1px solid var(--outline-color); border-radius: 5px;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Extension Questions <i class="fas fa-brain" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Answer these questions to help you make a more informed decision about your material choice:</p>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 25px 0;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Extension Questions:</strong></p>
+                        <ol>
+                            <li style="margin-bottom: 15px;">What are three environmental advantages of your chosen material?</li>
+                            <li style="margin-bottom: 15px;">What are three environmental disadvantages of your chosen material?</li>
+                            <li style="margin-bottom: 15px;">Is there a more sustainable alternative to this material that would still work for your project? If so, what is it?</li>
+                            <li style="margin-bottom: 15px;">How could you design your project to reduce waste of this material?</li>
+                            <li style="margin-bottom: 15px;">How could you extend the lifespan of your project to make it more sustainable?</li>
+                            <li style="margin-bottom: 15px;">If you were to design a similar project in 10 years, what new sustainable materials might be available?</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="extra-questions-btn" class="action-btn" onclick="toggleExtraQuestions()">Show Extension Questions</button>
+                    </div>
+                    
+                    <div id="extra-questions" style="display: none; margin-top: 20px; background-color: rgba(16, 185, 129, 0.1); padding: 25px; border-radius: var(--border-radius);">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Extension Questions:</strong></p>
+                        <ol>
+                            <li style="margin-bottom: 15px;">How might climate change affect the availability or production of your chosen material in the future?</li>
+                            <li style="margin-bottom: 15px;">If everyone in your class made their project from this material, what would the combined environmental impact be?</li>
+                            <li style="margin-bottom: 15px;">What policies could schools or governments implement to make laser cutting more sustainable?</li>
+                            <li style="margin-bottom: 15px;">How do cultural attitudes toward material consumption affect sustainability?</li>
+                            <li style="margin-bottom: 15px;">What are some innovative ways that waste from your chosen material could be repurposed?</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Key Points <i class="fas fa-check-circle" style="margin-left: 10px;"></i></h3>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 20px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> What We've Learned Today</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Acrylic and plywood have different properties that make them suitable for different projects</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Acrylic is durable and water-resistant but made from non-renewable resources</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Plywood is natural and biodegradable but less durable in some conditions</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Material sustainability involves the entire life cycle from production to disposal</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Thoughtful design can minimize waste and environmental impact</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Certifications can help identify more sustainable material options</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                });
+            });
+        });
+        
+        // Toggle functions
+        function toggleAcrylicExamples() {
+            const examplesDiv = document.getElementById('acrylic-examples');
+            const button = document.getElementById('acrylic-examples-btn');
+            
+            if (examplesDiv.style.display === 'none') {
+                examplesDiv.style.display = 'block';
+                button.textContent = 'Hide Example Uses';
+            } else {
+                examplesDiv.style.display = 'none';
+                button.textContent = 'Show Example Uses';
+            }
+        }
+        
+        function togglePlywoodExamples() {
+            const examplesDiv = document.getElementById('plywood-examples');
+            const button = document.getElementById('plywood-examples-btn');
+            
+            if (examplesDiv.style.display === 'none') {
+                examplesDiv.style.display = 'block';
+                button.textContent = 'Hide Example Uses';
+            } else {
+                examplesDiv.style.display = 'none';
+                button.textContent = 'Show Example Uses';
+            }
+        }
+        
+        function toggleExtraQuestions() {
+            const questionsDiv = document.getElementById('extra-questions');
+            const button = document.getElementById('extra-questions-btn');
+            
+            if (questionsDiv.style.display === 'none') {
+                questionsDiv.style.display = 'block';
+                button.textContent = 'Hide Extension Questions';
+            } else {
+                questionsDiv.style.display = 'none';
+                button.textContent = 'Show Extension Questions';
+            }
+        }
+        
+        // Function removed as material selection section was removed
+    </script>
+</body>
+</html>
