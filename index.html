@@ -90,6 +90,7 @@
             position: relative;
             font-size: 1.1rem;
         }
+        
 
         .navbar-menu li a::after {
             content: '';
@@ -468,6 +469,25 @@
 
             
         }
+
+        /* Card color for Materials */
+    .card-materials::before { background-color: #4CAF50; }
+    .card-materials .card-icon { background-color: #4CAF50; }
+    
+    /* For centered card with margin */
+    .centered-card-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+        /* Make sure there's no max-width that would override centering */
+        max-width: none;
+    }
+    
+    /* Style for the centered single card specifically */
+    .centered-single-card {
+        margin: 0 auto;
+    }
     </style>
 </head>
 <body>
@@ -524,6 +544,16 @@
                         <i class="fa-solid fa-cube"></i>
                     </div>
                     <h2 class="card-title">Prototype</h2>
+                </a>
+
+                
+            </div>
+            <div class="cards-container single-card" style="margin-top: 20px;">
+                <a href="materials.html" class="card card-materials centered-single-card">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h2 class="card-title">Materials</h2>
                 </a>
             </div>
         </div>
