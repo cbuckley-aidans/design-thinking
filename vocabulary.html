@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Thinking Vocabulary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism CSS for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css">
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* Color Variables */
+        :root {
+            --primary-bg: #ffffff;
+            --secondary-bg: #f7f7f7;
+            --accent-bg: #f0f0f0;
+            --accent-color: #002654;
+            --outline-color: #191919;
+            --text-color: #191919;
+            --good-color: #4caf50;
+            --bad-color: #ff4d4f;
+            --border-radius: 0.6em;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+            --transition-time: 0.15s;
+        }
+        
+        /* Base Styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Additional styles for the Design Thinking Vocabulary */
+        .search-container {
+            margin: 0 auto 40px auto;
+            max-width: 1200px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            transform: translateY(-0.15em);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-color);
+        }
+        
+        .skill-card {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            overflow: hidden;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-0.15em);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-bottom: 2px solid var(--outline-color);
+            background-color: var(--secondary-bg);
+        }
+        
+        .skill-header:hover {
+            background-color: rgba(0, 38, 84, 0.1);
+        }
+        
+        .skill-icon-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--accent-color);
+            color: white;
+            border: 2px solid var(--outline-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .skill-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+            color: var(--accent-color);
+        }
+        
+        .rotate-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .skill-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding: 0 30px;
+        }
+        
+        .skill-content.active {
+            max-height: 5000px;
+            padding: 30px;
+        }
+        
+        .subsection-block {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .subsection-block:hover {
+            transform: translateY(-0.15em);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .subsection-heading {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .examples-container {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 15px;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+        
+        .skill-card.hidden {
+            display: none;
+        }
+        
+        .results-info {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .light-section {
+            padding: 40px 20px 20px 20px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .search-container {
+            margin: 0 auto 40px auto;
+            max-width: 1100px; /* Slightly less than main container */
+            padding: 0 20px;
+        }
+
+        .skill-card {
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            overflow: hidden;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .results-info {
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1100px;
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .related-terms {
+            margin-top: 20px;
+            background-color: rgba(0, 38, 84, 0.05);
+            padding: 15px;
+            border-radius: var(--border-radius);
+        }
+        
+        .related-terms-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .related-term {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 8px;
+            background-color: var(--secondary-bg);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        /* Ensure responsiveness */
+        @media (max-width: 1240px) {
+            .light-section,
+            #skills-container {
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .light-section,
+            #skills-container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="light-section" style="padding-top: 40px;">
+        <h1 style="text-align: center; margin-bottom: 30px;">DESIGN THINKING VOCABULARY</h1>
+        
+        <div class="search-container">
+            <input type="search" id="search-input" class="search-input" placeholder="Search for design thinking terms (e.g., prototype, empathy, criteria)...">
+        </div>
+        
+        <div id="results-info" class="results-info">
+            <span id="results-count">0</span> results found for "<span id="search-term"></span>"
+        </div>
+        
+        <div id="skills-container">
+            <!-- Empathize Section -->
+            <div class="skill-card" data-keywords="empathy empathise understand feeling thinking user-centred emotions perspective research interview roleplay">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="skill-title">Empathy / Empathise</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>Being able to understand and share another person's feelings and needs.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>Empathy means understanding how other people feel and what they need. When designers use empathy, they try to see the world through the eyes of the people who will use their product.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Why It's Important</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Helps you understand what users really need, not just what they say they need</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Helps find out what makes users frustrated or confused</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Leads to better designs that people actually want to use</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">How to Use It</h4>
+                        <p>You can develop empathy for your users by:</p>
+                        <ol>
+                            <li><strong>Roleplay:</strong> Watch people as they use a product to see where they get stuck</li>
+                            <li><strong>Interview:</strong> Ask questions and listen carefully to understand what users want and why</li>
+                            <li><strong>Research:</strong> Learn about users' needs through searching online</li>
+                        </ol>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"We need to <strong>empathise</strong> with the students who will use these lockers to understand how to improve them."</p>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">User research</span>
+                        <span class="related-term">Interviewing</span>
+                        <span class="related-term">User-centred design</span>
+                        <span class="related-term">Perspective-taking</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Story Section -->
+            <div class="skill-card" data-keywords="user story stories requirements needs goals persona identity who what why">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <h3 class="skill-title">User Story</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>A short description of something a user wants to do, written from their point of view.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>User stories help you understand exactly what your users need. They are short statements that explain who the user is, what they want to do, and why they want to do it.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Format</h4>
+                        <p>User stories follow this pattern:</p>
+                        <div style="background-color: var(--secondary-bg); padding: 15px; border-radius: var(--border-radius); margin: 15px 0;">
+                            <p style="text-align: center; font-weight: bold;">As a <span style="color: var(--accent-color);">type of user</span>, I want to <span style="color: var(--accent-color);">do something</span> so that <span style="color: var(--accent-color);">I get this benefit</span>.</p>
+                        </div>
+                        <ul>
+                            <li><strong>WHO:</strong> The type of person who will use your design</li>
+                            <li><strong>WHAT:</strong> The action they want to take</li>
+                            <li><strong>WHY:</strong> The benefit they get</li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"We created several <strong>user stories</strong> to better understand the needs of students with different learning styles."</p>
+                        <p class="example-title">Format Examples:</p>
+                        <ol>
+                            <li>"As a <strong>student who plays sports</strong>, I want to <strong>keep my gym clothes separate from my school books</strong> so that <strong>my books don't get smelly or damp</strong>."</li>
+                            <li>"As a <strong>student with ADHD</strong>, I want to <strong>break down big assignments into smaller steps</strong> so that <strong>I don't feel overwhelmed and can track my progress</strong>."</li>
+                        </ol>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Persona</span>
+                        <span class="related-term">Use case</span>
+                        <span class="related-term">User requirements</span>
+                        <span class="related-term">User needs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Design Criteria Section -->
+            <div class="skill-card" data-keywords="design criteria requirements rules specifications checklist measure metrics success test validate">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-list-check"></i>
+                        </div>
+                        <h3 class="skill-title">Design Criteria</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>A list of specific requirements that your design must meet to be successful.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>Design criteria are the rules that help you check if your design is good. They are like a checklist for your project that you can test at the end.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Creating Good Criteria</h4>
+                        <ol>
+                            <li><strong>Be Specific:</strong> Use clear numbers instead of vague words
+                                <ul>
+                                    <li>Bad: "The water bottle must be light"</li>
+                                    <li>Good: "The water bottle must weigh less than 500g"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Make it Testable:</strong> You need to be able to check if your design meets the criteria
+                                <ul>
+                                    <li>Bad: "Must be strong"</li>
+                                    <li>Good: "Must survive a 1m drop test without breaking"</li>
+                                </ul>
+                            </li>
+                            <li><strong>Keep it Achievable:</strong> Make sure you can meet your criteria with the materials and skills you have</li>
+                            <li><strong>Make it Relevant:</strong> Each criterion should solve a real problem for your users</li>
+                        </ol>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"The teacher asked us to create clear <strong>design criteria</strong> so we could properly test if our project was successful."</p>
+                        <p class="example-title">Example Set of Criteria:</p>
+                        <ol>
+                            <li><strong>Leak-proof:</strong> The lunchbox must not leak when shaken upside down for 10 seconds.</li>
+                            <li><strong>Insulated:</strong> Must keep food at least 22°C above room temperature for 4 hours.</li>
+                            <li><strong>Lightweight:</strong> Must weigh less than 500g when empty.</li>
+                            <li><strong>Durable:</strong> Must withstand being dropped from desk height (75cm) 10 times without cracking.</li>
+                        </ol>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Specifications</span>
+                        <span class="related-term">Requirements</span>
+                        <span class="related-term">Success metrics</span>
+                        <span class="related-term">Test criteria</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prototype Section -->
+            <div class="skill-card" data-keywords="prototype test mock-up simple version model initial rough draft testing">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-pencil-ruler"></i>
+                        </div>
+                        <h3 class="skill-title">Prototype</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>An early, simple model of a product that lets you test how it works before making the final version.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>A prototype is a simple version of your idea that you can test before making the final product. Prototypes help you learn what works and what needs to be changed.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Types of Prototypes</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Physical prototypes:</strong> Made from simple materials like paper, cardboard, clay, or recycled materials</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Act it Out:</strong> Roleplaying how a product or service would work</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Wizard of Oz:</strong> Making users think something works automatically when it's actually controlled by a person</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Digital prototypes:</strong> Simple digital versions of apps or websites</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Why We Make Prototypes</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Test ideas quickly and cheaply before spending time and money</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Get feedback from users early in the design process</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Identify problems and make improvements</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Try different options to find the best solution</li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"Our team created three different <strong>prototypes</strong> to test which design worked best for the users."</p>
+                        <p class="example-title">Other Examples:</p>
+                        <ul>
+                            <li>"We made a cardboard <strong>prototype</strong> of our water bottle design to test if the size felt comfortable to hold."</li>
+                            <li>"The paper <strong>prototype</strong> of our app let us test if users could understand the navigation."</li>
+                        </ul>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Mock-up</span>
+                        <span class="related-term">Model</span>
+                        <span class="related-term">Wireframe</span>
+                        <span class="related-term">Testing</span>
+                        <span class="related-term">Iteration</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SCAMPER Section -->
+            <div class="skill-card" data-keywords="scamper creativity substitute combine adapt modify put to another use eliminate reverse ideation brainstorming">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="skill-title">SCAMPER</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>A method for generating new ideas by changing parts of something that already exists. Each letter in SCAMPER stands for a different way to change your design.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>SCAMPER is a creative thinking tool that helps you improve an existing design by asking specific questions that spark new ideas.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">What Each Letter Means</h4>
+                        <ul>
+                            <li><strong>S = Substitute:</strong> Replace parts of your design with something else
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: What if we used bamboo instead of plastic?</p>
+                                </div>
+                            </li>
+                            <li><strong>C = Combine:</strong> Mix different ideas or products together
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: What if we combined a phone with a projector?</p>
+                                </div>
+                            </li>
+                            <li><strong>A = Adapt:</strong> Adjust your design to solve different problems
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: How could this toy work for older kids?</p>
+                                </div>
+                            </li>
+                            <li><strong>M = Modify:</strong> Change the size, shape, or features
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: What if we made it bigger or smaller?</p>
+                                </div>
+                            </li>
+                            <li><strong>P = Put to another use:</strong> Find different ways to use your design
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: Could this school item be used at home?</p>
+                                </div>
+                            </li>
+                            <li><strong>E = Eliminate:</strong> Remove unnecessary parts
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: What features aren't really needed?</p>
+                                </div>
+                            </li>
+                            <li><strong>R = Reverse:</strong> Try turning your design around or upside down
+                                <div class="examples-container" style="margin-top: 5px;">
+                                    <p>Example: What if we did this backwards?</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"During our class, we used the <strong>SCAMPER</strong> technique to come up with innovative improvements to our initial water bottle design."</p>
+                        <p class="example-title">How to Use SCAMPER:</p>
+                        <ol>
+                            <li>Start with an existing product or idea</li>
+                            <li>Go through each letter of SCAMPER and ask the related questions</li>
+                            <li>Write down all your new ideas</li>
+                            <li>Select the best ideas to develop further</li>
+                        </ol>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Brainstorming</span>
+                        <span class="related-term">Ideation</span>
+                        <span class="related-term">Creative thinking</span>
+                        <span class="related-term">Innovation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mood Board Section -->
+            <div class="skill-card" data-keywords="mood board inspiration collage vision style aesthetic images visual collection">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <h3 class="skill-title">Mood Board</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>A group of pictures and colours arranged together to show the style or "mood" you want your design to have.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>A mood board is a collection of images, colours, patterns, and other visual elements that show the style or "feeling" you want for your design.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">What a Mood Board Includes</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Images that inspire you</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Colour schemes</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Patterns and textures</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Typography (font styles)</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Materials you might use</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Why Use Mood Boards</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Helps you define the visual style of your project</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Gets everyone on the same page about the design direction</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Provides a source of inspiration when you're stuck</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Helps make your design more consistent</li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"Before starting our project, we created a <strong>mood board</strong> with images of sustainable packaging to inspire our eco-friendly container design."</p>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Inspiration board</span>
+                        <span class="related-term">Design style</span>
+                        <span class="related-term">Visual research</span>
+                        <span class="related-term">Aesthetic</span>
+                        <span class="related-term">Colour palette</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iteration Section -->
+            <div class="skill-card" data-keywords="iteration improve repeat cycle feedback loop refine revise update version improvement">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-sync"></i>
+                        </div>
+                        <h3 class="skill-title">Iteration</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>The process of making a design better by testing it, making changes, and testing it again multiple times.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>Iteration means making your design better through repeated cycles of testing and improvement. It's the process of making changes based on feedback and creating new versions of your design.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">How Iteration Works</h4>
+                        <ol>
+                            <li>Create a version of your design (like a prototype)</li>
+                            <li>Test it with users and collect feedback</li>
+                            <li>Identify things that need to be improved</li>
+                            <li>Make changes to your design</li>
+                            <li>Test the new version</li>
+                            <li>Repeat steps 2-5 until your design works well</li>
+                        </ol>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Why Iteration Is Important</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> No design is perfect the first time</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Each cycle makes your design better</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Helps you learn from your mistakes</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Reduces the risk of problems in the final design</li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"The design process required several <strong>iterations</strong> before we arrived at a solution that met all our criteria."</p>
+                        <p class="example-title">Other Examples:</p>
+                        <ul>
+                            <li>"After testing our first prototype, we went through three <strong>iterations</strong> to fix the issues users found."</li>
+                            <li>"Each <strong>iteration</strong> of our app design made the navigation clearer for users."</li>
+                        </ul>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Feedback loop</span>
+                        <span class="related-term">Refinement</span>
+                        <span class="related-term">Versioning</span>
+                        <span class="related-term">Continuous improvement</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sustainability Section -->
+            <div class="skill-card" data-keywords="sustainability eco-friendly environment green recycle upcycle biodegradable reuse environmental renewable">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3 class="skill-title">Sustainability</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>Making design choices that are good for the environment and can continue for a long time without running out of resources.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>Sustainability refers to creating designs that meet our needs today without harming the environment or using up resources that future generations will need.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Key Sustainability Factors</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Production Impact:</strong> How much energy and resources are used to create the material</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Transport Footprint:</strong> How far materials travel and the carbon footprint</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Lifespan:</strong> How long products made from this material will last</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>End of Life:</strong> What happens to the material when it's no longer needed</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Sustainable Design Strategies</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Use renewable or recycled materials</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Design for durability and long life</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Minimise waste in production</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Make products that can be repaired</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> Design for easy recycling or composting at end of life</li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"<strong>Sustainability</strong> was a key consideration in our design process, leading us to choose bamboo instead of plastic for our product."</p>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Eco-friendly</span>
+                        <span class="related-term">Green design</span>
+                        <span class="related-term">Circular economy</span>
+                        <span class="related-term">Biodegradable</span>
+                        <span class="related-term">Upcycling</span>
+                        <span class="related-term">Renewable resources</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Material Properties Section -->
+            <div class="skill-card" data-keywords="material properties physical characteristics texture weight durability strength environmental features acrylic plywood">
+                <div class="skill-header">
+                    <div class="skill-icon-container">
+                        <div class="skill-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h3 class="skill-title">Material Properties</h3>
+                    </div>
+                    <i class="fas fa-chevron-down toggle-arrow"></i>
+                </div>
+                <div class="skill-content">
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Simple Definition</h4>
+                        <p>The qualities that describe what a material is like, such as how it looks, feels, and behaves.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Detailed Definition</h4>
+                        <p>Material properties are the specific characteristics of materials used in a design, such as how they look, feel, and perform. These properties help designers choose the right materials for their projects.</p>
+                    </div>
+
+                    <div class="subsection-block">
+                        <h4 class="subsection-heading">Main Material Properties</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Look:</strong> Colour, transparency, finish</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Feel:</strong> Texture, temperature, weight</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Strength:</strong> How much force it can take</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Flexibility:</strong> How much it can bend</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Durability:</strong> How long it will last</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> <strong>Water Resistance:</strong> How it reacts to water</li>
+                        </ul>
+                    </div>
+
+                    <div class="examples-container">
+                        <p class="example-title">Example in Use:</p>
+                        <p>"We needed to carefully consider the <strong>material properties</strong> of both acrylic and plywood before deciding which one to use for our laser-cut project."</p>
+                        <p class="example-title">Simple Comparison:</p>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="background-color: var(--accent-color); color: white;">
+                                <th style="padding: 10px; border: 1px solid var(--outline-color);">Property</th>
+                                <th style="padding: 10px; border: 1px solid var(--outline-color);">Acrylic</th>
+                                <th style="padding: 10px; border: 1px solid var(--outline-color);">Plywood</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Look</td>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Clear or coloured, glossy</td>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Natural wood grain</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Water Resistance</td>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Excellent</td>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Poor to moderate</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Weight</td>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Lightweight</td>
+                                <td style="padding: 10px; border: 1px solid var(--outline-color);">Heavier than acrylic</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="related-terms">
+                        <p class="related-terms-title">Related Terms:</p>
+                        <span class="related-term">Physical properties</span>
+                        <span class="related-term">Material selection</span>
+                        <span class="related-term">Material testing</span>
+                        <span class="related-term">Material characteristics</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Boolean to control clipboard functionality
+        const enableClipboardButtons = true;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Skill card expandable content
+            const skillHeaders = document.querySelectorAll('.skill-header');
+            const searchInput = document.getElementById('search-input');
+            const skillsContainer = document.getElementById('skills-container');
+            const skillCards = document.querySelectorAll('.skill-card');
+            const resultsInfo = document.getElementById('results-info');
+            const resultsCount = document.getElementById('results-count');
+            const searchTerm = document.getElementById('search-term');
+            
+            // Toggle skill content
+            skillHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const arrow = this.querySelector('.toggle-arrow');
+                    
+                    if (content.classList.contains('active')) {
+                        content.classList.remove('active');
+                        arrow.classList.remove('rotate-arrow');
+                    } else {
+                        content.classList.add('active');
+                        arrow.classList.add('rotate-arrow');
+                    }
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                let matchCount = 0;
+                
+                // Show/hide results info based on search query
+                if (query.length > 0) {
+                    resultsInfo.style.display = 'block';
+                    searchTerm.textContent = query;
+                } else {
+                    resultsInfo.style.display = 'none';
+                }
+                
+                skillCards.forEach(card => {
+                    const cardTitle = card.querySelector('.skill-title').textContent.toLowerCase();
+                    const cardContent = card.textContent.toLowerCase();
+                    const cardKeywords = card.getAttribute('data-keywords').toLowerCase();
+                    
+                    // Check if card matches the search
+                    if (query === '' || 
+                        cardTitle.includes(query) || cardContent.includes(query) || 
+                        cardKeywords.includes(query)) {
+                        card.classList.remove('hidden');
+                        matchCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Update results count
+                resultsCount.textContent = matchCount;
+                
+                // If there's only one result, expand it automatically
+                if (matchCount === 1 && query !== '') {
+                    const visibleCard = document.querySelector('.skill-card:not(.hidden)');
+                    const content = visibleCard.querySelector('.skill-content');
+                    const arrow = visibleCard.querySelector('.toggle-arrow');
+                    
+                    if (!content.classList.contains('active')) {
+                        content.classList.add('active');
+                        arrow.classList.add('rotate-arrow');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
