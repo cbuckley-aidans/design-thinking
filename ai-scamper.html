@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generation Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+    <style>
+        /* Additional custom styles */
+        .code-with-symbol {
+            position: relative;
+            background-color: #282c34;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .code-with-symbol {
+                flex-direction: column;
+            }
+        }
+        
+        .code-area {
+            flex: 1;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #abb2bf;
+            min-width: 200px;
+        }
+        
+        .symbol-area {
+            width: 120px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .symbol-area {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 15px;
+            }
+        }
+        
+        .symbol-area svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .symbol-label {
+            color: #fff;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .page-title {
+            padding: 30px 40px;
+            margin: 0 0 30px 0;
+            background-color: var(--primary-color);
+            color: black;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .page-title h1 {
+            margin: 0;
+            color: black !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        .page-title i {
+            font-size: 1.8rem;
+            margin-left: 15px;
+        }
+        
+        /* Enhanced code styles */
+        .highlighted-code {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 15px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        /* Highlighted keyword styles */
+        .keyword-highlight {
+            background-color: rgba(79, 193, 255, 0.2);
+            border-radius: 3px;
+            padding: 2px 4px;
+        }
+        
+        /* Image container for AI examples */
+        .image-example {
+            margin: 25px auto;
+            text-align: center;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        
+        .image-example img {
+            max-width: 100%;
+            max-height: 500px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+        
+        .image-caption {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Prompt examples */
+        .prompt-example {
+            background-color: #f5f5f5;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        
+        /* Warning box */
+        .warning-box {
+            background-color: rgba(255, 99, 71, 0.1);
+            border-left: 4px solid tomato;
+            padding: 15px;
+            margin: 25px 0;
+            border-radius: var(--border-radius);
+        }
+        
+        .warning-box h4 {
+            color: tomato;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box h4 i {
+            margin-right: 10px;
+        }
+        
+        .warning-box p {
+            margin: 5px 0;
+        }
+        
+        /* Success box */
+        .success-box {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            padding: 15px;
+            margin: 25px 0;
+            border-radius: var(--border-radius);
+        }
+        
+        .success-box h4 {
+            color: #2ecc71;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .success-box h4 i {
+            margin-right: 10px;
+        }
+        
+        .success-box p {
+            margin: 5px 0;
+        }
+        
+        /* Style tiles for terminologies */
+        .style-tiles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .style-tile {
+            background-color: #1e293b;
+            color: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            flex: 1 1 calc(33.333% - 10px);
+            min-width: 180px;
+        }
+        
+        .style-tile h5 {
+            color: #4FC1FF;
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+        }
+        
+        .style-tile p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* SCAMPER prompt styling */
+        .scamper-prompt {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .scamper-prompt h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .scamper-prompt .prompt-content {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .scamper-prompt .scamper-item {
+            margin: 12px 0;
+            display: flex;
+        }
+        
+        .scamper-prompt .scamper-item strong {
+            color: var(--accent-color);
+            min-width: 120px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .copy-button i {
+            margin-right: 6px;
+        }
+        
+        .copy-button:hover {
+            background-color: #005a87;
+        }
+        
+        .copy-button.copied {
+            background-color: #2ecc71;
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        
+        .tooltip.show .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .elements-grid {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
+            
+            .two-column-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .style-tile {
+                flex: 1 1 calc(50% - 10px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .page-title h1 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+            
+            .page-title i {
+                font-size: 1.3rem;
+                margin-left: 0;
+            }
+            
+            .card, .interactive-card {
+                padding: 20px;
+            }
+            
+            .element-header {
+                margin: -20px -20px 20px -20px !important;
+                padding: 15px !important;
+            }
+            
+            .style-tile {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">AI DESIGN GUIDE</div>
+        <a href="https://cbuckley-aidans.github.io/design-thinking/" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="intro">
+                <i class="fas fa-info-circle"></i>
+                INTRO
+            </button>
+            <button class="tab-button" data-tab="prompt-engineering">
+                <i class="fas fa-magic"></i>
+                PROMPTS
+            </button>
+            <button class="tab-button" data-tab="scamper">
+                <i class="fas fa-lightbulb"></i>
+                SCAMPER
+            </button>
+            <button class="tab-button" data-tab="complete-prompt">
+                <i class="fas fa-file-alt"></i>
+                COMPLETE PROMPT
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Introduction Section -->
+        <section id="intro" class="tab-content active">
+            <div class="page-title">
+                <h1>AI IMAGE GENERATION GUIDE <i class="fas fa-robot"></i></h1>
+            </div>
+            
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="warning-box" style="margin: 0;">
+                    <h4><i class="fas fa-exclamation-triangle"></i> IMPORTANT DISCLAIMER</h4>
+                    <p><strong>Optional Step:</strong> This step is entirely optional. You do not need to do this.</p>
+                    <p><strong>Privacy & Personal Information:</strong> Do not upload any personal information or images containing personally identifiable information when using AI tools.</p>
+                    <p><strong>Content Guidelines:</strong> Ensure that only your sketches or design work is included in any images you upload. Remove or blur any other content.</p>
+                    <p><strong>No Account Required:</strong> You are not expected to create personal accounts for these tools. If you need assistance, ask a teacher to help generate iterations on your behalf.</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="success-box" style="margin: 0;">
+                    <h4><i class="fas fa-check-circle"></i> ASSESSMENT REQUIREMENTS</h4>
+                    <p>Remember to include the following in your assessment submissions:</p>
+                    <p><i class="fas fa-check-square" style="margin-right: 8px;"></i> All text prompts used to generate images</p>
+                    <p><i class="fas fa-check-square" style="margin-right: 8px;"></i> All AI-generated images from your design process</p>
+                    <p><i class="fas fa-check-square" style="margin-right: 8px;"></i> Explanation of how the generated images informed your design decisions</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <h3>Introduction to AI Design Iteration <i class="fas fa-sync-alt" style="margin-left: 10px;"></i></h3>
+                <p>AI image generation tools can transform your design process by rapidly iterating on existing design concepts. This guide shows you how to leverage these tools to enhance your creative workflow.</p>
+                
+                <div class="elements-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">1</div>
+                            <h3>DESIGN ITERATION <i class="fas fa-sync" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Evolve existing designs through specific aesthetic modifications</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-project-diagram" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">2</div>
+                            <h3>AESTHETIC VOCABULARY <i class="fas fa-language" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Use specific terminology to guide AI transformations</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-font" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">3</div>
+                            <h3>TARGETED MODIFICATIONS <i class="fas fa-bullseye" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Focus on specific design elements for transformation</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-crosshairs" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="element-card">
+                        <div class="element-header">
+                            <div class="element-number">4</div>
+                            <h3>MULTIPLE VARIATIONS <i class="fas fa-copy" style="margin-left: 12px;"></i></h3>
+                        </div>
+                        <div class="element-content">
+                            <p>Generate design alternatives to explore possibilities</p>
+                            <div style="text-align: center; margin-top: 15px;">
+                                <i class="fas fa-dice" style="font-size: 2.5em; color: var(--accent-color);"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                    <div class="element-number">1</div>
+                    <h3>Design Iteration Example <i class="fas fa-palette" style="margin-left: 10px;"></i></h3>
+                </div>
+                
+                <p style="font-size: 1.2em; margin-bottom: 20px;">In this example, I have uploaded some of my own 3D modelling mockups and requested specific aesthetic transformations:</p>
+                
+                <div class="interactive-card">
+                    <div class="image-example">
+                        <img src="https://i.imgur.com/BfNiW5T.png" alt="Design mockup with AI iterations showing different aesthetic styles">
+                        <div class="image-caption">
+                            Example of AI-generated design iterations, transforming original mockups using specific aesthetic terminology
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin: 20px 0;">
+                        <h4 style="margin-top: 0;"><i class="fas fa-magic" style="color: var(--accent-color); margin-right: 10px;"></i> Applied Transformations</h4>
+                        <ul style="margin-bottom: 5px;">
+                            <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--accent-color);"></i> Transformation to <strong>Romanesque aesthetic</strong> - using specific design terminology</li>
+                            <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--accent-color);"></i> Transformation to <strong>retro-chic, futuristic brutalist design</strong> - with specific reference to a famous design that uses a design aesthetic</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Notice how I have used specific aesthetic terminology. I've also referenced other things, like a specific building in Germany, and this was enough for the AI to understand and pick up on.</p>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Reference Architecture <i class="fas fa-building" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here is the real-life ICC Berlin I'm referencing. Judge for yourself how well it has adhered to its design aesthetics when altering my existing design.</p>
+                    
+                    <div class="image-example">
+                        <img src="https://www.visitberlin.de/system/files/styles/visitberlin_hero_visitberlin_desktop_2x/private/image/ICC_Berlin_24_c_Andreas_Gehrke_web.jpg.webp?itok=Jngz9cpI" alt="ICC Berlin building exterior reference">
+                        <div class="image-caption">
+                            Reference image: ICC Berlin building - an example of brutalist architecture
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>AI Interpretation <i class="fas fa-robot" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">Here's how the AI interpreted my prompt:</p>
+                    
+                    <div class="image-example">
+                        <img src="https://i.imgur.com/lwbrQBu.png" alt="AI-generated brutalist design based on ICC Berlin reference">
+                        <div class="image-caption">
+                            AI-generated output applying brutalist aesthetic inspired by ICC Berlin and Romanesque style
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,38,84,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 20px; display: flex;">
+                        <i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 15px; font-size: 1.5em; margin-top: 3px;"></i>
+                        <p style="margin: 0;">Not perfect! But there is enough there for me to take it from here and add a final human touch; deciding what to keep and throw away is part of the design process.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Prompt Engineering Section -->
+        <section id="prompt-engineering" class="tab-content dark-section">
+            <h1>PROMPT ENGINEERING <i class="fas fa-magic" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TECHNIQUES</div>
+                
+                <h3>Crafting Effective Design Iteration Prompts</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Prompt Structure <i class="fas fa-pencil-alt" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>A well-structured prompt for design iteration includes these key components:</p>
+                    
+                    <div class="two-column-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-image" style="margin-right: 10px; color: var(--accent-color);"></i> Original Context</h4>
+                            <p>Clearly describe what your original design is showing and its purpose</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-palette" style="margin-right: 10px; color: var(--accent-color);"></i> Aesthetic Target</h4>
+                            <p>Specify the exact aesthetic style using precise terminology</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-crosshairs" style="margin-right: 10px; color: var(--accent-color);"></i> Element Focus</h4>
+                            <p>Indicate which elements should be transformed or preserved</p>
+                        </div>
+                        
+                        <div class="interactive-card">
+                            <h4><i class="fas fa-ruler-combined" style="margin-right: 10px; color: var(--accent-color);"></i> Technical Requirements</h4>
+                            <p>Specify any constraints like perspective, proportion, or medium</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <h4>Basic Prompt Template:</h4>
+                        <div class="prompt-example">
+                            Generate an image that transforms my [type of design] to have a [specific aesthetic style] look while maintaining [key elements to preserve]. Focus on altering [specific elements] to reflect [aesthetic characteristics]. Ensure the perspective remains [perspective type].
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Aesthetic Terminology <i class="fas fa-language" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Using precise aesthetic terminology is crucial for getting targeted results:</p>
+                    
+                    <div class="elements-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Romanesque</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Round arches, thick walls, small windows</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Brutalist</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Raw concrete, geometric forms, monolithic</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Art Deco</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Geometric patterns, bold colors, luxurious</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Neoclassical</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Columns, symmetry, grandeur, proportion</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Deconstructivist</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Fragmentation, non-rectilinear shapes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Cubist</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Multiple viewpoints, geometric fragmentation</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Bauhaus</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Form follows function, minimalist, geometric</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Memphis Design</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Bold patterns, bright colors, geometric</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Minimalist</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Simplified forms, limited color palette</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Futurist</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Dynamic movement, technology, speed emphasis</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Scandinavian</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Simple, functional, natural materials, light</p>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">Biomimetic</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Nature-inspired, organic curves, natural patterns</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCAMPER Section -->
+        <section id="scamper" class="tab-content light-section">
+            <h1>SCAMPER IDEATION <i class="fas fa-lightbulb" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TECHNIQUE</div>
+                
+                <h3>Using SCAMPER with AI Image Generation</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>SCAMPER Framework <i class="fas fa-sitemap" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p style="font-size: 1.2em; margin-bottom: 20px;">SCAMPER is an ideation technique that can be combined with AI image generation to produce creative design variations:</p>
+                    
+                    <div class="elements-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">S - Substitute</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Replace elements with alternatives</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Generate an image of my design with [material] substituted with [alternative]"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">C - Combine</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Merge elements or ideas</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Create a version of my design that combines [style 1] and [style 2]"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">A - Adapt</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Adjust for a different context</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Adapt my design to a [different context] setting with appropriate elements"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">M - Modify</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Change elements, scale, or color</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Modify my design to be more [descriptive term] with dramatic proportions"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">P - Purpose</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Use for a different function</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Transform my design into a [different function] with appropriate features"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">E - Eliminate</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Remove elements or simplify</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Create a version of my design with all [specific elements] removed"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="element-card" style="grid-column: span 3;">
+                            <div class="element-header" style="background-color: rgba(0, 38, 84, 0.9);">
+                                <h3 style="margin: 0; color: white;">R - Reverse/Rearrange</h3>
+                            </div>
+                            <div class="element-content">
+                                <p>Change order, layout, or orientation</p>
+                                <div class="prompt-example" style="margin-top: 10px; font-size: 0.9rem;">
+                                    "Generate an image of my design with the [specific arrangement] reversed or rearranged"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Complete SCAMPER Prompt Section -->
+        <section id="complete-prompt" class="tab-content dark-section">
+            <h1>COMPLETE PROMPT TEMPLATE <i class="fas fa-file-alt" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEMPLATE</div>
+                
+                <h3>Comprehensive SCAMPER Prompt for Design Iteration</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Complete SCAMPER Prompt Template <i class="fas fa-clipboard-list" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Use this comprehensive prompt template to apply SCAMPER thinking to your design iteration:</p>
+                    
+                    <div class="scamper-prompt">
+                        <h4><i class="fas fa-lightbulb" style="margin-right: 10px;"></i> Complete SCAMPER Design Prompt</h4>
+                        
+                        <button class="copy-button tooltip" id="copyButton">
+                            <i class="fas fa-copy"></i> Copy
+                            <span class="tooltip-text" id="tooltipText">Copied!</span>
+                        </button>
+                        
+                        <div class="prompt-content" id="promptToCopy">
+                            <p>I've uploaded an image of my [type of design]. Please generate variations that explore the following design transformations:</p>
+                            
+                            <div class="scamper-item">
+                                <strong>Substitute:</strong> 
+                                <span>Replace [element] with [alternative material/element]</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Combine:</strong> 
+                                <span>Merge the aesthetics of [style 1] with [style 2]</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Adapt:</strong> 
+                                <span>Transform the design to suit [different context/environment]</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Modify:</strong> 
+                                <span>Change the [proportion/scale/color] to be more [descriptive term]</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Purpose:</strong> 
+                                <span>Reimagine it as [different product/building type]</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Eliminate:</strong> 
+                                <span>Remove [specific elements] for a cleaner/simpler look</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Reverse/Rearrange:</strong> 
+                                <span>Invert the [specific arrangement] of the design</span>
+                            </div>
+                            
+                            <p style="margin-top: 20px;">Important requirements:</p>
+                            <ul style="margin-top: 5px;">
+                                <li>Maintain the original [important elements to preserve]</li>
+                                <li>Keep the [perspective/viewpoint] consistent</li>
+                                <li>Ensure the [key function/feature] remains usable</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 25px;">
+                        <p style="margin: 0;"><i class="fas fa-lightbulb" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Tip:</strong> Replace the bracketed text with specifics relevant to your design. You can use all or only selected elements of the SCAMPER framework depending on your project needs.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Example Application <i class="fas fa-flask" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <p>Here's how you might apply this to a product design:</p>
+                    
+                    <div class="scamper-prompt">
+                        <h4><i class="fas fa-lightbulb" style="margin-right: 10px;"></i> Example: Chair Design Iteration</h4>
+                        
+                        <button class="copy-button tooltip" id="copyExampleButton">
+                            <i class="fas fa-copy"></i> Copy
+                            <span class="tooltip-text" id="exampleTooltipText">Copied!</span>
+                        </button>
+                        
+                        <div class="prompt-content" id="examplePromptToCopy">
+                            <p>I've uploaded an image of my minimalist chair design. Please generate variations that explore the following design transformations:</p>
+                            
+                            <div class="scamper-item">
+                                <strong>Substitute:</strong> 
+                                <span>Replace the wooden frame with bent metal tubing</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Combine:</strong> 
+                                <span>Merge the aesthetics of Scandinavian design with Memphis Design elements</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Adapt:</strong> 
+                                <span>Transform the design to suit an outdoor garden setting</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Modify:</strong> 
+                                <span>Change the proportions to be more dramatic and sculptural</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Purpose:</strong> 
+                                <span>Reimagine it as a rocking chair with appropriate modifications</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Eliminate:</strong> 
+                                <span>Remove all unnecessary structural elements for a more minimalist approach</span>
+                            </div>
+                            
+                            <div class="scamper-item">
+                                <strong>Reverse/Rearrange:</strong> 
+                                <span>Invert the relationship between the seat and backrest</span>
+                            </div>
+                            
+                            <p style="margin-top: 20px;">Important requirements:</p>
+                            <ul style="margin-top: 5px;">
+                                <li>Maintain the ergonomic comfort and appropriate seat height</li>
+                                <li>Keep the side profile view consistent</li>
+                                <li>Ensure the chair remains functional and stable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation for tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and tabs
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to selected button and tab
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                });
+            });
+            
+            // Copy button functionality for the main prompt
+            const copyButton = document.getElementById('copyButton');
+            const tooltipText = document.getElementById('tooltipText');
+            const promptToCopy = document.getElementById('promptToCopy');
+            
+            if(copyButton && promptToCopy) {
+                copyButton.addEventListener('click', function() {
+                    const textToCopy = promptToCopy.innerText || promptToCopy.textContent;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(function() {
+                        // Visual feedback
+                        copyButton.classList.add('copied', 'show');
+                        setTimeout(function() {
+                            copyButton.classList.remove('copied', 'show');
+                        }, 2000);
+                    }).catch(function(err) {
+                        console.error('Could not copy text: ', err);
+                    });
+                });
+            }
+            
+            // Copy button functionality for the example prompt
+            const copyExampleButton = document.getElementById('copyExampleButton');
+            const exampleTooltipText = document.getElementById('exampleTooltipText');
+            const examplePromptToCopy = document.getElementById('examplePromptToCopy');
+            
+            if(copyExampleButton && examplePromptToCopy) {
+                copyExampleButton.addEventListener('click', function() {
+                    const textToCopy = examplePromptToCopy.innerText || examplePromptToCopy.textContent;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(function() {
+                        // Visual feedback
+                        copyExampleButton.classList.add('copied', 'show');
+                        setTimeout(function() {
+                            copyExampleButton.classList.remove('copied', 'show');
+                        }, 2000);
+                    }).catch(function(err) {
+                        console.error('Could not copy text: ', err);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
