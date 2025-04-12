@@ -90,7 +90,7 @@
             position: relative;
             font-size: 1.1rem;
         }
-        
+
 
         .navbar-menu li a::after {
             content: '';
@@ -111,11 +111,11 @@
         .navbar-menu li a:hover::after {
             width: 100%;
         }
-        
+
         .navbar-menu li a.active {
             color: var(--accent-color);
         }
-        
+
         .navbar-menu li a.active::after {
             width: 100%;
         }
@@ -149,7 +149,7 @@
             margin-bottom: 25px;
             width: 100%;
         }
-        
+
         .section-title {
             font-size: 2em;
             margin: 0 0 5px 0;
@@ -179,7 +179,7 @@
             justify-content: center;
             margin: 0 auto;
         }
-        
+
         /* For single cards that need centering */
         .cards-container.single-card {
             grid-template-columns: 1fr;
@@ -273,115 +273,119 @@
         .card-shapr3d .card-icon { background-color: #5D576B; }
         .card-laser-cutting::before { background-color: #FF9A8B; }
         .card-laser-cutting .card-icon { background-color: #FF9A8B; }
+        /* Added new color class for MAKE:ABLE cards - using a distinct blue */
+        .card-makeable::before { background-color: #2196F3; }
+        .card-makeable .card-icon { background-color: #2196F3; }
+
 
         .floating-card {
-    position: fixed;
-    top: 80px;
-    left: 20px;
-    z-index: 900;
-    background-color: var(--primary-bg);
-    border: 2px solid var(--outline-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-sm);
-    padding: 12px;
-    transition: transform var(--transition-time), box-shadow var(--transition-time);
-    cursor: pointer;
-    overflow: visible;
-    width: 105px;
-}
+            position: fixed;
+            top: 80px;
+            left: 20px;
+            z-index: 900;
+            background-color: var(--primary-bg);
+            border: 2px solid var(--outline-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 12px;
+            transition: transform var(--transition-time), box-shadow var(--transition-time);
+            cursor: pointer;
+            overflow: visible;
+            width: 105px;
+        }
 
-.floating-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background-color: #FF9500;
-}
+        .floating-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #FF9500;
+        }
 
-.floating-card:hover {
-    transform: translateY(-0.25em);
-    box-shadow: var(--shadow-md);
-}
+        .floating-card:hover {
+            transform: translateY(-0.25em);
+            box-shadow: var(--shadow-md);
+        }
 
-.floating-card-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-}
+        .floating-card-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
 
-.floating-card-icon {
-    width: 36px;
-    height: 36px;
-    background-color: #FF9500;
-    border: 2px solid var(--outline-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .floating-card-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #FF9500;
+            border: 2px solid var(--outline-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.floating-card-icon i {
-    font-size: 1rem;
-    color: white;
-}
+        .floating-card-icon i {
+            font-size: 1rem;
+            color: white;
+        }
 
-.floating-card-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
-}
+        .floating-card-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
 
-.floating-card-tooltip {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--outline-color);
-    color: white;
-    padding: 6px 12px;
-    border-radius: var(--border-radius);
-    font-size: 0.85rem;
-    font-weight: 600;
-    opacity: 0;
-    transition: opacity var(--transition-time), transform var(--transition-time);
-    pointer-events: none;
-    white-space: nowrap;
-    margin-top: 10px;
-    z-index: 901;
-}
+        .floating-card-tooltip {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--outline-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity var(--transition-time), transform var(--transition-time);
+            pointer-events: none;
+            white-space: nowrap;
+            margin-top: 10px;
+            z-index: 901;
+        }
 
-.floating-card:hover .floating-card-tooltip {
-    opacity: 1;
-}
+        .floating-card:hover .floating-card-tooltip {
+            opacity: 1;
+        }
 
-/* Then add these to the existing media queries section */
-@media (max-width: 768px) {
-    .floating-card {
-        padding: 10px;
-        width: 90px;
-    }
-    
-    .floating-card-icon {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .floating-card-title {
-        font-size: 0.8rem;
-    }
-}
+        /* Then add these to the existing media queries section */
+        @media (max-width: 768px) {
+            .floating-card {
+                padding: 10px;
+                width: 90px;
+            }
 
-@media (max-width: 480px) {
-    .floating-card {
-        top: 70px;
-        left: 10px;
-    }
-}
+            .floating-card-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .floating-card-title {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-card {
+                top: 70px;
+                left: 10px;
+            }
+        }
 
         /* Responsiveness */
         @media (max-width: 768px) {
@@ -391,29 +395,31 @@
 
             .navbar-menu {
                 gap: 20px;
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+                justify-content: center; /* Center items when wrapped */
             }
 
             .cards-container {
                 gap: 15px;
                 max-width: 320px;
             }
-            
+
             .card {
                 width: 140px;
                 height: 125px;
                 padding: 15px 10px;
             }
-            
+
             .card-icon {
                 width: 50px;
                 height: 50px;
                 margin-bottom: 8px;
             }
-            
+
             .card-title {
                 font-size: 0.9rem;
             }
-            
+
             .section-container {
                 padding: 25px 15px;
             }
@@ -429,13 +435,13 @@
                 height: 110px;
                 padding: 12px 8px;
             }
-            
+
             .card-icon {
                 width: 45px;
                 height: 45px;
                 margin-bottom: 8px;
             }
-            
+
             .card-icon i {
                 font-size: 1.25rem;
             }
@@ -449,49 +455,54 @@
             }
 
             .navbar-menu {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 10px; /* Further reduce gap */
+                padding: 5px 0; /* Add padding for wrapped items */
+                height: auto; /* Allow navbar height to adjust */
+            }
+             /* Adjust body padding if navbar height changes */
+            body {
+               /* padding-top: 80px; /* Example adjustment if navbar wraps */
             }
 
+
             .navbar-menu li a {
-                font-size: 0.95rem;
+                font-size: 0.90rem; /* Slightly smaller font for tighter fit */
             }
-            
+
             .cards-container {
                 gap: 12px;
                 max-width: 260px;
             }
-            
+
             .section-container {
                 padding: 20px 15px;
             }
 
-            
+
         }
 
         /* Card color for Materials */
-    .card-materials::before { background-color: #4CAF50; }
-    .card-materials .card-icon { background-color: #4CAF50; }
-    
-    /* For centered card with margin */
-    .centered-card-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: 25px;
-        /* Make sure there's no max-width that would override centering */
-        max-width: none;
-    }
-    
-    /* Style for the centered single card specifically */
-    .centered-single-card {
-        margin: 0 auto;
-    }
+        .card-materials::before { background-color: #4CAF50; }
+        .card-materials .card-icon { background-color: #4CAF50; }
+
+        /* For centered card with margin */
+        .centered-card-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            /* Make sure there's no max-width that would override centering */
+            max-width: none;
+        }
+
+        /* Style for the centered single card specifically */
+        .centered-single-card {
+            margin: 0 auto;
+        }
 
         .card-ai-scamper::before { background-color: #9C27B0; }
-    .card-ai-scamper .card-icon { background-color: #9C27B0; }
-        
+        .card-ai-scamper .card-icon { background-color: #9C27B0; }
+
     </style>
 </head>
 <body>
@@ -502,6 +513,7 @@
                 <li><a href="#design-process">Design Process</a></li>
                 <li><a href="#3d-modelling">3D Modelling</a></li>
                 <li><a href="#laser-cutting">Laser Cutting</a></li>
+                <li><a href="#makeable-challenge">Make:able Challenge</a></li> <!-- Added Navbar Link -->
             </ul>
         </div>
     </nav>
@@ -513,9 +525,13 @@
             </div>
             <h2 class="floating-card-title">Software Skills</h2>
         </div>
+        <!-- Tooltip for the floating card -->
+        <span class="floating-card-tooltip">Back to Software Index</span>
     </a>
 
+
     <div class="main-container">
+        <!-- Design Process Section -->
         <div id="design-process" class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Design Process</h2>
@@ -527,21 +543,21 @@
                     </div>
                     <h2 class="card-title">Empathise</h2>
                 </a>
-                
+
                 <a href="define.html" class="card card-define">
                     <div class="card-icon">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <h2 class="card-title">Define</h2>
                 </a>
-                
+
                 <a href="ideate.html" class="card card-ideate">
                     <div class="card-icon">
                         <i class="fa-solid fa-lightbulb"></i>
                     </div>
                     <h2 class="card-title">Ideate</h2>
                 </a>
-                
+
                 <a href="prototype.html" class="card card-prototype">
                     <div class="card-icon">
                         <i class="fa-solid fa-cube"></i>
@@ -549,25 +565,26 @@
                     <h2 class="card-title">Prototype</h2>
                 </a>
 
-                
+
             </div>
             <div class="cards-container" style="margin-top: 20px; max-width: 360px;">
-    <a href="materials.html" class="card card-materials">
-        <div class="card-icon">
-            <i class="fa-solid fa-leaf"></i>
-        </div>
-        <h2 class="card-title">Materials</h2>
-    </a>
-    
-    <a href="ai-scamper.html" class="card card-ai-scamper">
-        <div class="card-icon">
-            <i class="fa-solid fa-robot"></i>
-        </div>
-        <h2 class="card-title">AI SCAMPER</h2>
-    </a>
-</div>
+                <a href="materials.html" class="card card-materials">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <h2 class="card-title">Materials</h2>
+                </a>
+
+                <a href="ai-scamper.html" class="card card-ai-scamper">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h2 class="card-title">AI SCAMPER</h2>
+                </a>
+            </div>
         </div>
 
+        <!-- 3D Modelling Section -->
         <div id="3d-modelling" class="section-container">
             <div class="section-header">
                 <h2 class="section-title">3D Modelling Skills</h2>
@@ -579,7 +596,7 @@
                     </div>
                     <h2 class="card-title">TinkerCad</h2>
                 </a>
-                
+
                 <a href="https://cbuckley-aidans.github.io/3d-modelling/" class="card card-shapr3d">
                     <div class="card-icon">
                         <i class="fa-solid fa-shapes"></i>
@@ -587,7 +604,7 @@
                     <h2 class="card-title">Shapr3D</h2>
                 </a>
             </div>
-            
+
             <!-- Separate container for 3D Slicing to avoid overlap -->
             <div class="cards-container single-card" style="margin-top: 20px;">
                 <a href="./slicing/slicing.html" class="card card-slicing">
@@ -599,6 +616,7 @@
             </div>
         </div>
 
+        <!-- Laser Cutting Section -->
         <div id="laser-cutting" class="section-container">
             <div class="section-header">
                 <h2 class="section-title">Laser Cutting Skills</h2>
@@ -612,6 +630,41 @@
                 </a>
             </div>
         </div>
+
+        <!-- START: New MAKE:ABLE CHALLENGE Section -->
+        <div id="makeable-challenge" class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Make:able Challenge</h2>
+            </div>
+            <!-- First row with 2 cards, following the 3D Modelling pattern -->
+            <div class="cards-container">
+                <a href="https://cbuckley-aidans.github.io/3d-printing/step-1-2.html" class="card card-makeable">
+                    <div class="card-icon">
+                        <i class="fa-solid fa-list-ol"></i> <!-- Icon for Steps 1-2 -->
+                    </div>
+                    <h2 class="card-title">Steps 1-2</h2>
+                </a>
+
+                <a href="https://cbuckley-aidans.github.io/3d-printing/step-4.html" class="card card-makeable"> 
+                    <div class="card-icon">
+                        <i class="fa-solid fa-list-ol"></i> <!-- Icon for Step 4 -->
+                    </div>
+                    <h2 class="card-title">Step 4</h2>
+                </a>
+            </div>
+
+            <!-- Second row with 1 card, centered, following the 3D Modelling pattern -->
+            <div class="cards-container single-card" style="margin-top: 20px;">
+                <a href="#" class="card card-makeable"> <!-- Using placeholder href and new class -->
+                    <div class="card-icon">
+                        <i class="fa-solid fa-list-ol"></i> <!-- Icon for Step 5 -->
+                    </div>
+                    <h2 class="card-title">Step 5</h2>
+                </a>
+            </div>
+        </div>
+        <!-- END: New MAKE:ABLE CHALLENGE Section -->
+
     </div>
 
     <script>
@@ -619,26 +672,45 @@
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('.section-container');
             const navLinks = document.querySelectorAll('.navbar-menu li a');
-            
+
             function highlightActiveSection() {
                 let scrollPosition = window.scrollY + 120; // Increased offset for fixed navbar
-                
+
+                // Find the currently active section
+                let currentSectionId = null;
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.offsetHeight;
                     const sectionId = section.getAttribute('id');
-                    
+
                     if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === '#' + sectionId) {
-                                link.classList.add('active');
-                            }
-                        });
+                         currentSectionId = sectionId;
                     }
                 });
+
+                // If near the bottom, activate the last link
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) { // Check if near bottom
+                    const lastSection = sections[sections.length - 1];
+                    if (lastSection) {
+                        currentSectionId = lastSection.getAttribute('id');
+                    }
+                }
+
+                // Update nav links based on the current section
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSectionId) {
+                        link.classList.add('active');
+                    }
+                });
+
+                 // If no section is active (e.g., at the very top), remove active class from all
+                 if (currentSectionId === null && window.scrollY < sections[0].offsetTop - 120) {
+                     navLinks.forEach(link => link.classList.remove('active'));
+                 }
+
             }
-            
+
             window.addEventListener('scroll', highlightActiveSection);
             highlightActiveSection(); // Call once on page load
         });
