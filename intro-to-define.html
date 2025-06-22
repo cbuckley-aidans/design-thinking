@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Thinking: Define Stage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" style="overflow-y: auto; overflow-x: hidden;">
+        <div class="sidebar-logo">DESIGN THINKING</div>
+        <a href="index.html" class="home-button">
+            <i class="fas fa-home"></i>
+            HOME
+        </a>
+        <div class="sidebar-nav">
+            <button class="tab-button active" data-tab="goals">
+                <i class="fas fa-clipboard-list"></i>
+                GOALS & TARGETS
+            </button>
+            <button class="tab-button" data-tab="chunk1">
+                <i class="fas fa-lightbulb"></i>
+                FINDING PROBLEMS
+            </button>
+            <button class="tab-button" data-tab="chew1">
+                <i class="fas fa-pen"></i>
+                DESIGN ANALYSIS
+            </button>
+            <button class="tab-button" data-tab="chew2">
+                <i class="fas fa-dice"></i>
+                STEP INSIDE
+            </button>
+            <button class="tab-button" data-tab="success-rules">
+                <i class="fas fa-ruler"></i>
+                SUCCESS RULES
+            </button>
+            <button class="tab-button" data-tab="wrapup">
+                <i class="fas fa-check-circle"></i>
+                WRAP-UP
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Learning Goals and Success Targets section -->
+        <section id="goals" class="tab-content active light-section">
+            <h1>LEARNING GOALS & SUCCESS TARGETS <i class="fas fa-bullseye" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>What We Are Learning <i class="fas fa-bullseye" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> To turn what we've learned about users into clear problem statements</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 12px;"></i> To create clear rules (design criteria) that will help us make a great solution</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">2</div>
+                    <h3>What Success Looks Like <i class="fas fa-trophy" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <p>By the end of this lesson, you should be able to:</p>
+                
+                <ul>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Write problem statements from the user's point of view using: "[User] needs [need] because [reason]"</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Make a list of clear, testable rules for our design based on the problem</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Tell the difference between a problem and a solution</li>
+                    <li><i class="fas fa-star" style="color: var(--accent-color); margin-right: 12px;"></i> Explain why having clear rules helps us make better designs</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CHUNK 1: From Empathy to Problems -->
+        <section id="chunk1" class="tab-content dark-section">
+            <h1>CHUNK 1: FINDING THE REAL PROBLEM <i class="fas fa-lightbulb" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 12 mins</div>
+                
+                <h3>Turning What We've Learned into Clear Problems</h3>
+                
+                <div class="interactive-card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; margin-bottom: 30px;">
+                    <div style="padding: 40px; text-align: center;">
+                        <div style="font-size: 4em; margin-bottom: 20px;">
+                            🎮 ♿ 💡
+                        </div>
+                        <h2 style="margin: 0 0 20px 0; font-size: 2.5em;">THE PS5 ACCESS CONTROLLER</h2>
+                        <p style="font-size: 1.5em; margin-bottom: 20px;">Sony didn't just make "a new controller" - they solved a specific problem.</p>
+                        <p style="font-size: 1.2em; margin: 0;">By understanding the real needs of gamers with physical challenges, they created something amazing.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>What Makes a Good Problem Statement? <i class="fas fa-puzzle-piece" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin-top: 0;">
+                        <div>
+                            <h4><i class="fas fa-target" style="color: var(--accent-color); margin-right: 10px;"></i> The Problem Statement Formula</h4>
+                            <div style="background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); padding: 25px; margin: 20px 0;">
+                                <div style="font-size: 1.4em; font-weight: bold; text-align: center; margin-bottom: 15px;">
+                                    [USER] needs [NEED] because [REASON]
+                                </div>
+                            </div>
+                            
+                            <ul style="font-size: 1.1em; margin-bottom: 20px;">
+                                <li style="margin-bottom: 10px;"><strong>USER:</strong> Who exactly are we designing for?</li>
+                                <li style="margin-bottom: 10px;"><strong>NEED:</strong> What do they need to be able to do?</li>
+                                <li style="margin-bottom: 10px;"><strong>REASON:</strong> Why is this so important for them?</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="fas fa-gamepad" style="color: var(--accent-color); margin-right: 10px;"></i> PS5 Example</h4>
+                            
+                            <div style="background-color: rgba(255, 77, 79, 0.1); border-radius: var(--border-radius); padding: 20px; margin-bottom: 15px;">
+                                <h5><i class="fas fa-times" style="color: #ff4d4f; margin-right: 10px;"></i> Weak Problem Statement</h5>
+                                <p style="margin: 0; font-style: italic;">"Gamers need better controllers."</p>
+                            </div>
+                            
+                            <div style="background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); padding: 20px;">
+                                <h5><i class="fas fa-check" style="color: #52c41a; margin-right: 10px;"></i> Strong Problem Statement</h5>
+                                <p style="margin: 0; font-style: italic;">"Gamers with physical challenges need a controller they can change to fit them, because standard controllers can be hard for them to use."</p>
+                            </div>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px; margin-top: 15px;">
+                                <p style="margin: 0;"><strong>Why is the second one better?</strong> It's specific, focuses on the user, and explains the real issue!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Problems vs Solutions <i class="fas fa-balance-scale" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(255, 77, 79, 0.1); border-radius: var(--border-radius); padding: 30px; margin-bottom: 20px;">
+                        <h4 style="margin-top: 0; text-align: center;"><i class="fas fa-exclamation-triangle" style="margin-right: 15px;"></i> Don't Jump to Solutions!</h4>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+                            <div style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: var(--border-radius);">
+                                <h5><i class="fas fa-question-circle" style="color: #ff4d4f; margin-right: 10px;"></i> Focus on WHY</h5>
+                                <p style="margin: 0; font-size: 1.1em;">What's the real need or frustration?</p>
+                            </div>
+                            
+                            <div style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: var(--border-radius);">
+                                <h5><i class="fas fa-ban" style="color: #ff4d4f; margin-right: 10px;"></i> Not WHAT</h5>
+                                <p style="margin: 0; font-size: 1.1em;">Don't describe the thing you want to build yet.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: var(--border-radius); text-align: center;">
+                            <p style="margin: 0; font-size: 1.2em; font-weight: 600;">Good problems inspire lots of different creative solutions!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Interactive Problem Checker <i class="fas fa-search" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 30px;">
+                        <h4 style="margin-top: 0; text-align: center;">Rate These Problem Statements</h4>
+                        <p style="text-align: center; margin-bottom: 25px;">Click on each statement to see if it's a good problem definition:</p>
+                        
+                        <div style="display: grid; gap: 15px; margin: 25px 0;">
+                            <div class="problem-card" onclick="checkProblem(1)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"Students need a mobile app for homework."</p>
+                                <div id="problem1-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                            
+                            <div class="problem-card" onclick="checkProblem(2)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"Busy teenagers need a quick way to track assignments because they forget due dates when juggling lots of subjects."</p>
+                                <div id="problem2-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                            
+                            <div class="problem-card" onclick="checkProblem(3)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"We should build a social media site for our school."</p>
+                                <div id="problem3-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 1: Design Analysis -->
+        <section id="chew1" class="tab-content light-section">
+            <h1>CHEW 1: DESIGN ANALYSIS <i class="fas fa-pen" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 15 mins</div>
+                
+                <h3>Figuring Out a Design's Secrets</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Look closely at a product and guess what the designers thought was most important.</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Practice spotting what the user needed, just by looking at the design.</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Get better at judging designs before we start making our own.</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>3D Ballpoint Pen Analysis <i class="fas fa-search" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 30px;">
+                        <h4 style="margin-top: 0; text-align: center;">Examine this ballpoint pen design</h4>
+                        <p style="text-align: center; margin-bottom: 25px;">Rotate the model and look at all the details. What do you think the designers cared about most when they made this pen?</p>
+                        
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div class="sketchfab-embed-wrapper" style="border-radius: var(--border-radius); overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.15); width: 100%;"> 
+                                <iframe title="Ballpoint Pen" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/202a0bed656f4ad291d58e936e3161a0/embed" style="width: 100%; height: 400px;"> </iframe> 
+                                <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> 
+                                    <a href="https://sketchfab.com/3d-models/ballpoint-pen-202a0bed656f4ad291d58e936e3161a0?utm_medium=embed&utm_campaign=share-popup&utm_content=202a0bed656f4ad291d58e936e3161a0" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Ballpoint Pen </a> by <a href="https://sketchfab.com/spendoge?utm_medium=embed&utm_campaign=share-popup&utm_content=202a0bed656f4ad291d58e936e3161a0" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> spendoge </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=202a0bed656f4ad291d58e936e3161a0" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: var(--border-radius); margin-top: 25px; text-align: center;">
+                            <p style="margin: 0; font-weight: 600; font-size: 1.1em;"><i class="fas fa-mouse" style="margin-right: 10px;"></i> Click and drag to rotate • Scroll to zoom • Look at every detail!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHEW 2: Step Inside Thinking Routine -->
+        <section id="chew2" class="tab-content light-section">
+            <h1>CHEW 2: STEP INSIDE <i class="fas fa-dice" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chew-section">
+                <div class="chew-badge">STUDENT ACTIVITY</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 22 mins</div>
+                
+                <h3>Understanding Your User's World</h3>
+                
+                <div class="activity-goal">
+                    <h4><i class="fas fa-bullseye" style="color: var(--chew-color);"></i> Activity Goals</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Use the 'Step Inside' activity to really understand what your user is going through.</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Write a great problem statement based on what you learned about your user.</li>
+                        <li><i class="fas fa-angle-right" style="margin-right: 12px; color: var(--chew-color);"></i> Dig deeper to find out what your user *really* needs, not just what they say they want.</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>Random Design Challenge Generator <i class="fas fa-random" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 30px; text-align: center;">
+                        <h4 style="margin-top: 0;">Click to Get Your Design Challenge</h4>
+                        <p style="margin-bottom: 25px;">Each group will get a unique project and user to work with.</p>
+                        
+                        <button onclick="generateChallenge()" class="action-btn" style="font-size: 1.3em; padding: 20px 40px; margin-bottom: 30px;">
+                            <i class="fas fa-dice"></i>
+                            Generate Challenge
+                        </button>
+                        
+                        <div id="challenge-display" style="background-color: white; padding: 30px; border-radius: var(--border-radius); margin: 20px 0; display: none; text-align: left;">
+                            <div style="text-align: center; margin-bottom: 25px;">
+                                <div id="challenge-icon" style="font-size: 4em; margin-bottom: 15px;"></div>
+                                <h3 id="challenge-title" style="margin: 0; color: var(--accent-color);"></h3>
+                            </div>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                                <h4 style="margin-top: 0;"><i class="fas fa-briefcase" style="margin-right: 10px;"></i> Your Project Area:</h4>
+                                <p id="project-context" style="margin: 0; font-size: 1.1em;"></p>
+                            </div>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                                <h4 style="margin-top: 0;"><i class="fas fa-user" style="margin-right: 10px;"></i> Your User:</h4>
+                                <p id="user-profile" style="margin: 0; font-size: 1.1em;"></p>
+                            </div>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); padding: 20px; border-radius: var(--border-radius);">
+                                <h4 style="margin-top: 0;"><i class="fas fa-exclamation-circle" style="margin-right: 10px;"></i> The Core Problem:</h4>
+                                <p id="challenge-description" style="margin: 0; font-size: 1.1em;"></p>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 25px;">
+                                <button onclick="generateChallenge()" class="action-btn" style="background-color: #fa8c16;">
+                                    <i class="fas fa-redo"></i>
+                                    Get a New Challenge
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>Step Inside Thinking Routine <i class="fas fa-user-circle" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(24, 144, 255, 0.1); border-radius: var(--border-radius); padding: 30px;">
+                        <h4 style="margin-top: 0; text-align: center;"><i class="fas fa-walking" style="margin-right: 15px;"></i> Harvard Project Zero: "Step Inside"</h4>
+                        <p style="text-align: center; margin-bottom: 25px;">Use these questions to really get to know your user's world.</p>
+                        
+                        <div style="display: grid; gap: 20px; margin: 25px 0;">
+                            <div style="background-color: white; padding: 25px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
+                                <h5 style="margin-top: 0; color: #52c41a;"><i class="fas fa-brain" style="margin-right: 10px;"></i> What might this person be THINKING?</h5>
+                                <p style="margin: 0; color: #666; font-style: italic;">What are their worries, hopes, or questions? What's going on in their head?</p>
+                            </div>
+                            
+                            <div style="background-color: white; padding: 25px; border-radius: var(--border-radius); border-left: 4px solid #1890ff;">
+                                <h5 style="margin-top: 0; color: #1890ff;"><i class="fas fa-heart" style="margin-right: 10px;"></i> What might this person be FEELING?</h5>
+                                <p style="margin: 0; color: #666; font-style: italic;">Are they frustrated, excited, anxious, or happy?</p>
+                            </div>
+                            
+                            <div style="background-color: white; padding: 25px; border-radius: var(--border-radius); border-left: 4px solid #fa8c16;">
+                                <h5 style="margin-top: 0; color: #fa8c16;"><i class="fas fa-clock" style="margin-right: 10px;"></i> What might this person be EXPERIENCING?</h5>
+                                <p style="margin: 0; color: #666; font-style: italic;">What's their day actually like? What's happening around them?</p>
+                            </div>
+                            
+                            <div style="background-color: white; padding: 25px; border-radius: var(--border-radius); border-left: 4px solid #722ed1;">
+                                <h5 style="margin-top: 0; color: #722ed1;"><i class="fas fa-bullseye" style="margin-right: 10px;"></i> What might this person REALLY NEED?</h5>
+                                <p style="margin: 0; color: #666; font-style: italic;">Look past the obvious. What deeper need would make things truly better for them?</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: var(--border-radius); margin-top: 25px; text-align: center;">
+                            <p style="margin: 0; font-weight: 600; font-size: 1.1em;"><i class="fas fa-pencil-alt" style="margin-right: 10px;"></i> Use what you've learned to write your problem statement on the worksheet.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Problem Statement Framework <i class="fas fa-clipboard-check" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); padding: 30px;">
+                        <h4 style="margin-top: 0; text-align: center;">Use this framework on your worksheet</h4>
+                        
+                        <div style="background-color: white; padding: 25px; border-radius: var(--border-radius); margin: 20px 0;">
+                            <div style="font-size: 1.3em; font-weight: bold; text-align: center; margin-bottom: 20px; color: var(--accent-color);">
+                                [USER] needs [NEED] because [REASON]
+                            </div>
+                            
+                            <div style="display: grid; gap: 15px; margin-top: 20px;">
+                                <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: var(--border-radius);">
+                                    <strong>[USER]:</strong> Be specific. Not just "people," but maybe "busy working parents" or "a teenager learning to cook."
+                                </div>
+                                <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: var(--border-radius);">
+                                    <strong>[NEED]:</strong> What do they need to be able to do? Focus on the goal, not the solution.
+                                </div>
+                                <div style="background-color: rgba(0,0,0,0.05); padding: 15px; border-radius: var(--border-radius);">
+                                    <strong>[REASON]:</strong> Why does this matter? What did you learn from "stepping inside" their world?
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: var(--border-radius); text-align: center;">
+                            <p style="margin: 0; font-weight: 600;"><i class="fas fa-lightbulb" style="margin-right: 10px; color: #fa8c16;"></i> Remember: A great problem can lead to many different, amazing solutions!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
+                        <h3>Current Challenge Reminder <i class="fas fa-bookmark" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div id="current-challenge-reminder" style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 25px; text-align: center;">
+                        <p style="margin: 0; font-size: 1.1em; color: #666;">Click "Generate Challenge" above to see your design challenge here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHUNK 2: Design Criteria -->
+        <section id="success-rules" class="tab-content dark-section">
+            <h1>CHUNK 2: CREATING SUCCESS RULES <i class="fas fa-ruler" style="margin-left: 15px;"></i></h1>
+            
+            <div class="chunk-section">
+                <div class="chunk-badge">TEACHER CHUNK</div>
+                <div class="timer-badge"><i class="fas fa-clock"></i> 13 mins</div>
+                
+                <h3>From a Problem to Clear Rules for Success</h3>
+                
+                <div class="interactive-card">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">1</div>
+                        <h3>What are Success Rules (Design Criteria)? <i class="fas fa-clipboard-check" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div class="two-column-grid" style="margin-top: 0;">
+                        <div>
+                            <p style="font-size: 1.2em; margin-bottom: 20px;">Success Rules are a list of clear, testable standards your design must meet to be successful.</p>
+                            
+                            <ul style="font-size: 1.1em; margin-bottom: 20px;">
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Specific:</strong> The rules are super clear, not vague.</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Measurable:</strong> You can actually check if your design follows the rule.</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>User-focused:</strong> Based on what the user really needs.</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>Realistic:</strong> Possible to achieve.</li>
+                            </ul>
+                            
+                            <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 15px;">
+                                <p style="margin: 0;"><i class="fas fa-star" style="color: var(--accent-color); margin-right: 10px;"></i> <strong>The magic:</strong> They turn a fuzzy problem into a clear target to aim for!</p>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center;">
+                            <div style="background-color: rgba(0,0,0,0.05); padding: 30px; border-radius: var(--border-radius);">
+                                <h4>Success Rule Examples</h4>
+                                <div style="font-size: 2em; margin: 20px 0; font-weight: bold;">
+                                    "It must..."
+                                </div>
+                                <div style="background-color: rgba(82, 196, 26, 0.1); padding: 15px; border-radius: var(--border-radius); margin: 15px 0;">
+                                    <p style="margin: 0; font-size: 1.1em;">...be possible to set up in under 30 seconds.</p>
+                                </div>
+                                <div style="background-color: rgba(24, 144, 255, 0.1); padding: 15px; border-radius: var(--border-radius); margin: 15px 0;">
+                                    <p style="margin: 0; font-size: 1.1em;">...be usable by someone who can't use a keyboard.</p>
+                                </div>
+                                <div style="background-color: rgba(250, 140, 22, 0.1); padding: 15px; border-radius: var(--border-radius);">
+                                    <p style="margin: 0; font-size: 1.1em;">...cost less than $50 to make.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">2</div>
+                        <h3>PS5 Access Controller Rules Example <i class="fas fa-gamepad" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(24, 144, 255, 0.1); border-radius: var(--border-radius); padding: 30px; margin-bottom: 20px;">
+                        <h4 style="margin-top: 0; text-align: center;"><i class="fas fa-arrow-right" style="margin-right: 15px;"></i> From Problem to Success Rules</h4>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.7); padding: 20px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                            <h5 style="margin-top: 0;">Problem Statement:</h5>
+                            <p style="margin: 0; font-style: italic; font-size: 1.1em;">"Gamers with physical challenges need a controller they can change to fit them, because standard controllers can be hard for them to use."</p>
+                        </div>
+                        
+                        <h5>Sony's Success Rules might have been:</h5>
+                        <div style="display: grid; gap: 15px; margin: 20px 0;">
+                            <div style="background-color: white; padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #52c41a;">
+                                <p style="margin: 0;"><strong>How it Works:</strong> Must plug in and work with a PS5 straight away.</p>
+                            </div>
+                            <div style="background-color: white; padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #1890ff;">
+                                <p style="margin: 0;"><strong>How Easy it is to Use:</strong> Must let users change button layouts in less than 2 minutes.</p>
+                            </div>
+                            <div style="background-color: white; padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #fa8c16;">
+                                <p style="margin: 0;"><strong>Physical:</strong> Must be able to be held or mounted in at least 5 different ways.</p>
+                            </div>
+                            <div style="background-color: white; padding: 15px; border-radius: var(--border-radius); border-left: 4px solid #722ed1;">
+                                <p style="margin: 0;"><strong>How it makes people Feel:</strong> Must help gamers feel like part of the team, not left out.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">3</div>
+                        <h3>Types of Success Rules <i class="fas fa-list" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 0;">
+                        <div style="background-color: rgba(82, 196, 26, 0.1); padding: 25px; border-radius: var(--border-radius);">
+                            <h4 style="margin-top: 0; color: #52c41a;"><i class="fas fa-cog" style="margin-right: 10px;"></i> How it WORKS</h4>
+                            <p style="margin-bottom: 15px;">What must the solution DO?</p>
+                            <ul style="font-size: 1.1em;">
+                                <li style="margin-bottom: 10px;">Speed, power</li>
+                                <li style="margin-bottom: 10px;">Works with other devices</li>
+                                <li style="margin-bottom: 10px;">Doesn't crash</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background-color: rgba(24, 144, 255, 0.1); padding: 25px; border-radius: var(--border-radius);">
+                            <h4 style="margin-top: 0; color: #1890ff;"><i class="fas fa-users" style="margin-right: 10px;"></i> How EASY it is to USE</h4>
+                            <p style="margin-bottom: 15px;">How simple and clear is it?</p>
+                            <ul style="font-size: 1.1em;">
+                                <li style="margin-bottom: 10px;">Easy to learn</li>
+                                <li style="margin-bottom: 10px;">Hard to make mistakes</li>
+                                <li style="margin-bottom: 10px;">Works for everyone</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background-color: rgba(250, 140, 22, 0.1); padding: 25px; border-radius: var(--border-radius);">
+                            <h4 style="margin-top: 0; color: #fa8c16;"><i class="fas fa-cube" style="margin-right: 10px;"></i> PHYSICAL Rules</h4>
+                            <p style="margin-bottom: 15px;">What are its physical limits?</p>
+                            <ul style="font-size: 1.1em;">
+                                <li style="margin-bottom: 10px;">Size and weight</li>
+                                <li style="margin-bottom: 10px;">Materials, strong/weak</li>
+                                <li style="margin-bottom: 10px;">Cost to make</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background-color: rgba(114, 46, 209, 0.1); padding: 25px; border-radius: var(--border-radius);">
+                            <h4 style="margin-top: 0; color: #722ed1;"><i class="fas fa-heart" style="margin-right: 10px;"></i> How it makes people FEEL</h4>
+                            <p style="margin-bottom: 15px;">What emotion should it create?</p>
+                            <ul style="font-size: 1.1em;">
+                                <li style="margin-bottom: 10px;">Makes them feel confident</li>
+                                <li style="margin-bottom: 10px;">Reduces stress</li>
+                                <li style="margin-bottom: 10px;">Makes them feel included</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">4</div>
+                        <h3>Interactive Rule Checker <i class="fas fa-search" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 30px;">
+                        <h4 style="margin-top: 0; text-align: center;">Rate These Success Rules</h4>
+                        <p style="text-align: center; margin-bottom: 25px;">Click on each rule to see if it's well-written:</p>
+                        
+                        <div style="display: grid; gap: 15px; margin: 25px 0;">
+                            <div class="criteria-card" onclick="checkCriteria(1)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"The app must be easy to use."</p>
+                                <div id="criteria1-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                            
+                            <div class="criteria-card" onclick="checkCriteria(2)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"Must allow users to add a new task in under 10 seconds."</p>
+                                <div id="criteria2-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                            
+                            <div class="criteria-card" onclick="checkCriteria(3)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"It should make students happy."</p>
+                                <div id="criteria3-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                            
+                            <div class="criteria-card" onclick="checkCriteria(4)" style="background-color: white; padding: 20px; border-radius: var(--border-radius); border: 2px solid var(--outline-color); cursor: pointer; transition: all 0.3s ease;">
+                                <p style="margin: 0; font-size: 1.1em;">"Must reduce anxiety about forgetting tasks, which we will measure with a survey before and after."</p>
+                                <div id="criteria4-result" style="display: none; margin-top: 15px; padding: 15px; border-radius: var(--border-radius);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-card" style="margin-top: 30px;">
+                    <div class="element-header" style="margin: -35px -35px 30px -35px; padding: 20px 25px;">
+                        <div class="element-number">5</div>
+                        <h3>Creating Strong Rules <i class="fas fa-pen-fancy" style="margin-left: 10px;"></i></h3>
+                    </div>
+                    
+                    <div style="background-color: rgba(16, 185, 129, 0.1); border-radius: var(--border-radius); padding: 30px;">
+                        <h4 style="margin-top: 0; text-align: center;">Ideas for Writing Great Success Rules</h4>
+                        <p style="text-align: center; margin-bottom: 25px;">Think about all these different areas when you write your rules.</p>
+                        
+                        <!-- Dropdown Section 1: Core Functionality -->
+                        <div class="criteria-dropdown" style="margin: 20px 0;">
+                            <div class="dropdown-header" onclick="toggleDropdown('functional')" style="background-color: #52c41a; color: white; padding: 15px 20px; border-radius: var(--border-radius); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-cog" style="margin-right: 10px;"></i> How it WORKS</span>
+                                <i class="fas fa-chevron-down" id="functional-arrow"></i>
+                            </div>
+                            <div id="functional-content" class="dropdown-content" style="display: none; background-color: white; padding: 20px; border: 2px solid #52c41a; border-top: none; border-radius: 0 0 var(--border-radius) var(--border-radius);">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #52c41a;"><i class="fas fa-clock"></i> Performance</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must finish [task] in less than [X] seconds"</li>
+                                            <li>"Must work for [X] people at once"</li>
+                                            <li>"Must run for [X] hours without stopping"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #52c41a;"><i class="fas fa-plug"></i> Compatibility</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must work with [phones/laptops/etc.]"</li>
+                                            <li>"Must connect using [Bluetooth/USB/etc.]"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #52c41a;"><i class="fas fa-shield-alt"></i> Reliability</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must not crash or freeze"</li>
+                                            <li>"Must survive being used [X] times"</li>
+                                            <li>"Must work in [hot/cold/wet] weather"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Section 2: User Experience -->
+                        <div class="criteria-dropdown" style="margin: 20px 0;">
+                            <div class="dropdown-header" onclick="toggleDropdown('usability')" style="background-color: #1890ff; color: white; padding: 15px 20px; border-radius: var(--border-radius); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-users" style="margin-right: 10px;"></i> How EASY it is to USE</span>
+                                <i class="fas fa-chevron-down" id="usability-arrow"></i>
+                            </div>
+                            <div id="usability-content" class="dropdown-content" style="display: none; background-color: white; padding: 20px; border: 2px solid #1890ff; border-top: none; border-radius: 0 0 var(--border-radius) var(--border-radius);">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #1890ff;"><i class="fas fa-graduation-cap"></i> Easy to Learn</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must be learnable in [X] minutes"</li>
+                                            <li>"Must take less than [X] steps to do a basic task"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #1890ff;"><i class="fas fa-universal-access"></i> Works for Everyone</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must be usable by people with [e.g. vision problems]"</li>
+                                            <li>"Must have simple language"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #1890ff;"><i class="fas fa-eye"></i> Clear to Understand</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must be understandable without instructions"</li>
+                                            <li>"Important info must be easy to spot"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Section 3: Physical & Material -->
+                        <div class="criteria-dropdown" style="margin: 20px 0;">
+                            <div class="dropdown-header" onclick="toggleDropdown('physical')" style="background-color: #fa8c16; color: white; padding: 15px 20px; border-radius: var(--border-radius); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-cube" style="margin-right: 10px;"></i> PHYSICAL Rules</span>
+                                <i class="fas fa-chevron-down" id="physical-arrow"></i>
+                            </div>
+                            <div id="physical-content" class="dropdown-content" style="display: none; background-color: white; padding: 20px; border: 2px solid #fa8c16; border-top: none; border-radius: 0 0 var(--border-radius) var(--border-radius);">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #fa8c16;"><i class="fas fa-ruler-combined"></i> Size & Weight</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must be smaller than [X] cm"</li>
+                                            <li>"Must weigh less than [X] grams"</li>
+                                            <li>"Must be easy to carry"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #fa8c16;"><i class="fas fa-hammer"></i> Toughness</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must survive being dropped from [height]"</li>
+                                            <li>"Must last for [X] years"</li>
+                                            <li>"Must be waterproof"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #fa8c16;"><i class="fas fa-dollar-sign"></i> Cost</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must cost less than $[X] to make"</li>
+                                            <li>"Must be affordable for [the user]"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Section 4: Aesthetic & Emotional -->
+                        <div class="criteria-dropdown" style="margin: 20px 0;">
+                            <div class="dropdown-header" onclick="toggleDropdown('aesthetic')" style="background-color: #722ed1; color: white; padding: 15px 20px; border-radius: var(--border-radius); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-heart" style="margin-right: 10px;"></i> How it LOOKS & makes people FEEL</span>
+                                <i class="fas fa-chevron-down" id="aesthetic-arrow"></i>
+                            </div>
+                            <div id="aesthetic-content" class="dropdown-content" style="display: none; background-color: white; padding: 20px; border: 2px solid #722ed1; border-top: none; border-radius: 0 0 var(--border-radius) var(--border-radius);">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #722ed1;"><i class="fas fa-palette"></i> Looks</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must look [modern/fun/professional]"</li>
+                                            <li>"Must appeal to [teenagers/kids/etc.]"</li>
+                                            <li>"Should look good for years"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #722ed1;"><i class="fas fa-smile"></i> Feelings</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must make users feel more confident"</li>
+                                            <li>"Must reduce stress when doing [a task]"</li>
+                                            <li>"Must create a feeling of [e.g. fun]"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #722ed1;"><i class="fas fa-handshake"></i> Connection</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must help users feel included"</li>
+                                            <li>"Must help people connect with others"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Section 5: Sustainability & Innovation -->
+                        <div class="criteria-dropdown" style="margin: 20px 0;">
+                            <div class="dropdown-header" onclick="toggleDropdown('sustainability')" style="background-color: #52c41a; color: white; padding: 15px 20px; border-radius: var(--border-radius); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-leaf" style="margin-right: 10px;"></i> Planet & Future-Friendly Rules</span>
+                                <i class="fas fa-chevron-down" id="sustainability-arrow"></i>
+                            </div>
+                            <div id="sustainability-content" class="dropdown-content" style="display: none; background-color: white; padding: 20px; border: 2px solid #52c41a; border-top: none; border-radius: 0 0 var(--border-radius) var(--border-radius);">
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #52c41a;"><i class="fas fa-recycle"></i> Planet-Friendly</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must use recycled materials"</li>
+                                            <li>"Must be easy to recycle at the end of its life"</li>
+                                            <li>"Must use less energy"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #52c41a;"><i class="fas fa-lightbulb"></i> New & Different</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must do something no other product does"</li>
+                                            <li>"Must be a big improvement on old solutions"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 style="margin-top: 0; color: #52c41a;"><i class="fas fa-hourglass-half"></i> Long-Lasting</h6>
+                                        <ul style="font-size: 0.9em; margin: 0; padding-left: 20px;">
+                                            <li>"Must be useful for many years"</li>
+                                            <li>"Should be easy to fix, not just throw away"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: var(--border-radius); margin-top: 25px; text-align: center;">
+                            <p style="margin: 0; font-weight: 600;"><i class="fas fa-target" style="margin-right: 10px; color: #fa8c16;"></i> Your Goal: Create 4-6 specific rules for your design, covering different types from above.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WRAP-UP: Problem Testing & Reflection -->
+        <section id="wrapup" class="tab-content light-section">
+            <h1>WRAP-UP: CHECKING OUR WORK & REFLECTING <i class="fas fa-check-circle" style="margin-left: 15px;"></i></h1>
+            
+            <div class="card">
+                <div class="element-header" style="margin: -35px -40px 30px -40px; padding: 25px 35px;">
+                    <div class="element-number">1</div>
+                    <h3>Key Takeaways <i class="fas fa-lightbulb" style="margin-left: 15px; color: var(--accent-color);"></i></h3>
+                </div>
+                
+                <div style="background-color: rgba(0,0,0,0.05); border-radius: var(--border-radius); padding: 25px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-brain" style="color: var(--accent-color); margin-right: 10px;"></i> What We've Learned Today</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Looking at other designs helps us see what choices the designers made.</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> "Stepping Inside" our user's world helps us understand what they really need.</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Good problem statements focus on the user's need, not the solution we want to build.</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> "Success Rules" turn a fuzzy problem into clear, testable targets.</li>
+                        <li><i class="fas fa-check" style="margin-right: 12px; color: var(--good-color);"></i> Using different types of rules helps make sure we've thought of everything.</li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(24, 144, 255, 0.1); border-radius: var(--border-radius); padding: 25px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-arrow-right" style="color: #1890ff; margin-right: 10px;"></i> What's Next?</h4>
+                    <p style="margin-bottom: 15px;">Now that we have a clear problem and our Success Rules, we're ready to:</p>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li><i class="fas fa-lightbulb" style="margin-right: 12px; color: #1890ff;"></i> <strong>Ideate:</strong> Brainstorm lots of creative ideas that follow our Success Rules.</li>
+                        <li><i class="fas fa-hammer" style="margin-right: 12px; color: #1890ff;"></i> <strong>Prototype:</strong> Build quick, simple models of our best ideas.</li>
+                        <li><i class="fas fa-chart-line" style="margin-right: 12px; color: #1890ff;"></i> <strong>Test:</strong> Get feedback from users and use our Success Rules to check how well our solution works.</li>
+                    </ul>
+                </div>
+                
+                <div style="background-color: rgba(82, 196, 26, 0.1); border-radius: var(--border-radius); padding: 25px; margin-top: 25px;">
+                    <h4 style="margin-top: 0;"><i class="fas fa-star" style="color: #52c41a; margin-right: 10px;"></i> Real-World Connection</h4>
+                    <p style="margin: 0;">Just like the PS5 Access Controller was guided by clear rules like "must be mounted in 5 different ways" and "users must be able to change buttons in under 2 minutes," your designs will be much stronger when you have your own clear, testable Success Rules to guide you. Defining a good problem and setting clear rules are what professional designers do to create things that really help people.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Design challenge database
+        const designChallenges = [
+            {
+                icon: "🚌",
+                title: "Public Transport Trip",
+                context: "Improving how people use public transport in a city.",
+                user: "A 67-year-old retiree with sore joints who uses buses but finds it hard to deal with unpredictable timetables and crowded bus stops.",
+                challenge: "The current bus system makes them feel anxious and worried about getting to appointments on time."
+            },
+            {
+                icon: "🏥",
+                title: "Doctor's Visit",
+                context: "Improving how patients and doctors talk to each other in busy clinics.",
+                user: "A parent who doesn't speak English well and is trying to understand their child's medical treatment and what to do next.",
+                challenge: "The language barrier and confusing medical words make them worried they don't know how to care for their child properly."
+            },
+            {
+                icon: "🏫",
+                title: "Classroom Learning",
+                context: "Creating better learning experiences for all students.",
+                user: "A 16-year-old student who is a great speaker and understands concepts well, but finds it hard to keep up with writing notes and reading long texts.",
+                challenge: "The way the class is taught makes them feel like they're falling behind, even though they know the material."
+            },
+            {
+                icon: "🏪",
+                title: "Grocery Shopping",
+                context: "Making the weekly grocery shop easier for families.",
+                user: "A working single parent who has to do the big weekly shop with three young children after a long day at work.",
+                challenge: "The whole shopping trip is stressful and chaotic, making a necessary chore feel like a nightmare."
+            },
+            {
+                icon: "🌐",
+                title: "Online Learning",
+                context: "Creating online courses that are easy for anyone to use.",
+                user: "A 45-year-old who is studying again after many years away from school and feels nervous using complex websites and apps.",
+                challenge: "The online learning websites assume they are a tech expert, which makes it hard for them to even start learning."
+            },
+            {
+                icon: "🚗",
+                title: "Getting Around Town",
+                context: "Creating better ways for people to travel around their city.",
+                user: "A teenager with a vision impairment who wants to be able to travel around their city safely and on their own.",
+                challenge: "The current transport options don't make them feel confident enough to be independent."
+            },
+            {
+                icon: "💼",
+                title: "The Modern Office",
+                context: "Designing better office spaces for different work styles.",
+                user: "A 28-year-old professional who is very creative, but gets easily distracted by noise in an open-plan office and finds long meetings difficult to focus in.",
+                challenge: "The typical office setup makes it hard for them to do their best work."
+            },
+            {
+                icon: "🌱",
+                title: "Helping the Planet",
+                context: "Helping people make more environmentally friendly choices.",
+                user: "A busy high school student who cares about the environment but finds it confusing and difficult to make sustainable choices every day.",
+                challenge: "They feel guilty that they aren't doing more to help the planet, but don't know where to start."
+            },
+            {
+                icon: "🐶",
+                title: "Pet Care",
+                context: "Designing better ways to look after pets.",
+                user: "A family that works long hours and wants to make sure their energetic dog isn't bored and lonely at home all day.",
+                challenge: "They worry their dog isn't getting enough fun and exercise, which makes them feel like bad pet owners."
+            },
+            {
+                icon: "🍳",
+                title: "The Family Kitchen",
+                context: "Solving common problems in the kitchen.",
+                user: "A teenager who is learning to cook for their family but gets overwhelmed trying to follow a recipe while also keeping the kitchen tidy.",
+                challenge: "The mess and stress of cooking often makes them give up and order takeaway instead."
+            },
+            {
+                icon: "⚽",
+                title: "Junior Sports",
+                context: "Improving the experience for young athletes.",
+                user: "A 12-year-old who loves playing soccer but gets really nervous before games and is scared of making a mistake in front of their teammates and parents.",
+                challenge: "Their fear of failure is starting to make them enjoy the sport less."
+            },
+            {
+                icon: "🎸",
+                title: "Learning a New Hobby",
+                context: "Helping beginners learn a new creative skill.",
+                user: "Someone who has always wanted to learn to play the guitar but doesn't know where to start and finds online tutorials boring and hard to follow.",
+                challenge: "They feel frustrated and unmotivated, and their dream of playing music feels impossible."
+            }
+        ];
+
+        let currentChallenge = null;
+
+        // Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    document.getElementById(tab).classList.add('active');
+                    
+                    if (tab === 'chew2' && currentChallenge) {
+                        updateChallengeReminder();
+                    }
+                });
+            });
+        });
+        
+        // Problem statement checker
+        function checkProblem(problemNum) {
+            const results = {
+                1: {
+                    isGood: false,
+                    feedback: "❌ This jumps straight to a solution (a mobile app) without explaining the user's real need or the reason why."
+                },
+                2: {
+                    isGood: true,
+                    feedback: "✅ Perfect! This identifies a specific user, their need, and gives a clear reason why it's a problem for them."
+                },
+                3: {
+                    isGood: false,
+                    feedback: "❌ This describes something to build, not a problem to solve. It doesn't focus on what the user needs."
+                }
+            };
+            
+            const resultDiv = document.getElementById(`problem${problemNum}-result`);
+            const result = results[problemNum];
+            
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = result.isGood ? 'rgba(82, 196, 26, 0.1)' : 'rgba(255, 77, 79, 0.1)';
+            resultDiv.innerHTML = `<p style="margin: 0; font-weight: bold;">${result.feedback}</p>`;
+            
+            const card = resultDiv.parentElement;
+            card.style.borderColor = result.isGood ? '#52c41a' : '#ff4d4f';
+        }
+        
+        // Design criteria checker
+        function checkCriteria(criteriaNum) {
+            const results = {
+                1: {
+                    isGood: false,
+                    feedback: "❌ Too vague! 'Easy to use' means different things to different people. How would you actually measure this?"
+                },
+                2: {
+                    isGood: true,
+                    feedback: "✅ Excellent! This is specific (add a task), measurable (under 10 seconds), and you can easily test it."
+                },
+                3: {
+                    isGood: false,
+                    feedback: "❌ Too general! What does 'happy' mean in this situation? How could you possibly measure if your design made someone happy?"
+                },
+                4: {
+                    isGood: true,
+                    feedback: "✅ Great! This is specific (reduce anxiety), measurable (using a survey), and clearly explains how you would test it."
+                }
+            };
+            
+            const resultDiv = document.getElementById(`criteria${criteriaNum}-result`);
+            const result = results[criteriaNum];
+            
+            resultDiv.style.display = 'block';
+            resultDiv.style.backgroundColor = result.isGood ? 'rgba(82, 196, 26, 0.1)' : 'rgba(255, 77, 79, 0.1)';
+            resultDiv.innerHTML = `<p style="margin: 0; font-weight: bold;">${result.feedback}</p>`;
+            
+            const card = resultDiv.parentElement;
+            card.style.borderColor = result.isGood ? '#52c41a' : '#ff4d4f';
+        }
+        
+        // Challenge generator
+        function generateChallenge() {
+            const randomIndex = Math.floor(Math.random() * designChallenges.length);
+            currentChallenge = designChallenges[randomIndex];
+            
+            document.getElementById('challenge-icon').textContent = currentChallenge.icon;
+            document.getElementById('challenge-title').textContent = currentChallenge.title;
+            document.getElementById('project-context').textContent = currentChallenge.context;
+            document.getElementById('user-profile').textContent = currentChallenge.user;
+            document.getElementById('challenge-description').textContent = currentChallenge.challenge;
+            
+            document.getElementById('challenge-display').style.display = 'block';
+            
+            updateChallengeReminder();
+        }
+        
+        function updateChallengeReminder() {
+            const reminderDiv = document.getElementById('current-challenge-reminder');
+            if (currentChallenge) {
+                reminderDiv.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 2.5em; margin-bottom: 15px;">${currentChallenge.icon}</div>
+                        <h4 style="margin: 0 0 15px 0; color: var(--accent-color);">${currentChallenge.title}</h4>
+                        <div style="background-color: white; padding: 20px; border-radius: var(--border-radius); margin: 15px 0; text-align: left;">
+                            <p style="margin: 0 0 10px 0;"><strong>User:</strong> ${currentChallenge.user}</p>
+                            <p style="margin: 0;"><strong>Problem:</strong> ${currentChallenge.challenge}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Dropdown functionality
+        function toggleDropdown(sectionId) {
+            const content = document.getElementById(sectionId + '-content');
+            const arrow = document.getElementById(sectionId + '-arrow');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // Problem and criteria card hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.problem-card, .criteria-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.boxShadow = '0 8px 24px rgba(0,0,0,0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .problem-card:hover, .criteria-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .action-btn {
+            background-color: var(--accent-color);
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-btn:hover {
+            background-color: #40a9ff;
+            transform: translateY(-2px);
+        }
+        
+        .dropdown-content {
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-header i {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</body>
+</html>
