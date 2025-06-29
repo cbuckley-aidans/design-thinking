@@ -65,6 +65,11 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* For details/summary accordion */
+        summary::-webkit-details-marker {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-primary text-text flex min-h-screen">
@@ -192,8 +197,223 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- START: ADDED SECTION -->
+                <h2 class="text-3xl font-bold mb-5 mt-10 inline-block pb-2 relative">
+                    TYPES OF DESIGN CRITERIA
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
+                </h2>
                 
-                <h2 class="text-3xl font-bold mb-5 inline-block pb-2 relative">
+                <div class="bg-primary border-2 border-outline rounded-custom p-6 mb-8 relative transition-transform duration-150 transform hover:-translate-y-1 shadow-sm-custom hover:shadow-md-custom max-w-6xl mx-auto">
+                    <h3 class="text-xl font-bold text-center mb-2">Ideas for Writing Great Design Criteria</h3>
+                    <p class="text-center mb-6 text-gray-700">Think about all these different areas when you write your criteria.</p>
+
+                    <div class="space-y-4">
+                        <!-- Accordion: How it WORKS -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between p-4 font-semibold text-white bg-green-600 rounded-lg cursor-pointer list-none">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-cog w-5 text-center"></i>
+                                    <span>How it WORKS</span>
+                                </div>
+                                <span class="transition-transform duration-200 group-open:rotate-180">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </summary>
+                            <div class="p-4 mt-1 bg-secondary rounded-b-lg border-x-2 border-b-2 border-outline">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-bold text-green-700 mb-2"><i class="fas fa-clock mr-2"></i>Performance</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must finish [task] in less than [X] seconds"</li>
+                                            <li>"Must work for [X] people at once"</li>
+                                            <li>"Must run for [X] hours without stopping"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-green-700 mb-2"><i class="fas fa-plug mr-2"></i>Compatibility</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must work with [phones/laptops/etc.]"</li>
+                                            <li>"Must connect using [Bluetooth/USB/etc.]"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-green-700 mb-2"><i class="fas fa-shield-alt mr-2"></i>Reliability</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must not crash or freeze"</li>
+                                            <li>"Must survive being used [X] times"</li>
+                                            <li>"Must work in [hot/cold/wet] weather"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Accordion: How EASY it is to USE -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between p-4 font-semibold text-white bg-blue-600 rounded-lg cursor-pointer list-none">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-users w-5 text-center"></i>
+                                    <span>How EASY it is to USE</span>
+                                </div>
+                                <span class="transition-transform duration-200 group-open:rotate-180">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </summary>
+                            <div class="p-4 mt-1 bg-secondary rounded-b-lg border-x-2 border-b-2 border-outline">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-bold text-blue-700 mb-2"><i class="fas fa-graduation-cap mr-2"></i>Easy to Learn</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must be learnable in [X] minutes"</li>
+                                            <li>"Must take less than [X] steps to do a basic task"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-blue-700 mb-2"><i class="fas fa-universal-access mr-2"></i>Works for Everyone</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must be usable by people with [e.g. vision problems]"</li>
+                                            <li>"Must have simple language"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-blue-700 mb-2"><i class="fas fa-eye mr-2"></i>Clear to Understand</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must be understandable without instructions"</li>
+                                            <li>"Important info must be easy to spot"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Accordion: PHYSICAL Rules -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between p-4 font-semibold text-white bg-orange-500 rounded-lg cursor-pointer list-none">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-cube w-5 text-center"></i>
+                                    <span>PHYSICAL Rules</span>
+                                </div>
+                                <span class="transition-transform duration-200 group-open:rotate-180">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </summary>
+                            <div class="p-4 mt-1 bg-secondary rounded-b-lg border-x-2 border-b-2 border-outline">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-bold text-orange-600 mb-2"><i class="fas fa-ruler-combined mr-2"></i>Size & Weight</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must be smaller than [X] cm"</li>
+                                            <li>"Must weigh less than [X] grams"</li>
+                                            <li>"Must be easy to carry"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-orange-600 mb-2"><i class="fas fa-hammer mr-2"></i>Toughness</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must survive being dropped from [height]"</li>
+                                            <li>"Must last for [X] years"</li>
+                                            <li>"Must be waterproof"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-orange-600 mb-2"><i class="fas fa-dollar-sign mr-2"></i>Cost</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must cost less than $[X] to make"</li>
+                                            <li>"Must be affordable for [the user]"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <!-- Accordion: How it LOOKS & makes people FEEL -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between p-4 font-semibold text-white bg-purple-600 rounded-lg cursor-pointer list-none">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-heart w-5 text-center"></i>
+                                    <span>How it LOOKS & makes people FEEL</span>
+                                </div>
+                                <span class="transition-transform duration-200 group-open:rotate-180">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </summary>
+                            <div class="p-4 mt-1 bg-secondary rounded-b-lg border-x-2 border-b-2 border-outline">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-bold text-purple-700 mb-2"><i class="fas fa-palette mr-2"></i>Looks</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must look [modern/fun/professional]"</li>
+                                            <li>"Must appeal to [teenagers/kids/etc.]"</li>
+                                            <li>"Should look good for years"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-purple-700 mb-2"><i class="fas fa-smile mr-2"></i>Feelings</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must make users feel more confident"</li>
+                                            <li>"Must reduce stress when doing [a task]"</li>
+                                            <li>"Must create a feeling of [e.g. fun]"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-purple-700 mb-2"><i class="fas fa-handshake mr-2"></i>Connection</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must help users feel included"</li>
+                                            <li>"Must help people connect with others"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                        
+                        <!-- Accordion: Planet & Future-Friendly -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between p-4 font-semibold text-white bg-teal-700 rounded-lg cursor-pointer list-none">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-leaf w-5 text-center"></i>
+                                    <span>Planet & Future-Friendly Rules</span>
+                                </div>
+                                <span class="transition-transform duration-200 group-open:rotate-180">
+                                    <i class="fas fa-chevron-down"></i>
+                                </span>
+                            </summary>
+                            <div class="p-4 mt-1 bg-secondary rounded-b-lg border-x-2 border-b-2 border-outline">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-bold text-teal-800 mb-2"><i class="fas fa-recycle mr-2"></i>Planet-Friendly</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must use recycled materials"</li>
+                                            <li>"Must be easy to recycle at the end of its life"</li>
+                                            <li>"Must use less energy"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-teal-800 mb-2"><i class="fas fa-lightbulb mr-2"></i>New & Different</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must do something no other product does"</li>
+                                            <li>"Must be a big improvement on old solutions"</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-teal-800 mb-2"><i class="fas fa-hourglass-half mr-2"></i>Long-Lasting</h4>
+                                        <ul class="space-y-1 text-sm list-disc list-inside">
+                                            <li>"Must be useful for many years"</li>
+                                            <li>"Should be easy to fix, not just throw away"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="mt-8 bg-accent p-4 rounded-lg border-l-4 border-accentBlue text-center">
+                        <p class="font-semibold text-text"><i class="fas fa-bullseye text-accentBlue mr-2"></i>Your Goal: Create 4-6 specific criteria for your design, covering different types from above.</p>
+                    </div>
+                </div>
+                <!-- END: ADDED SECTION -->
+
+                <h2 class="text-3xl font-bold mb-5 mt-12 inline-block pb-2 relative">
                     USING DESIGN PRINCIPLES TO CREATE CRITERIA
                     <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accentBlue rounded-sm"></span>
                 </h2>
